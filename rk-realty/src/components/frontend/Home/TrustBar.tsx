@@ -21,7 +21,7 @@ export const TrustBar = () => {
   return (
     <section style={{ maxWidth: 1280, margin: '56px auto 0', padding: '0 32px' }}>
       <div style={{ textAlign: 'center', fontSize: 12.5, letterSpacing: '0.1em', textTransform: 'uppercase', color: '#8A7B5C', fontWeight: 600, marginBottom: 24 }}>
-        Channel Partner to Bengaluru's Leading Developers
+        Channel Partner to Bengaluru&apos;s Leading Developers
       </div>
       <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', flexWrap: 'wrap', gap: 48, paddingBottom: 36, borderBottom: '1px solid rgba(43,36,29,0.1)' }}>
         <LogoOverlay src="/assets/images/trust-brand/godrej.png" alt="Godrej Properties" />

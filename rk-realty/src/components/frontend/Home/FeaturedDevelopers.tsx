@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 export const FeaturedDevelopers = () => {
   return (
     <section style={{ maxWidth: 1280, margin: '0 auto', padding: '56px 32px 0' }}>
@@ -12,7 +14,7 @@ export const FeaturedDevelopers = () => {
           <div style={{ padding: '26px 28px' }}>
             <div style={{ fontFamily: '"Sora", sans-serif', fontSize: 22, fontWeight: 600, marginBottom: 6 }}>Godrej Vanantara</div>
             <div style={{ fontSize: 14, color: '#6B5F52', marginBottom: 18 }}>Budigere Cross, East Bengaluru · 2 & 3 BHK Apartments</div>
-            <a href="/properties" style={{ textDecoration: 'none', color: '#F06400', fontWeight: 700, fontSize: 14 }}>Discover the Project →</a>
+            <Link href="/properties" style={{ textDecoration: 'none', color: '#F06400', fontWeight: 700, fontSize: 14 }}>Discover the Project →</Link>
           </div>
         </div>
         <div className="card-hover" style={{ borderRadius: 18, overflow: 'hidden', background: '#FFFFFF', border: '1px solid rgba(43,36,29,0.08)' }}>
@@ -25,7 +27,7 @@ export const FeaturedDevelopers = () => {
           <div style={{ padding: '26px 28px' }}>
             <div style={{ fontFamily: '"Sora", sans-serif', fontSize: 22, fontWeight: 600, marginBottom: 6 }}>Sobha One World</div>
             <div style={{ fontSize: 14, color: '#6B5F52', marginBottom: 18 }}>Sarjapur Road, South-East Bengaluru · Integrated Township</div>
-            <a href="/properties" style={{ textDecoration: 'none', color: '#F06400', fontWeight: 700, fontSize: 14 }}>Explore the Township →</a>
+            <Link href="/properties" style={{ textDecoration: 'none', color: '#F06400', fontWeight: 700, fontSize: 14 }}>Explore the Township →</Link>
           </div>
         </div>
       </div>

@@ -26,7 +26,7 @@ export default async function PropertiesPage() {
       <section style={{ padding: "80px 32px 40px", textAlign: "center" }}>
         <h1 style={{ fontFamily: '"Sora", sans-serif', fontSize: 48, fontWeight: 700, marginBottom: 20 }}>Curated Properties</h1>
         <p style={{ fontSize: 18, color: "#4A4038", maxWidth: 600, margin: "0 auto" }}>
-          Explore our handpicked selection of Bengaluru's most sought-after residential developments.
+          Explore our handpicked selection of Bengaluru&apos;s most sought-after residential developments.
         </p>
       </section>
 

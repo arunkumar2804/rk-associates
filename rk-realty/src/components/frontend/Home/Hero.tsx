@@ -1,5 +1,6 @@
 "use client";
 import { useState, useEffect } from 'react';
+import Link from 'next/link';
 
 const IMAGES = [
   '/assets/images/6d4e9c42-e45a-498c-a374-e31fa0ea731d.avif',
@@ -51,15 +52,15 @@ export const Hero = () => {
             padding: '6px 14px', 
             borderRadius: 100, 
             marginBottom: 22 
-          }}>Bengaluru's Trusted Channel Partner</span>
+          }}>Bengaluru&apos;s Trusted Channel Partner</span>
           <h1 style={{ fontFamily: '"Sora", sans-serif', fontSize: 48, lineHeight: 1.14, color: '#F7F2EA', margin: '0 0 18px', fontWeight: 600 }}>
             Find Your Perfect Property in Bengaluru
           </h1>
           <p style={{ fontSize: 16, lineHeight: 1.7, color: 'rgba(247,242,234,0.78)', margin: '0 0 32px', maxWidth: 480 }}>
-            From premium apartments to gated villas — RK Associates connects you with Bengaluru's leading developers and guides every step of the journey.
+            From premium apartments to gated villas — RK Associates connects you with Bengaluru&apos;s leading developers and guides every step of the journey.
           </p>
           <div style={{ display: 'flex', gap: 14, alignItems: 'center', flexWrap: 'wrap' }}>
-            <a href="/properties" className="btn-hover" style={{ 
+            <Link href="/properties" className="btn-hover" style={{ 
               textDecoration: 'none', 
               background: '#F06400', 
               color: '#F7F2EA', 
@@ -68,8 +69,8 @@ export const Hero = () => {
               fontWeight: 700, 
               fontSize: 14.5,
               display: 'inline-block'
-            }}>Explore Properties</a>
-            <a href="/about" className="btn-hover" style={{ 
+            }}>Explore Properties</Link>
+            <Link href="/about" className="btn-hover" style={{ 
               textDecoration: 'none', 
               color: '#F7F2EA', 
               padding: '15px 10px', 
@@ -77,7 +78,7 @@ export const Hero = () => {
               fontSize: 14.5, 
               borderBottom: '1px solid rgba(247,242,234,0.4)',
               display: 'inline-block'
-            }}>Meet RK Associates</a>
+            }}>Meet RK Associates</Link>
           </div>
         </div>
       </div>

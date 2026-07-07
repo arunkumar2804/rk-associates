@@ -2,6 +2,7 @@ import { getServerSession } from "next-auth";
 import { authOptions } from "@/lib/auth";
 import { redirect } from "next/navigation";
 import Sidebar from "@/components/admin/Sidebar";
+import BackButton from "@/components/admin/BackButton";
 
 export default async function AdminDashboardLayout({
   children,
@@ -18,6 +19,7 @@ export default async function AdminDashboardLayout({
     <div className="flex min-h-screen bg-background text-foreground">
       <Sidebar />
       <main className="flex-1 p-8 overflow-y-auto">
+        <BackButton />
         {children}
       </main>
     </div>
