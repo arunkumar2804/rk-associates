@@ -1,5 +1,5 @@
 import { PrismaClient } from '@prisma/client';
-import bcrypt from 'bcrypt';
+import * as bcrypt from 'bcrypt';
 
 const prisma = new PrismaClient();
 
@@ -44,7 +44,7 @@ async function main() {
 
   // Locations
   const locNames = ['Budigere Cross', 'Whitefield', 'Yelahanka', 'Sarjapur'];
-  const locationsMap: Record<string, any> = {};
+  const locationsMap: Record<string, { id: string }> = {};
   for (const name of locNames) {
     const loc = await prisma.location.upsert({
       where: { name },
@@ -62,7 +62,7 @@ async function main() {
     { name: 'Sobha Limited', description: 'Pioneers of quality and execution excellence.' },
     { name: 'Sattva Group', description: 'Shaping Bengaluru\'s skyline with premium projects.' }
   ];
-  const buildersMap: Record<string, any> = {};
+  const buildersMap: Record<string, { id: string }> = {};
   for (const b of buildersData) {
     const builder = await prisma.builder.upsert({
       where: { id: b.name.toLowerCase().replace(/ /g, '-') },
@@ -79,7 +79,7 @@ async function main() {
 
   // Property Types
   const typesList = ['Apartment', 'Villa', 'Plot'];
-  const typesMap: Record<string, any> = {};
+  const typesMap: Record<string, { id: string }> = {};
   for (const name of typesList) {
     const t = await prisma.propertyType.upsert({
       where: { name },
@@ -92,7 +92,7 @@ async function main() {
 
   // Amenities
   const amenitiesList = ['Swimming Pool', 'Gymnasium', '24/7 Security', 'Clubhouse', 'Power Backup'];
-  const amenitiesMap: Record<string, any> = {};
+  const amenitiesMap: Record<string, { id: string }> = {};
   for (const name of amenitiesList) {
     const a = await prisma.amenity.upsert({
       where: { name },

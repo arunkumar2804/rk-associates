@@ -35,8 +35,8 @@ export default function UserManagementClient() {
     try {
       const data = await getUsers();
       setUsers(data);
-    } catch (err: any) {
-      setError(err.message || "Failed to load users");
+    } catch (err) {
+      setError(err instanceof Error ? err.message : "Failed to load users");
     } finally {
       setLoading(false);
     }
@@ -122,7 +122,7 @@ export default function UserManagementClient() {
         fetchUsers();
         setTimeout(() => setSuccess(null), 3000);
       }
-    } catch (err) {
+    } catch {
       alert("Failed to delete user");
     }
   };
