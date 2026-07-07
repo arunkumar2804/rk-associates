@@ -1,0 +1,168 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+model User {
+  id            String   @id @default(cuid())
+  name          String
+  email         String   @unique
+  password      String
+  role          String   @default("ADMIN") // ADMIN, DEVELOPER
+  isFullControl Boolean  @default(true)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+}
+
+// --- MASTER LISTS ---
+
+model Amenity {
+  id        String     @id @default(cuid())
+  name      String     @unique
+  iconUrl   String?
+  properties PropertyAmenity[]
+}
+
+model PropertyType {
+  id        String     @id @default(cuid())
+  name      String     @unique
+  properties Property[]
+}
+
+model Location {
+  id        String     @id @default(cuid())
+  name      String     @unique
+  properties Property[]
+}
+
+// --- CORE MODELS ---
+
+model Builder {
+  id          String     @id @default(cuid())
+  name        String
+  logo        String?
+  description String?
+  properties  Property[]
+  createdAt   DateTime   @default(now())
+  updatedAt   DateTime   @updatedAt
+}
+
+model Property {
+  id              String         @id @default(cuid())
+  name            String
+  slug            String         @unique
+  builderId       String
+  builder         Builder        @relation(fields: [builderId], references: [id])
+  locationId      String
+  location        Location       @relation(fields: [locationId], references: [id])
+  propertyTypeId  String
+  propertyType    PropertyType   @relation(fields: [propertyTypeId], references: [id])
+  status          String         @default("ACTIVE")
+  isFeatured      Boolean        @default(false)
+  
+  startingPrice   String
+  possessionDate  DateTime?
+  reraNumber      String?
+  description     String?
+
+  coverImage      String?
+  brochurePdf     String?
+
+  // Relations
+  configurations  Configuration[]
+  galleryImages   PropertyImage[]
+  floorPlans      PropertyFloorPlan[]
+  amenities       PropertyAmenity[]
+
+  // SEO
+  seoTitle        String?
+  seoDescription  String?
+
+  createdAt       DateTime @default(now())
+  updatedAt       DateTime @updatedAt
+}
+
+model PropertyImage {
+  id          String   @id @default(cuid())
+  propertyId  String
+  property    Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  url         String
+  createdAt   DateTime @default(now())
+}
+
+model PropertyFloorPlan {
+  id          String   @id @default(cuid())
+  propertyId  String
+  property    Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  url         String
+  createdAt   DateTime @default(now())
+}
+
+// Many-to-many relation table for Property <-> Amenity
+model PropertyAmenity {
+  propertyId String
+  property   Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  amenityId  String
+  amenity    Amenity  @relation(fields: [amenityId], references: [id], onDelete: Cascade)
+
+  @@id([propertyId, amenityId])
+}
+
+model Configuration {
+  id          String   @id @default(cuid())
+  propertyId  String
+  property    Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
+  type        String   
+  area        String   
+  price       String?
+}
+
+model Enquiry {
+  id                String    @id @default(cuid())
+  name              String
+  phone             String
+  email             String?
+  interestedProperty String?
+  message           String?
+  status            String    @default("NEW")
+  date              DateTime  @default(now())
+}
+
+model Customer {
+  id                   String   @id @default(cuid())
+  name                 String
+  phone                String   @unique
+  email                String?
+  interestedProperties String?
+  notes                String?
+  createdAt            DateTime @default(now())
+  updatedAt            DateTime @updatedAt
+}
+
+model WebsiteSetting {
+  id             String   @id @default(cuid())
+  companyName    String
+  logoUrl        String?
+  faviconUrl     String?
+  contactNumber1 String?
+  contactNumber2 String?
+  whatsappNumber String?
+  email          String?
+  officeAddress  String?
+  facebookUrl    String?
+  instagramUrl   String?
+  youtubeUrl     String?
+  twitterUrl     String?
+  
+  // Global SEO
+  globalSeoTitle       String?
+  globalSeoDescription String?
+  globalSeoKeywords    String?
+
+  updatedAt      DateTime @updatedAt
+}
