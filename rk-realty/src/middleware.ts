@@ -2,13 +2,13 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 export function middleware(req: NextRequest) {
-  const url = req.nextUrl;
-  const hostname = req.headers.get('host') || '';
+  const url = req.nextUrl.clone();
+  const hostname = req.nextUrl.hostname; // e.g. "admin.rkassociates.services"
 
   // Check if the request is for the admin subdomain
   const isAdminSubdomain = 
     hostname === 'admin.rkassociates.services' || 
-    hostname.startsWith('admin.localhost');
+    hostname === 'admin.localhost';
 
   if (isAdminSubdomain) {
     // Rewrite requests to the /admin folder if they don't already start with /admin
