@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "RK Realty Admin - Login",
+  title: "RK Admin Panel - Login",
   description: "Admin Login for RK Associates",
 };
 

@@ -69,13 +69,16 @@ export default function Sidebar() {
         isCollapsed && "flex-col gap-4 !px-4"
       )}>
         {!isCollapsed ? (
-          <div>
-            <h1 className="text-2xl font-bold tracking-wider">RK REALTY</h1>
-            <p className="text-accent text-xs mt-1">Admin Panel</p>
+          <div className="flex items-center gap-3">
+            <img src="/assets/images/3740001c-c500-47a7-ac58-7b72803be0ae.png" alt="RK Associates Logo" className="w-9 h-9 object-contain" />
+            <div>
+              <h1 className="text-sm font-bold tracking-wider text-white leading-tight">RK ASSOCIATES</h1>
+              <p className="text-accent text-[10px] uppercase font-semibold tracking-wider">Admin Panel</p>
+            </div>
           </div>
         ) : (
-          <div className="w-10 h-10 rounded-xl bg-primary flex items-center justify-center text-white font-bold text-lg shadow-md">
-            RK
+          <div className="w-10 h-10 rounded-xl bg-sidebar-hover flex items-center justify-center shadow-md">
+            <img src="/assets/images/3740001c-c500-47a7-ac58-7b72803be0ae.png" alt="RK" className="w-7 h-7 object-contain" />
           </div>
         )}
         <button 

@@ -6,7 +6,7 @@ import BackButton from "@/components/admin/BackButton";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "RK Realty Admin",
+  title: "RK Admin Panel",
   description: "Admin Panel for RK Associates",
 };
 
