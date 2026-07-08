@@ -9,8 +9,8 @@ const manrope = Manrope({
 });
 
 export const metadata: Metadata = {
-  title: "RK Realty Admin",
-  description: "Admin Panel for RK Associates",
+  title: "RK Associates Trusted Real Estate Channel Partner",
+  description: "Premium real estate consultancy in Bengaluru. Find your dream home or commercial space with RK Associates.",
 };
 
 export const viewport = {
