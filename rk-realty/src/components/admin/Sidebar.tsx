@@ -70,7 +70,7 @@ export default function Sidebar() {
       )}>
         {!isCollapsed ? (
           <div className="flex items-center gap-3">
-            <img src="/assets/images/3740001c-c500-47a7-ac58-7b72803be0ae.png" alt="RK Associates Logo" className="w-9 h-9 object-contain" />
+            <img src="https://www.rkassociates.services/assets/images/3740001c-c500-47a7-ac58-7b72803be0ae.png" alt="RK Associates Logo" className="w-9 h-9 object-contain" />
             <div>
               <h1 className="text-sm font-bold tracking-wider text-white leading-tight">RK ASSOCIATES</h1>
               <p className="text-accent text-[10px] uppercase font-semibold tracking-wider">Admin Panel</p>
@@ -78,7 +78,7 @@ export default function Sidebar() {
           </div>
         ) : (
           <div className="w-10 h-10 rounded-xl bg-sidebar-hover flex items-center justify-center shadow-md">
-            <img src="/assets/images/3740001c-c500-47a7-ac58-7b72803be0ae.png" alt="RK" className="w-7 h-7 object-contain" />
+            <img src="https://www.rkassociates.services/assets/images/3740001c-c500-47a7-ac58-7b72803be0ae.png" alt="RK" className="w-7 h-7 object-contain" />
           </div>
         )}
         <button 
