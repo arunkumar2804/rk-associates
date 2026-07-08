@@ -8,7 +8,7 @@ export default async function PublicLayout({ children }: { children: React.React
   // Convert dates to string to prevent warnings about passing complex objects
   const serializedSettings = settings ? {
     ...settings,
-    updatedAt: settings.updatedAt.toISOString(),
+    updatedAt: settings?.updatedAt ? new Date(settings.updatedAt).toISOString() : new Date().toISOString(),
   } : null;
 
   return (

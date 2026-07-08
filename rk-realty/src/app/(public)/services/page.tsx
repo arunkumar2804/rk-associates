@@ -13,7 +13,7 @@ export default function ServicesPage() {
         Our Services
       </h1>
       <p className="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
-        From buying and renting to investment advisory and legal assistance, we're preparing a detailed breakdown of all the ways we can help you find your dream property.
+        From buying and renting to investment advisory and legal assistance, we&apos;re preparing a detailed breakdown of all the ways we can help you find your dream property.
       </p>
     </section>
   );
