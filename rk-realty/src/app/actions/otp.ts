@@ -5,15 +5,20 @@ export async function sendOtpAction(phone: string) {
     const authKey = process.env.MSG91_AUTH_KEY;
     const templateId = process.env.MSG91_TEMPLATE_ID;
 
-    if (!authKey || !templateId) {
-      console.warn("MSG91_AUTH_KEY or MSG91_TEMPLATE_ID is not configured in .env. Using mock OTP for local development.");
+    if (!authKey) {
+      console.warn("MSG91_AUTH_KEY is not set. Falling back to mock OTP sending.");
       return { success: true, isMock: true };
     }
 
     // Ensure country code is present (assuming India 91 if 10 digits)
     const mobile = phone.length === 10 ? `91${phone}` : phone;
 
-    const url = `https://control.msg91.com/api/v5/otp?template_id=${templateId}&mobile=${mobile}`;
+    let url = `https://control.msg91.com/api/v5/otp?mobile=${mobile}`;
+    
+    // If a custom template is provided, use it. Otherwise MSG91 uses its default DLT-approved template.
+    if (templateId && templateId.trim() !== "") {
+      url += `&template_id=${templateId}`;
+    }
     
     const response = await fetch(url, {
       method: "POST",
@@ -42,7 +47,7 @@ export async function verifyOtpAction(phone: string, otp: string) {
     const authKey = process.env.MSG91_AUTH_KEY;
     const templateId = process.env.MSG91_TEMPLATE_ID;
 
-    if (!authKey || !templateId) {
+    if (!authKey) {
       // Mock validation for local development without credentials
       if (otp === "1234") {
         return { success: true };
