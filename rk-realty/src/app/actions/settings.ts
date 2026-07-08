@@ -20,9 +20,7 @@ export async function updateWebsiteSettings(data: Omit<WebsiteSetting, "id" | "u
     }
 
     revalidatePath("/admin/settings");
-    revalidatePath("/"); // Revalidate home page
-    revalidatePath("/properties"); // Revalidate properties page
-    revalidatePath("/contact"); // Revalidate contact page
+    revalidatePath("/", "layout");
     return { success: true };
   } catch (error) {
     console.error("Failed to update website settings:", error);

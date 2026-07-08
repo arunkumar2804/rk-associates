@@ -1,7 +1,10 @@
-import { cache } from 'react';
+import { unstable_cache } from 'next/cache';
 import { prisma } from '@/lib/prisma';
 
-export const getSettings = cache(async () => {
-  const settings = await prisma.websiteSetting.findFirst();
-  return settings;
-});
+export const getSettings = unstable_cache(
+  async () => {
+    return await prisma.websiteSetting.findFirst();
+  },
+  ['website-settings'],
+  { tags: ['website-settings'], revalidate: 3600 }
+);
