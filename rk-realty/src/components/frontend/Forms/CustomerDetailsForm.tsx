@@ -298,8 +298,9 @@ export default function CustomerDetailsForm() {
                   <input
                     type="text"
                     value={otp}
-                    onChange={(e) => setOtp(e.target.value.replace(/\D/g, '').slice(0, 6))}
-                    placeholder="Enter OTP"
+                    onChange={(e) => setOtp(e.target.value.replace(/\D/g, '').slice(0, 4))}
+                    placeholder="Enter 4-digit OTP"
+                    maxLength={4}
                     className="w-full text-center tracking-[1em] font-mono text-2xl p-4 rounded-2xl bg-gray-50 border border-gray-200 transition-all duration-300 focus:bg-white focus:ring-4 focus:ring-orange-500/10 focus:border-orange-400 outline-none"
                   />
                   <div className="text-center mt-4 h-6">

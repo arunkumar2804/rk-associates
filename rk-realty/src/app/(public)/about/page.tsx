@@ -13,7 +13,7 @@ export default function AboutPage() {
         Our Story
       </h1>
       <p className="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
-        We are currently crafting our story to share with you. RK Associates is built on a decade of trust in Bengaluru real estate, and we can't wait to tell you more about our journey.
+        We are currently crafting our story to share with you. RK Associates is built on a decade of trust in Bengaluru real estate, and we can&apos;t wait to tell you more about our journey.
       </p>
     </section>
   );
