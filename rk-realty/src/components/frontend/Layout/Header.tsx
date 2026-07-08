@@ -3,7 +3,17 @@ import { useState } from 'react';
 import Link from 'next/link';
 import { Phone, ChevronDown } from 'lucide-react';
 
-export const Header = () => {
+interface HeaderProps {
+  settings: {
+    companyName: string;
+    logoUrl: string | null;
+  } | null;
+}
+
+export const Header = ({ settings }: HeaderProps) => {
+  const logoSrc = settings?.logoUrl || "https://www.rkassociates.services/assets/images/3740001c-c500-47a7-ac58-7b72803be0ae.png";
+  const companyName = settings?.companyName || "RK Associates";
+
   return (
     <header style={{ 
       position: 'sticky', top: 0, zIndex: 100, 
@@ -14,9 +24,9 @@ export const Header = () => {
     }}>
       <div style={{ maxWidth: 1280, margin: '0 auto', padding: '16px 32px', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
         <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: 12, flex: 'none', textDecoration: 'none' }}>
-          <img src="/assets/images/3740001c-c500-47a7-ac58-7b72803be0ae.png" alt="RK Associates" style={{ height: 42 }} />
+          <img src={logoSrc} alt={companyName} style={{ height: 42 }} />
           <div style={{ display: 'flex', flexDirection: 'column' }}>
-            <span style={{ fontFamily: '"Sora", sans-serif', fontWeight: 700, fontSize: 18, color: '#2B241D', lineHeight: 1.1 }}>RK Associates</span>
+            <span style={{ fontFamily: '"Sora", sans-serif', fontWeight: 700, fontSize: 18, color: '#2B241D', lineHeight: 1.1 }}>{companyName}</span>
             <span style={{ fontSize: 10, fontWeight: 600, color: '#F06400', letterSpacing: 0.5, textTransform: 'uppercase' }}>Channel Partner</span>
           </div>
         </Link>

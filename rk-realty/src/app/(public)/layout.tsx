@@ -1,14 +1,23 @@
 import { Header } from "@/components/frontend/Layout/Header";
 import { Footer } from "@/components/frontend/Layout/Footer";
+import { prisma } from "@/lib/prisma";
 
-export default function PublicLayout({ children }: { children: React.ReactNode }) {
+export default async function PublicLayout({ children }: { children: React.ReactNode }) {
+  const settings = await prisma.websiteSetting.findFirst();
+
+  // Convert dates to string to prevent warnings about passing complex objects
+  const serializedSettings = settings ? {
+    ...settings,
+    updatedAt: settings.updatedAt.toISOString(),
+  } : null;
+
   return (
     <div className="flex flex-col min-h-screen bg-[#F7F2EA] text-[#2B241D]">
-      <Header />
+      <Header settings={serializedSettings} />
       <main className="flex-1">
         {children}
       </main>
-      <Footer />
+      <Footer settings={serializedSettings} />
     </div>
   );
 }

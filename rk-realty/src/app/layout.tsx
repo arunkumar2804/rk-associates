@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Manrope } from "next/font/google";
 import AuthProvider from "@/components/providers/AuthProvider";
+import { prisma } from "@/lib/prisma";
 import "./globals.css";
 
 const manrope = Manrope({
@@ -8,10 +9,17 @@ const manrope = Manrope({
   variable: "--font-manrope",
 });
 
-export const metadata: Metadata = {
-  title: "RK Associates Trusted Real Estate Channel Partner",
-  description: "Premium real estate consultancy in Bengaluru. Find your dream home or commercial space with RK Associates.",
-};
+export async function generateMetadata(): Promise<Metadata> {
+  const settings = await prisma.websiteSetting.findFirst();
+  return {
+    title: settings?.globalSeoTitle || "RK Associates Trusted Real Estate Channel Partner",
+    description: settings?.globalSeoDescription || "Premium real estate consultancy in Bengaluru. Find your dream home or commercial space with RK Associates.",
+    keywords: settings?.globalSeoKeywords || undefined,
+    icons: {
+      icon: settings?.faviconUrl || "/favicon.ico",
+    },
+  };
+}
 
 export const viewport = {
   colorScheme: "light",

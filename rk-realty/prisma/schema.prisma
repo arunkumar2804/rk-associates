@@ -163,6 +163,10 @@ model WebsiteSetting {
   globalSeoTitle       String?
   globalSeoDescription String?
   globalSeoKeywords    String?
+  
+  // Properties Page SEO
+  propertiesSeoTitle       String?
+  propertiesSeoDescription String?
 
   updatedAt      DateTime @updatedAt
 }

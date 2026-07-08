@@ -6,8 +6,8 @@ import { Metadata } from "next";
 export async function generateMetadata(): Promise<Metadata> {
   const settings = await prisma.websiteSetting.findFirst();
   return {
-    title: `Premium Properties in Bengaluru | ${settings?.companyName || "RK Associates"}`,
-    description: settings?.globalSeoDescription || "Browse curated residential properties, apartments, and villas from top developers in Bengaluru.",
+    title: settings?.propertiesSeoTitle || `Premium Properties in Bengaluru | ${settings?.companyName || "RK Associates"}`,
+    description: settings?.propertiesSeoDescription || "Browse curated residential properties, apartments, and villas from top developers in Bengaluru.",
   };
 }
 

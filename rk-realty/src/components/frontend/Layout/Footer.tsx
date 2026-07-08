@@ -6,7 +6,27 @@ const Instagram = ({size=20}: {size?: number}) => <svg width={size} height={size
 const Twitter = ({size=20}: {size?: number}) => <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 4s-.7 2.1-2 3.4c1.6 10-9.4 17.3-18 11.6 2.2.1 4.4-.6 6-2C3 15.5.5 9.6 3 5c2.2 2.6 5.6 4.1 9 4-.9-4.2 4-6.6 7-3.8 1.1 0 3-1.2 3-1.2z"/></svg>;
 const Linkedin = ({size=20}: {size?: number}) => <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"/><rect x="2" y="9" width="4" height="12"/><circle cx="4" cy="4" r="2"/></svg>;
 
-export const Footer = () => {
+const Youtube = ({size=20}: {size?: number}) => <svg width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"/><polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"/></svg>;
+
+interface FooterProps {
+  settings: {
+    companyName: string;
+    logoUrl: string | null;
+    contactNumber1: string | null;
+    contactNumber2: string | null;
+    email: string | null;
+    officeAddress: string | null;
+    facebookUrl: string | null;
+    instagramUrl: string | null;
+    twitterUrl: string | null;
+    youtubeUrl: string | null;
+  } | null;
+}
+
+export const Footer = ({ settings }: FooterProps) => {
+  const companyName = settings?.companyName || "RK Associates";
+  const logoSrc = settings?.logoUrl || "https://www.rkassociates.services/assets/images/3740001c-c500-47a7-ac58-7b72803be0ae.png";
+
   return (
     <footer style={{ background: '#2B241D', color: '#F7F2EA', paddingTop: 80, paddingBottom: 40 }}>
       <div style={{ maxWidth: 1280, margin: '0 auto', padding: '0 32px' }}>
@@ -15,9 +35,9 @@ export const Footer = () => {
           {/* Brand Column */}
           <div>
             <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 24, textDecoration: 'none' }}>
-              <img src="/assets/images/3740001c-c500-47a7-ac58-7b72803be0ae.png" alt="RK Associates" style={{ height: 42, filter: 'brightness(0) invert(1)' }} />
+              <img src={logoSrc} alt={companyName} style={{ height: 42, filter: 'brightness(0) invert(1)', objectFit: 'contain' }} />
               <div style={{ display: 'flex', flexDirection: 'column' }}>
-                <span style={{ fontFamily: '"Sora", sans-serif', fontWeight: 700, fontSize: 18, color: '#F7F2EA', lineHeight: 1.1 }}>RK Associates</span>
+                <span style={{ fontFamily: '"Sora", sans-serif', fontWeight: 700, fontSize: 18, color: '#F7F2EA', lineHeight: 1.1 }}>{companyName}</span>
                 <span style={{ fontSize: 10, fontWeight: 600, color: '#F06400', letterSpacing: 0.5, textTransform: 'uppercase' }}>Channel Partner</span>
               </div>
             </Link>
@@ -25,18 +45,26 @@ export const Footer = () => {
               Your trusted partner in finding premium real estate across Bengaluru. We bring transparency and expertise to your property search.
             </p>
             <div style={{ display: 'flex', gap: 16 }}>
-              <a href="#" style={{ color: 'rgba(247,242,234,0.7)', transition: 'color 0.2s ease' }} className="hover:text-[#F06400]">
-                <Facebook size={20} />
-              </a>
-              <a href="#" style={{ color: 'rgba(247,242,234,0.7)', transition: 'color 0.2s ease' }} className="hover:text-[#F06400]">
-                <Instagram size={20} />
-              </a>
-              <a href="#" style={{ color: 'rgba(247,242,234,0.7)', transition: 'color 0.2s ease' }} className="hover:text-[#F06400]">
-                <Twitter size={20} />
-              </a>
-              <a href="#" style={{ color: 'rgba(247,242,234,0.7)', transition: 'color 0.2s ease' }} className="hover:text-[#F06400]">
-                <Linkedin size={20} />
-              </a>
+              {settings?.facebookUrl && (
+                <a href={settings.facebookUrl} target="_blank" rel="noopener noreferrer" style={{ color: 'rgba(247,242,234,0.7)', transition: 'color 0.2s ease' }} className="hover:text-[#F06400]">
+                  <Facebook size={20} />
+                </a>
+              )}
+              {settings?.instagramUrl && (
+                <a href={settings.instagramUrl} target="_blank" rel="noopener noreferrer" style={{ color: 'rgba(247,242,234,0.7)', transition: 'color 0.2s ease' }} className="hover:text-[#F06400]">
+                  <Instagram size={20} />
+                </a>
+              )}
+              {settings?.twitterUrl && (
+                <a href={settings.twitterUrl} target="_blank" rel="noopener noreferrer" style={{ color: 'rgba(247,242,234,0.7)', transition: 'color 0.2s ease' }} className="hover:text-[#F06400]">
+                  <Twitter size={20} />
+                </a>
+              )}
+              {settings?.youtubeUrl && (
+                <a href={settings.youtubeUrl} target="_blank" rel="noopener noreferrer" style={{ color: 'rgba(247,242,234,0.7)', transition: 'color 0.2s ease' }} className="hover:text-[#F06400]">
+                  <Youtube size={20} />
+                </a>
+              )}
             </div>
           </div>
 
@@ -74,7 +102,10 @@ export const Footer = () => {
                 </div>
                 <div>
                   <div style={{ fontSize: 12, color: 'rgba(247,242,234,0.5)', marginBottom: 4 }}>Call Us</div>
-                  <div style={{ fontSize: 15, fontWeight: 600 }}>+91 98765 43210</div>
+                  <div style={{ fontSize: 15, fontWeight: 600 }}>
+                    {settings?.contactNumber1 || "+91 98765 43210"}
+                    {settings?.contactNumber2 && ` / ${settings.contactNumber2}`}
+                  </div>
                 </div>
               </div>
               <div style={{ display: 'flex', gap: 16 }}>
@@ -83,7 +114,7 @@ export const Footer = () => {
                 </div>
                 <div>
                   <div style={{ fontSize: 12, color: 'rgba(247,242,234,0.5)', marginBottom: 4 }}>Email</div>
-                  <div style={{ fontSize: 15 }}>hello@rkassociates.com</div>
+                  <div style={{ fontSize: 15 }}>{settings?.email || "hello@rkassociates.com"}</div>
                 </div>
               </div>
               <div style={{ display: 'flex', gap: 16 }}>
@@ -92,9 +123,8 @@ export const Footer = () => {
                 </div>
                 <div>
                   <div style={{ fontSize: 12, color: 'rgba(247,242,234,0.5)', marginBottom: 4 }}>Office</div>
-                  <div style={{ fontSize: 14.5, lineHeight: 1.6, color: 'rgba(247,242,234,0.8)' }}>
-                    123, 100ft Road, Indiranagar,<br/>
-                    Bengaluru, Karnataka 560038
+                  <div style={{ fontSize: 14.5, lineHeight: 1.6, color: 'rgba(247,242,234,0.8)', whiteSpace: 'pre-line' }}>
+                    {settings?.officeAddress || "123, 100ft Road, Indiranagar,\nBengaluru, Karnataka 560038"}
                   </div>
                 </div>
               </div>
@@ -106,7 +136,7 @@ export const Footer = () => {
         {/* Bottom Bar */}
         <div style={{ paddingTop: 32, borderTop: '1px solid rgba(247,242,234,0.1)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
           <div style={{ fontSize: 13, color: 'rgba(247,242,234,0.5)' }}>
-            © {new Date().getFullYear()} RK Associates. All rights reserved.
+            © {new Date().getFullYear()} {companyName}. All rights reserved.
           </div>
           <div style={{ display: 'flex', gap: 24 }}>
             <a href="#" className="btn-hover" style={{ textDecoration: 'none', fontSize: 13, color: 'rgba(247,242,234,0.5)' }}>Privacy Policy</a>

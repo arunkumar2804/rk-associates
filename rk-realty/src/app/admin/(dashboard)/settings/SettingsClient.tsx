@@ -59,6 +59,8 @@ export default function SettingsClient({
       globalSeoTitle: formData.get("globalSeoTitle") as string || null,
       globalSeoDescription: formData.get("globalSeoDescription") as string || null,
       globalSeoKeywords: formData.get("globalSeoKeywords") as string || null,
+      propertiesSeoTitle: formData.get("propertiesSeoTitle") as string || null,
+      propertiesSeoDescription: formData.get("propertiesSeoDescription") as string || null,
     };
 
     startTransition(async () => {
@@ -155,6 +157,21 @@ export default function SettingsClient({
             <label className="block text-sm font-semibold text-foreground mb-1">Global Meta Keywords</label>
             <input type="text" name="globalSeoKeywords" defaultValue={initialSettings?.globalSeoKeywords || ""} disabled={!isFullControl} className="w-full px-4 py-2 border border-border bg-background rounded-lg text-foreground focus:ring-2 focus:ring-primary disabled:opacity-60" placeholder="real estate, apartments, villas, buy property" />
             <p className="text-xs text-accent mt-1">Comma separated list of keywords.</p>
+          </div>
+        </div>
+      </div>
+
+      <div className="bg-card border border-border rounded-2xl shadow-sm p-8">
+        <h3 className="text-xl font-bold text-foreground mb-6">Properties Page SEO Settings</h3>
+        <div className="space-y-6">
+          <div>
+            <label className="block text-sm font-semibold text-foreground mb-1">Properties Page Meta Title</label>
+            <input type="text" name="propertiesSeoTitle" defaultValue={initialSettings?.propertiesSeoTitle || ""} disabled={!isFullControl} className="w-full px-4 py-2 border border-border bg-background rounded-lg text-foreground focus:ring-2 focus:ring-primary disabled:opacity-60" placeholder="Properties in Bengaluru | RK Associates" />
+            <p className="text-xs text-accent mt-1">This will be the title displayed on the /properties page.</p>
+          </div>
+          <div>
+            <label className="block text-sm font-semibold text-foreground mb-1">Properties Page Meta Description</label>
+            <textarea name="propertiesSeoDescription" rows={3} defaultValue={initialSettings?.propertiesSeoDescription || ""} disabled={!isFullControl} className="w-full px-4 py-2 border border-border bg-background rounded-lg text-foreground focus:ring-2 focus:ring-primary disabled:opacity-60" placeholder="Browse premium properties, apartments, and villas..."></textarea>
           </div>
         </div>
       </div>
