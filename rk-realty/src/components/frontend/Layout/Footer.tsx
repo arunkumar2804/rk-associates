@@ -1,4 +1,5 @@
 import Link from 'next/link';
+import { Phone, Mail, MapPin, Facebook, Instagram, Twitter, Linkedin } from 'lucide-react';
 
 export const Footer = () => {
   return (
@@ -15,9 +16,23 @@ export const Footer = () => {
                 <span style={{ fontSize: 10, fontWeight: 600, color: '#F06400', letterSpacing: 0.5, textTransform: 'uppercase' }}>Channel Partner</span>
               </div>
             </Link>
-            <p style={{ fontSize: 14.5, lineHeight: 1.8, color: 'rgba(247,242,234,0.7)', marginBottom: 32, maxWidth: 320 }}>
+            <p style={{ fontSize: 14.5, lineHeight: 1.8, color: 'rgba(247,242,234,0.7)', marginBottom: 24, maxWidth: 320 }}>
               Your trusted partner in finding premium real estate across Bengaluru. We bring transparency and expertise to your property search.
             </p>
+            <div style={{ display: 'flex', gap: 16 }}>
+              <a href="#" style={{ color: 'rgba(247,242,234,0.7)', transition: 'color 0.2s ease' }} className="hover:text-[#F06400]">
+                <Facebook size={20} />
+              </a>
+              <a href="#" style={{ color: 'rgba(247,242,234,0.7)', transition: 'color 0.2s ease' }} className="hover:text-[#F06400]">
+                <Instagram size={20} />
+              </a>
+              <a href="#" style={{ color: 'rgba(247,242,234,0.7)', transition: 'color 0.2s ease' }} className="hover:text-[#F06400]">
+                <Twitter size={20} />
+              </a>
+              <a href="#" style={{ color: 'rgba(247,242,234,0.7)', transition: 'color 0.2s ease' }} className="hover:text-[#F06400]">
+                <Linkedin size={20} />
+              </a>
+            </div>
           </div>
 
           {/* Quick Links */}
@@ -48,19 +63,34 @@ export const Footer = () => {
           <div>
             <h4 style={{ fontFamily: '"Sora", sans-serif', fontSize: 16, fontWeight: 600, marginBottom: 24 }}>Contact Us</h4>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
-              <div>
-                <div style={{ fontSize: 12, color: 'rgba(247,242,234,0.5)', marginBottom: 4 }}>Call Us</div>
-                <div style={{ fontSize: 16, fontWeight: 600 }}>+91 98765 43210</div>
+              <div style={{ display: 'flex', gap: 16 }}>
+                <div style={{ width: 40, height: 40, borderRadius: '50%', background: 'rgba(247,242,234,0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center', flex: 'none' }}>
+                  <Phone size={18} color="#F06400" />
+                </div>
+                <div>
+                  <div style={{ fontSize: 12, color: 'rgba(247,242,234,0.5)', marginBottom: 4 }}>Call Us</div>
+                  <div style={{ fontSize: 15, fontWeight: 600 }}>+91 98765 43210</div>
+                </div>
               </div>
-              <div>
-                <div style={{ fontSize: 12, color: 'rgba(247,242,234,0.5)', marginBottom: 4 }}>Email</div>
-                <div style={{ fontSize: 15 }}>hello@rkassociates.com</div>
+              <div style={{ display: 'flex', gap: 16 }}>
+                <div style={{ width: 40, height: 40, borderRadius: '50%', background: 'rgba(247,242,234,0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center', flex: 'none' }}>
+                  <Mail size={18} color="#F06400" />
+                </div>
+                <div>
+                  <div style={{ fontSize: 12, color: 'rgba(247,242,234,0.5)', marginBottom: 4 }}>Email</div>
+                  <div style={{ fontSize: 15 }}>hello@rkassociates.com</div>
+                </div>
               </div>
-              <div>
-                <div style={{ fontSize: 12, color: 'rgba(247,242,234,0.5)', marginBottom: 4 }}>Office</div>
-                <div style={{ fontSize: 14.5, lineHeight: 1.6, color: 'rgba(247,242,234,0.8)' }}>
-                  123, 100ft Road, Indiranagar,<br/>
-                  Bengaluru, Karnataka 560038
+              <div style={{ display: 'flex', gap: 16 }}>
+                <div style={{ width: 40, height: 40, borderRadius: '50%', background: 'rgba(247,242,234,0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center', flex: 'none' }}>
+                  <MapPin size={18} color="#F06400" />
+                </div>
+                <div>
+                  <div style={{ fontSize: 12, color: 'rgba(247,242,234,0.5)', marginBottom: 4 }}>Office</div>
+                  <div style={{ fontSize: 14.5, lineHeight: 1.6, color: 'rgba(247,242,234,0.8)' }}>
+                    123, 100ft Road, Indiranagar,<br/>
+                    Bengaluru, Karnataka 560038
+                  </div>
                 </div>
               </div>
             </div>

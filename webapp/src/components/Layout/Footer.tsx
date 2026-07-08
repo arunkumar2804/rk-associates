@@ -1,4 +1,5 @@
 import { Link } from 'react-router-dom';
+import { Phone, Mail, MapPin, Facebook, Instagram, Twitter, Linkedin } from 'lucide-react';
 
 export const Footer = () => {
   return (
@@ -17,8 +18,22 @@ export const Footer = () => {
             <p style={{ fontSize: 14.5, color: 'rgba(247,242,234,0.6)', lineHeight: 1.7, marginBottom: 24, maxWidth: 320 }}>
               Bengaluru's premier real estate consultancy. We bridge the gap between discerning home buyers and the city's most reputable developers.
             </p>
-            <div style={{ fontSize: 14, color: 'rgba(247,242,234,0.8)', fontWeight: 500 }}>
+            <div style={{ fontSize: 14, color: 'rgba(247,242,234,0.8)', fontWeight: 500, marginBottom: 24 }}>
               RERA Reg No: PRM/KA/RERA/1251/446/AG/171114/000400
+            </div>
+            <div style={{ display: 'flex', gap: 16 }}>
+              <a href="#" style={{ color: 'rgba(247,242,234,0.7)', transition: 'color 0.2s ease' }} className="hover:text-[#F06400]">
+                <Facebook size={20} />
+              </a>
+              <a href="#" style={{ color: 'rgba(247,242,234,0.7)', transition: 'color 0.2s ease' }} className="hover:text-[#F06400]">
+                <Instagram size={20} />
+              </a>
+              <a href="#" style={{ color: 'rgba(247,242,234,0.7)', transition: 'color 0.2s ease' }} className="hover:text-[#F06400]">
+                <Twitter size={20} />
+              </a>
+              <a href="#" style={{ color: 'rgba(247,242,234,0.7)', transition: 'color 0.2s ease' }} className="hover:text-[#F06400]">
+                <Linkedin size={20} />
+              </a>
             </div>
           </div>
 
@@ -47,16 +62,22 @@ export const Footer = () => {
           <div>
             <h4 style={{ fontFamily: '"Sora", sans-serif', fontSize: 16, fontWeight: 600, marginBottom: 24, color: '#FFFFFF' }}>Contact</h4>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-              <div style={{ display: 'flex', alignItems: 'flex-start', gap: 12 }}>
-                <div style={{ width: 36, height: 36, borderRadius: '50%', background: 'rgba(247,242,234,0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center', flex: 'none' }}>📍</div>
+              <div style={{ display: 'flex', alignItems: 'flex-start', gap: 16 }}>
+                <div style={{ width: 40, height: 40, borderRadius: '50%', background: 'rgba(247,242,234,0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center', flex: 'none' }}>
+                  <MapPin size={18} color="#F06400" />
+                </div>
                 <div style={{ fontSize: 14.5, color: 'rgba(247,242,234,0.7)', lineHeight: 1.6 }}>Level 14, UB City, Vittal Mallya Road,<br/>Bengaluru, Karnataka 560001</div>
               </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                <div style={{ width: 36, height: 36, borderRadius: '50%', background: 'rgba(247,242,234,0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center', flex: 'none' }}>📞</div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+                <div style={{ width: 40, height: 40, borderRadius: '50%', background: 'rgba(247,242,234,0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center', flex: 'none' }}>
+                  <Phone size={18} color="#F06400" />
+                </div>
                 <div style={{ fontSize: 14.5, color: 'rgba(247,242,234,0.7)' }}>+91 98765 43210</div>
               </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-                <div style={{ width: 36, height: 36, borderRadius: '50%', background: 'rgba(247,242,234,0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center', flex: 'none' }}>✉️</div>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 16 }}>
+                <div style={{ width: 40, height: 40, borderRadius: '50%', background: 'rgba(247,242,234,0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center', flex: 'none' }}>
+                  <Mail size={18} color="#F06400" />
+                </div>
                 <div style={{ fontSize: 14.5, color: 'rgba(247,242,234,0.7)' }}>hello@rkassociates.in</div>
               </div>
             </div>

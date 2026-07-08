@@ -2,8 +2,8 @@ export const AboutTeaser = () => {
   return (
     <section style={{ maxWidth: 1280, margin: '0 auto', padding: '88px 32px' }}>
       <div style={{ display: 'grid', gridTemplateColumns: '0.9fr 1.1fr', gap: 56, alignItems: 'center' }}>
-        <div style={{ borderRadius: 18, height: 420, background: 'repeating-linear-gradient(135deg,#E7DCC6,#E7DCC6 14px,#DCCBAC 14px,#DCCBAC 28px)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <span style={{ fontFamily: 'ui-monospace, monospace', fontSize: 11, color: '#8A7B5C' }}>TEAM PHOTO — RK ASSOCIATES OFFICE</span>
+        <div style={{ borderRadius: 18, height: 420, overflow: 'hidden' }}>
+          <img src="/images/team.jpg" alt="RK Associates Team" style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
         </div>
         <div>
           <span style={{ fontSize: 12.5, fontWeight: 700, letterSpacing: '0.08em', textTransform: 'uppercase', color: '#F06400' }}>
