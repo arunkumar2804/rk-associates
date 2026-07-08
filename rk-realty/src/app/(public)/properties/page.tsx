@@ -1,10 +1,11 @@
 import { prisma } from "@/lib/prisma";
+import { getSettings } from "@/lib/settings";
 import Link from "next/link";
 import { MapPin, BedDouble, Maximize } from "lucide-react";
 import { Metadata } from "next";
 
 export async function generateMetadata(): Promise<Metadata> {
-  const settings = await prisma.websiteSetting.findFirst();
+  const settings = await getSettings();
   return {
     title: settings?.propertiesSeoTitle || `Premium Properties in Bengaluru | ${settings?.companyName || "RK Associates"}`,
     description: settings?.propertiesSeoDescription || "Browse curated residential properties, apartments, and villas from top developers in Bengaluru.",

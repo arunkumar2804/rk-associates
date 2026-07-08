@@ -1,9 +1,9 @@
 import { Header } from "@/components/frontend/Layout/Header";
 import { Footer } from "@/components/frontend/Layout/Footer";
-import { prisma } from "@/lib/prisma";
+import { getSettings } from "@/lib/settings";
 
 export default async function PublicLayout({ children }: { children: React.ReactNode }) {
-  const settings = await prisma.websiteSetting.findFirst();
+  const settings = await getSettings();
 
   // Convert dates to string to prevent warnings about passing complex objects
   const serializedSettings = settings ? {

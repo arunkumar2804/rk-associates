@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Manrope } from "next/font/google";
 import AuthProvider from "@/components/providers/AuthProvider";
-import { prisma } from "@/lib/prisma";
+import { getSettings } from "@/lib/settings";
 import "./globals.css";
 
 const manrope = Manrope({
@@ -10,7 +10,7 @@ const manrope = Manrope({
 });
 
 export async function generateMetadata(): Promise<Metadata> {
-  const settings = await prisma.websiteSetting.findFirst();
+  const settings = await getSettings();
   return {
     title: settings?.globalSeoTitle || "RK Associates Trusted Real Estate Channel Partner",
     description: settings?.globalSeoDescription || "Premium real estate consultancy in Bengaluru. Find your dream home or commercial space with RK Associates.",
