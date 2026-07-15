@@ -63,6 +63,31 @@ export default function CustomerDetailsForm() {
     return () => clearInterval(timer);
   }, [resendCooldown]);
 
+  useEffect(() => {
+    // Check if already loaded
+    if (document.getElementById("msg91-script-loader")) return;
+
+    const script = document.createElement("script");
+    script.id = "msg91-script-loader";
+    script.src = "https://verify.msg91.com/otp-provider.js";
+    script.async = true;
+    script.onload = () => {
+      console.log("MSG91 Script Loaded.");
+      if (typeof window.initSendOTP === "function") {
+        window.initSendOTP({
+          widgetId: "36676f726c51393736373938",
+          tokenAuth: "548508TXHMu43Uv6a4e3a36P1",
+          exposeMethods: true,
+        });
+        console.log("MSG91 Initialized.");
+      }
+    };
+    script.onerror = () => {
+      console.error("Failed to load MSG91 script.");
+    };
+    document.body.appendChild(script);
+  }, []);
+
   const {
     register,
     handleSubmit,
@@ -218,44 +243,6 @@ export default function CustomerDetailsForm() {
 
   return (
     <>
-      <Script
-        id="msg91-script"
-        strategy="lazyOnload"
-        dangerouslySetInnerHTML={{
-          __html: `
-          (function loadOtpScript(urls) {
-              let i = 0;
-              function attempt() {
-                  const s = document.createElement('script');
-                  s.src = urls[i];
-                  s.async = true;
-                  s.onload = () => {
-                      console.log("MSG91 OTP script loaded");
-                      if (typeof window.initSendOTP === "function") {
-                        window.initSendOTP({
-                          widgetId: "36676f726c51393736373938",
-                          tokenAuth: "548508TXHMu43Uv6a4e3a36P1",
-                          exposeMethods: true,
-                        });
-                      }
-                  };
-                  s.onerror = () => {
-                      i++;
-                      if (i < urls.length) {
-                          attempt();
-                      }
-                  };
-                  document.head.appendChild(s);
-              }
-              attempt();
-          })([
-              'https://verify.msg91.com/otp-provider.js',
-              'https://verify.phone91.com/otp-provider.js'
-          ]);
-          `,
-        }}
-      />
-
       <div className="relative overflow-hidden bg-white/80 backdrop-blur-2xl p-8 rounded-3xl border border-white/50 shadow-2xl min-h-[480px] flex flex-col">
         {/* Progress Bar */}
         <div className="absolute top-0 left-0 w-full h-1 bg-gray-100">
