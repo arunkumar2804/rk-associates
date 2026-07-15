@@ -1,13 +1,12 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { motion, AnimatePresence, Variants } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowRight, ArrowLeft, CheckCircle, Loader2 } from "lucide-react";
 import { customerFormSchema, CustomerFormValues } from "@/lib/validations/customerForm";
 import { createPublicEnquiry } from "@/app/actions/enquiry";
-import { sendOtpAction, verifyOtpAction } from "@/app/actions/otp";
 
 // Animation Variants for Framer Motion
 const slideVariants: Variants = {
@@ -41,31 +40,11 @@ export default function CustomerDetailsForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [isSuccess, setIsSuccess] = useState(false);
-  const [otp, setOtp] = useState("");
-  const [resendCooldown, setResendCooldown] = useState(0);
-
-  useEffect(() => {
-    let timer: NodeJS.Timeout;
-    if (resendCooldown > 0) {
-      timer = setInterval(() => setResendCooldown(c => c - 1), 1000);
-    }
-    return () => clearInterval(timer);
-  }, [resendCooldown]);
-
-  const handleResendOtp = async () => {
-    setSubmitError(null);
-    setResendCooldown(30);
-    const res = await sendOtpAction(getValues("phone"));
-    if (res?.error) {
-      setSubmitError(res.error);
-    }
-  };
 
   const {
     register,
     handleSubmit,
     trigger,
-    getValues,
     formState: { errors },
   } = useForm<CustomerFormValues>({
     resolver: zodResolver(customerFormSchema),
@@ -76,7 +55,7 @@ export default function CustomerDetailsForm() {
       interestedProperty: "Buying a Property",
       message: "",
     },
-    mode: "onTouched", // trigger validation on blur
+    mode: "onTouched",
   });
 
   const nextStep = async () => {
@@ -84,31 +63,9 @@ export default function CustomerDetailsForm() {
     if (step === 1) {
       const isValid = await trigger(["name", "phone", "email"]);
       if (isValid) {
-        setIsSubmitting(true);
-        const res = await sendOtpAction(getValues("phone"));
-        setIsSubmitting(false);
-        if (res?.error) {
-          setSubmitError(res.error);
-          return;
-        }
-        setResendCooldown(30);
         setDirection(1);
         setStep(2);
       }
-    } else if (step === 2) {
-      if (otp.length < 4) {
-        setSubmitError("Please enter the complete OTP");
-        return;
-      }
-      setIsSubmitting(true);
-      const res = await verifyOtpAction(getValues("phone"), otp);
-      setIsSubmitting(false);
-      if (res?.error) {
-        setSubmitError(res.error);
-        return;
-      }
-      setDirection(1);
-      setStep(3);
     }
   };
 
@@ -177,8 +134,8 @@ export default function CustomerDetailsForm() {
       <div className="absolute top-0 left-0 w-full h-1 bg-gray-100">
         <motion.div
           className="h-full bg-orange-500"
-          initial={{ width: "33%" }}
-          animate={{ width: `${(step / 3) * 100}%` }}
+          initial={{ width: "50%" }}
+          animate={{ width: `${(step / 2) * 100}%` }}
           transition={{ ease: "easeInOut", duration: 0.4 }}
         />
       </div>
@@ -186,13 +143,11 @@ export default function CustomerDetailsForm() {
       <div className="flex-1 flex flex-col justify-center relative mt-6">
         <div className="mb-8">
           <h2 className="text-2xl font-bold text-gray-900 font-sora mb-2">
-            {step === 1 ? "Let's start with the basics" : step === 2 ? "Verify your mobile number" : "What are you looking for?"}
+            {step === 1 ? "Let's start with the basics" : "What are you looking for?"}
           </h2>
           <p className="text-gray-500 text-sm">
             {step === 1
               ? "We'll use this to get in touch with you."
-              : step === 2
-              ? `We've sent an OTP to +91 ${getValues("phone")}`
               : "Tell us about your requirements."}
           </p>
         </div>
@@ -289,45 +244,6 @@ export default function CustomerDetailsForm() {
                 initial="hidden"
                 animate="visible"
                 exit="exit"
-                className="space-y-6"
-              >
-                <div className="space-y-2">
-                  <label className="text-sm font-semibold text-gray-700 block text-center">
-                    Enter Verification Code
-                  </label>
-                  <input
-                    type="text"
-                    value={otp}
-                    onChange={(e) => setOtp(e.target.value.replace(/\D/g, '').slice(0, 4))}
-                    placeholder="Enter 4-digit OTP"
-                    maxLength={4}
-                    className="w-full text-center tracking-[1em] font-mono text-2xl p-4 rounded-2xl bg-gray-50 border border-gray-200 transition-all duration-300 focus:bg-white focus:ring-4 focus:ring-orange-500/10 focus:border-orange-400 outline-none"
-                  />
-                  <div className="text-center mt-4 h-6">
-                    {resendCooldown > 0 ? (
-                      <span className="text-sm text-gray-500">Resend OTP in {resendCooldown}s</span>
-                    ) : (
-                      <button
-                        type="button"
-                        onClick={handleResendOtp}
-                        className="text-sm font-medium text-orange-600 hover:text-orange-700 hover:underline"
-                      >
-                        Resend OTP
-                      </button>
-                    )}
-                  </div>
-                </div>
-              </motion.div>
-            )}
-
-            {step === 3 && (
-              <motion.div
-                key="step2"
-                custom={direction}
-                variants={slideVariants}
-                initial="hidden"
-                animate="visible"
-                exit="exit"
                 className="space-y-5"
               >
                 <div className="space-y-1.5">
@@ -375,7 +291,7 @@ export default function CustomerDetailsForm() {
               <div /> // Spacer
             )}
 
-            {step < 3 ? (
+            {step < 2 ? (
               <button
                 type="button"
                 onClick={nextStep}

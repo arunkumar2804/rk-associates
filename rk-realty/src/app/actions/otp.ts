@@ -4,11 +4,10 @@ import { prisma } from "@/lib/prisma";
 
 export async function sendOtpAction(phone: string) {
   try {
-    const phoneNumberId = process.env.WHATSAPP_PHONE_NUMBER_ID;
-    const accessToken = process.env.WHATSAPP_ACCESS_TOKEN;
+    const botUrl = process.env.WHATSAPP_BOT_URL;
 
-    if (!phoneNumberId || !accessToken) {
-      console.warn("WhatsApp credentials not set. Falling back to mock OTP sending.");
+    if (!botUrl) {
+      console.warn("WHATSAPP_BOT_URL not set. Falling back to mock OTP sending.");
       return { success: true, isMock: true };
     }
 
@@ -32,38 +31,26 @@ export async function sendOtpAction(phone: string) {
       },
     });
 
-    // Send OTP via WhatsApp Cloud API
-    const url = `https://graph.facebook.com/v19.0/${phoneNumberId}/messages`;
-    
-    // Test accounts can usually send templates without 24-hour window restrictions
-    // Here we'll use a template if there's one configured, else fallback to text
-    // Note: To use text messages with test accounts, the destination number must have messaged the test number first.
-    // For now we will send a simple text message. If it fails due to the 24h window, you'll need to create a template.
-    const response = await fetch(url, {
+    // Send OTP via Open-WA Microservice
+    const response = await fetch(`${botUrl}/send-otp`, {
       method: "POST",
       headers: {
-        "Authorization": `Bearer ${accessToken}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        messaging_product: "whatsapp",
-        to: mobile,
-        type: "text",
-        text: {
-          preview_url: false,
-          body: `Your RK Realty verification code is: ${otp}. It is valid for 5 minutes. Do not share this code with anyone.`,
-        }
+        phone: mobile,
+        otp,
       }),
     });
 
     const data = await response.json();
-    console.log("WhatsApp Send OTP response:", data);
+    console.log("WhatsApp Bot response:", data);
 
-    if (response.ok) {
+    if (response.ok && data.success) {
       return { success: true };
     } else {
-      console.error("WhatsApp API Error:", data);
-      return { error: data.error?.message || "Failed to send OTP via WhatsApp" };
+      console.error("WhatsApp Bot Error:", data);
+      return { error: data.error || "Failed to send OTP via WhatsApp bot" };
     }
   } catch (error) {
     console.error("OTP Send Error:", error);
@@ -73,10 +60,9 @@ export async function sendOtpAction(phone: string) {
 
 export async function verifyOtpAction(phone: string, otp: string) {
   try {
-    const phoneNumberId = process.env.WHATSAPP_PHONE_NUMBER_ID;
-    const accessToken = process.env.WHATSAPP_ACCESS_TOKEN;
+    const botUrl = process.env.WHATSAPP_BOT_URL;
 
-    if (!phoneNumberId || !accessToken) {
+    if (!botUrl) {
       // Mock validation for local development without credentials
       if (otp === "1234") {
         return { success: true };
