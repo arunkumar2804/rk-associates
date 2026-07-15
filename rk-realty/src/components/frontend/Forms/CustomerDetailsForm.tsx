@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Script from "next/script";
 import { motion, AnimatePresence, Variants } from "framer-motion";
 import { useForm } from "react-hook-form";
@@ -12,6 +12,9 @@ import { createPublicEnquiry } from "@/app/actions/enquiry";
 declare global {
   interface Window {
     initSendOTP?: (configuration: any) => void;
+    sendOtp?: (identifier: string, successCallback: (data: any) => void, failureCallback: (error: any) => void) => void;
+    verifyOtp?: (otp: string, successCallback: (data: any) => void, failureCallback: (error: any) => void) => void;
+    retryOtp?: (channel: string, successCallback: (data: any) => void, failureCallback: (error: any) => void) => void;
   }
 }
 
@@ -47,6 +50,18 @@ export default function CustomerDetailsForm() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [isSuccess, setIsSuccess] = useState(false);
+  
+  const [otp, setOtp] = useState("");
+  const [resendCooldown, setResendCooldown] = useState(0);
+  const [msg91Token, setMsg91Token] = useState<string | null>(null);
+
+  useEffect(() => {
+    let timer: NodeJS.Timeout;
+    if (resendCooldown > 0) {
+      timer = setInterval(() => setResendCooldown(c => c - 1), 1000);
+    }
+    return () => clearInterval(timer);
+  }, [resendCooldown]);
 
   const {
     register,
@@ -66,6 +81,20 @@ export default function CustomerDetailsForm() {
     mode: "onTouched",
   });
 
+  const handleResendOtp = () => {
+    setSubmitError(null);
+    if (typeof window.sendOtp === "function") {
+      setResendCooldown(30);
+      const phone = getValues("phone");
+      const formattedPhone = phone.length === 10 ? `91${phone}` : phone;
+      window.sendOtp(
+        formattedPhone,
+        (data: any) => console.log("Resend success:", data),
+        (error: any) => setSubmitError(error.message || "Failed to resend OTP")
+      );
+    }
+  };
+
   const nextStep = async () => {
     setSubmitError(null);
     if (step === 1) {
@@ -73,30 +102,52 @@ export default function CustomerDetailsForm() {
       if (isValid) {
         setIsSubmitting(true);
         const phone = getValues("phone");
-        // Format to standard 91 format if they just typed 10 digits
         const formattedPhone = phone.length === 10 ? `91${phone}` : phone;
 
-        if (typeof window.initSendOTP === "function") {
-          window.initSendOTP({
-            widgetId: "36676f726c51393736373938",
-            tokenAuth: "548508TXHMu43Uv6a4e3a36P1",
-            identifier: formattedPhone,
-            success: (data: any) => {
-              console.log("OTP Success:", data);
+        if (typeof window.sendOtp === "function") {
+          window.sendOtp(
+            formattedPhone,
+            (data: any) => {
+              console.log("OTP Sent:", data);
               setIsSubmitting(false);
+              setResendCooldown(30);
               setDirection(1);
               setStep(2);
             },
-            failure: (error: any) => {
-              console.error("OTP Failure:", error);
+            (error: any) => {
+              console.error("Send OTP Failure:", error);
               setIsSubmitting(false);
-              setSubmitError(error.message || "OTP verification failed. Please try again.");
-            },
-          });
+              setSubmitError(error.message || "Failed to send OTP. Please try again.");
+            }
+          );
         } else {
           setIsSubmitting(false);
           setSubmitError("OTP Service is not fully loaded. Please refresh and try again.");
         }
+      }
+    } else if (step === 2) {
+      if (otp.length < 4) {
+        setSubmitError("Please enter the complete OTP");
+        return;
+      }
+      setIsSubmitting(true);
+      if (typeof window.verifyOtp === "function") {
+        window.verifyOtp(
+          otp,
+          (data: any) => {
+            console.log("OTP Verified:", data);
+            // data.message contains the JWT access token from MSG91
+            setMsg91Token(data.message);
+            setIsSubmitting(false);
+            setDirection(1);
+            setStep(3);
+          },
+          (error: any) => {
+            console.error("Verify OTP Failure:", error);
+            setIsSubmitting(false);
+            setSubmitError(error.message || "Invalid OTP entered.");
+          }
+        );
       }
     }
   };
@@ -110,7 +161,12 @@ export default function CustomerDetailsForm() {
     setIsSubmitting(true);
     setSubmitError(null);
     try {
-      const result = await createPublicEnquiry(data);
+      // Pass the JWT token to the backend action for verification
+      const result = await createPublicEnquiry({
+        ...data,
+        msg91Token: msg91Token || undefined,
+      });
+
       if (result.error) {
         setSubmitError(result.error);
       } else {
@@ -175,6 +231,13 @@ export default function CustomerDetailsForm() {
                   s.async = true;
                   s.onload = () => {
                       console.log("MSG91 OTP script loaded");
+                      if (typeof window.initSendOTP === "function") {
+                        window.initSendOTP({
+                          widgetId: "36676f726c51393736373938",
+                          tokenAuth: "548508TXHMu43Uv6a4e3a36P1",
+                          exposeMethods: true,
+                        });
+                      }
                   };
                   s.onerror = () => {
                       i++;
@@ -198,8 +261,8 @@ export default function CustomerDetailsForm() {
         <div className="absolute top-0 left-0 w-full h-1 bg-gray-100">
           <motion.div
             className="h-full bg-orange-500"
-            initial={{ width: "50%" }}
-            animate={{ width: `${(step / 2) * 100}%` }}
+            initial={{ width: "33%" }}
+            animate={{ width: `${(step / 3) * 100}%` }}
             transition={{ ease: "easeInOut", duration: 0.4 }}
           />
         </div>
@@ -207,11 +270,13 @@ export default function CustomerDetailsForm() {
         <div className="flex-1 flex flex-col justify-center relative mt-6">
           <div className="mb-8">
             <h2 className="text-2xl font-bold text-gray-900 font-sora mb-2">
-              {step === 1 ? "Let's start with the basics" : "What are you looking for?"}
+              {step === 1 ? "Let's start with the basics" : step === 2 ? "Verify your mobile number" : "What are you looking for?"}
             </h2>
             <p className="text-gray-500 text-sm">
               {step === 1
                 ? "We'll use this to get in touch with you."
+                : step === 2
+                ? `We've sent an OTP to +91 ${getValues("phone")}`
                 : "Tell us about your requirements."}
             </p>
           </div>
@@ -308,6 +373,45 @@ export default function CustomerDetailsForm() {
                   initial="hidden"
                   animate="visible"
                   exit="exit"
+                  className="space-y-6"
+                >
+                  <div className="space-y-2">
+                    <label className="text-sm font-semibold text-gray-700 block text-center">
+                      Enter Verification Code
+                    </label>
+                    <input
+                      type="text"
+                      value={otp}
+                      onChange={(e) => setOtp(e.target.value.replace(/\D/g, '').slice(0, 4))}
+                      placeholder="Enter 4-digit OTP"
+                      maxLength={4}
+                      className="w-full text-center tracking-[1em] font-mono text-2xl p-4 rounded-2xl bg-gray-50 border border-gray-200 transition-all duration-300 focus:bg-white focus:ring-4 focus:ring-orange-500/10 focus:border-orange-400 outline-none"
+                    />
+                    <div className="text-center mt-4 h-6">
+                      {resendCooldown > 0 ? (
+                        <span className="text-sm text-gray-500">Resend OTP in {resendCooldown}s</span>
+                      ) : (
+                        <button
+                          type="button"
+                          onClick={handleResendOtp}
+                          className="text-sm font-medium text-orange-600 hover:text-orange-700 hover:underline"
+                        >
+                          Resend OTP
+                        </button>
+                      )}
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+
+              {step === 3 && (
+                <motion.div
+                  key="step3"
+                  custom={direction}
+                  variants={slideVariants}
+                  initial="hidden"
+                  animate="visible"
+                  exit="exit"
                   className="space-y-5"
                 >
                   <div className="space-y-1.5">
@@ -355,7 +459,7 @@ export default function CustomerDetailsForm() {
                 <div /> // Spacer
               )}
 
-              {step < 2 ? (
+              {step < 3 ? (
                 <button
                   type="button"
                   onClick={nextStep}

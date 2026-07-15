@@ -38,10 +38,45 @@ export async function createPublicEnquiry(data: {
   email?: string;
   interestedProperty?: string;
   message?: string;
+  msg91Token?: string;
 }) {
   try {
     if (!data.name || !data.phone) {
       return { error: "Name and Phone number are required." };
+    }
+
+    if (!data.msg91Token) {
+      return { error: "Security token missing. Please verify your OTP again." };
+    }
+
+    // Verify MSG91 Access Token
+    const authKey = process.env.MSG91_AUTH_KEY;
+    if (authKey) {
+      try {
+        const verifyRes = await fetch("https://control.msg91.com/api/v5/widget/verifyAccessToken", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            authkey: authKey,
+            "access-token": data.msg91Token,
+          }),
+        });
+
+        const verifyData = await verifyRes.json();
+        
+        // MSG91 returns type: 'error' if token is invalid
+        if (verifyData.type === "error" || verifyData.hasError) {
+          console.error("MSG91 Server Verification Failed:", verifyData);
+          return { error: "Invalid security token. Please request a new OTP." };
+        }
+      } catch (tokenErr) {
+        console.error("Failed to reach MSG91 verification server:", tokenErr);
+        return { error: "Unable to verify security token. Please try again later." };
+      }
+    } else {
+      console.warn("MSG91_AUTH_KEY is not set! Bypassing token verification. (NOT SECURE)");
     }
 
     const enquiry = await prisma.enquiry.create({
