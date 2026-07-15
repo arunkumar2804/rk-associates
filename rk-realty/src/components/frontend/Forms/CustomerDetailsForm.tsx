@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import Script from "next/script";
 import { motion, AnimatePresence, Variants } from "framer-motion";
 import { useForm } from "react-hook-form";
@@ -51,7 +51,7 @@ export default function CustomerDetailsForm() {
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [isSuccess, setIsSuccess] = useState(false);
   
-  const [otp, setOtp] = useState("");
+  const [otp, setOtp] = useState<string[]>(["", "", "", ""]);
   const [resendCooldown, setResendCooldown] = useState(0);
   const [msg91Token, setMsg91Token] = useState<string | null>(null);
 
@@ -62,6 +62,45 @@ export default function CustomerDetailsForm() {
     }
     return () => clearInterval(timer);
   }, [resendCooldown]);
+
+  const otpRefs = useRef<(HTMLInputElement | null)[]>([]);
+
+  const handleOtpChange = (index: number, value: string) => {
+    if (value && !/^\d+$/.test(value)) return;
+
+    // Handle paste / autofill of multiple digits
+    if (value.length > 1) {
+      const pasted = value.slice(0, 4).split("");
+      const newOtp = [...otp];
+      pasted.forEach((char, i) => {
+        if (index + i < 4) newOtp[index + i] = char;
+      });
+      setOtp(newOtp);
+      
+      const nextFocus = Math.min(index + pasted.length, 3);
+      otpRefs.current[nextFocus]?.focus();
+      return;
+    }
+
+    // Handle single digit entry
+    const newOtp = [...otp];
+    newOtp[index] = value;
+    setOtp(newOtp);
+
+    // Auto-advance
+    if (value !== "" && index < 3) {
+      otpRefs.current[index + 1]?.focus();
+    }
+  };
+
+  const handleOtpKeyDown = (index: number, e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Backspace" && !otp[index] && index > 0) {
+      otpRefs.current[index - 1]?.focus();
+      const newOtp = [...otp];
+      newOtp[index - 1] = "";
+      setOtp(newOtp);
+    }
+  };
 
   useEffect(() => {
     // Check if already loaded
@@ -153,14 +192,15 @@ export default function CustomerDetailsForm() {
         }
       }
     } else if (step === 2) {
-      if (otp.length < 4) {
+      const otpString = otp.join("");
+      if (otpString.length < 4) {
         setSubmitError("Please enter the complete OTP");
         return;
       }
       setIsSubmitting(true);
       if (typeof window.verifyOtp === "function") {
         window.verifyOtp(
-          otp,
+          otpString,
           (data: any) => {
             console.log("OTP Verified:", data);
             // data.message contains the JWT access token from MSG91
@@ -368,14 +408,24 @@ export default function CustomerDetailsForm() {
                     <label className="text-sm font-semibold text-gray-700 block text-center">
                       Enter Verification Code
                     </label>
-                    <input
-                      type="text"
-                      value={otp}
-                      onChange={(e) => setOtp(e.target.value.replace(/\D/g, '').slice(0, 4))}
-                      placeholder="Enter 4-digit OTP"
-                      maxLength={4}
-                      className="w-full text-center tracking-[1em] font-mono text-2xl p-4 rounded-2xl bg-gray-50 border border-gray-200 transition-all duration-300 focus:bg-white focus:ring-4 focus:ring-orange-500/10 focus:border-orange-400 outline-none"
-                    />
+                    <div className="flex justify-center gap-3">
+                      {[0, 1, 2, 3].map((index) => (
+                        <input
+                          key={index}
+                          ref={(el) => {
+                            otpRefs.current[index] = el;
+                          }}
+                          type="text"
+                          inputMode="numeric"
+                          autoComplete="one-time-code"
+                          maxLength={4} // 4 so autofill/paste can drop all digits at once
+                          value={otp[index]}
+                          onChange={(e) => handleOtpChange(index, e.target.value)}
+                          onKeyDown={(e) => handleOtpKeyDown(index, e)}
+                          className="w-14 h-16 text-center font-mono text-2xl rounded-2xl bg-gray-50 border border-gray-200 transition-all duration-300 focus:bg-white focus:ring-4 focus:ring-orange-500/10 focus:border-orange-400 outline-none"
+                        />
+                      ))}
+                    </div>
                     <div className="text-center mt-4 h-6">
                       {resendCooldown > 0 ? (
                         <span className="text-sm text-gray-500">Resend OTP in {resendCooldown}s</span>
