@@ -1,12 +1,19 @@
 "use client";
 
 import { useState } from "react";
+import Script from "next/script";
 import { motion, AnimatePresence, Variants } from "framer-motion";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowRight, ArrowLeft, CheckCircle, Loader2 } from "lucide-react";
 import { customerFormSchema, CustomerFormValues } from "@/lib/validations/customerForm";
 import { createPublicEnquiry } from "@/app/actions/enquiry";
+
+declare global {
+  interface Window {
+    initSendOTP?: (configuration: any) => void;
+  }
+}
 
 // Animation Variants for Framer Motion
 const slideVariants: Variants = {
@@ -45,6 +52,7 @@ export default function CustomerDetailsForm() {
     register,
     handleSubmit,
     trigger,
+    getValues,
     formState: { errors },
   } = useForm<CustomerFormValues>({
     resolver: zodResolver(customerFormSchema),
@@ -63,8 +71,32 @@ export default function CustomerDetailsForm() {
     if (step === 1) {
       const isValid = await trigger(["name", "phone", "email"]);
       if (isValid) {
-        setDirection(1);
-        setStep(2);
+        setIsSubmitting(true);
+        const phone = getValues("phone");
+        // Format to standard 91 format if they just typed 10 digits
+        const formattedPhone = phone.length === 10 ? `91${phone}` : phone;
+
+        if (typeof window.initSendOTP === "function") {
+          window.initSendOTP({
+            widgetId: "36676f726c51393736373938",
+            tokenAuth: "548508TXHMu43Uv6a4e3a36P1",
+            identifier: formattedPhone,
+            success: (data: any) => {
+              console.log("OTP Success:", data);
+              setIsSubmitting(false);
+              setDirection(1);
+              setStep(2);
+            },
+            failure: (error: any) => {
+              console.error("OTP Failure:", error);
+              setIsSubmitting(false);
+              setSubmitError(error.message || "OTP verification failed. Please try again.");
+            },
+          });
+        } else {
+          setIsSubmitting(false);
+          setSubmitError("OTP Service is not fully loaded. Please refresh and try again.");
+        }
       }
     }
   };
@@ -129,209 +161,242 @@ export default function CustomerDetailsForm() {
   }
 
   return (
-    <div className="relative overflow-hidden bg-white/80 backdrop-blur-2xl p-8 rounded-3xl border border-white/50 shadow-2xl min-h-[480px] flex flex-col">
-      {/* Progress Bar */}
-      <div className="absolute top-0 left-0 w-full h-1 bg-gray-100">
-        <motion.div
-          className="h-full bg-orange-500"
-          initial={{ width: "50%" }}
-          animate={{ width: `${(step / 2) * 100}%` }}
-          transition={{ ease: "easeInOut", duration: 0.4 }}
-        />
-      </div>
+    <>
+      <Script
+        id="msg91-script"
+        strategy="lazyOnload"
+        dangerouslySetInnerHTML={{
+          __html: `
+          (function loadOtpScript(urls) {
+              let i = 0;
+              function attempt() {
+                  const s = document.createElement('script');
+                  s.src = urls[i];
+                  s.async = true;
+                  s.onload = () => {
+                      console.log("MSG91 OTP script loaded");
+                  };
+                  s.onerror = () => {
+                      i++;
+                      if (i < urls.length) {
+                          attempt();
+                      }
+                  };
+                  document.head.appendChild(s);
+              }
+              attempt();
+          })([
+              'https://verify.msg91.com/otp-provider.js',
+              'https://verify.phone91.com/otp-provider.js'
+          ]);
+          `,
+        }}
+      />
 
-      <div className="flex-1 flex flex-col justify-center relative mt-6">
-        <div className="mb-8">
-          <h2 className="text-2xl font-bold text-gray-900 font-sora mb-2">
-            {step === 1 ? "Let's start with the basics" : "What are you looking for?"}
-          </h2>
-          <p className="text-gray-500 text-sm">
-            {step === 1
-              ? "We'll use this to get in touch with you."
-              : "Tell us about your requirements."}
-          </p>
+      <div className="relative overflow-hidden bg-white/80 backdrop-blur-2xl p-8 rounded-3xl border border-white/50 shadow-2xl min-h-[480px] flex flex-col">
+        {/* Progress Bar */}
+        <div className="absolute top-0 left-0 w-full h-1 bg-gray-100">
+          <motion.div
+            className="h-full bg-orange-500"
+            initial={{ width: "50%" }}
+            animate={{ width: `${(step / 2) * 100}%` }}
+            transition={{ ease: "easeInOut", duration: 0.4 }}
+          />
         </div>
 
-        {submitError && (
-          <motion.div
-            initial={{ opacity: 0, y: -10 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="p-4 mb-6 bg-red-50 text-red-600 rounded-xl border border-red-100 text-sm flex items-center gap-2"
-          >
-            <div className="w-1.5 h-1.5 rounded-full bg-red-500" />
-            {submitError}
-          </motion.div>
-        )}
-
-        <form onSubmit={handleSubmit(onSubmit)} className="flex-1 relative">
-          <AnimatePresence mode="wait" custom={direction}>
-            {step === 1 && (
-              <motion.div
-                key="step1"
-                custom={direction}
-                variants={slideVariants}
-                initial="hidden"
-                animate="visible"
-                exit="exit"
-                className="space-y-5"
-              >
-                <div className="space-y-1.5">
-                  <label className="text-sm font-semibold text-gray-700 block">
-                    Full Name <span className="text-orange-500">*</span>
-                  </label>
-                  <input
-                    {...register("name")}
-                    type="text"
-                    placeholder="Enter your name"
-                    className={`w-full p-4 rounded-2xl bg-gray-50 border transition-all duration-300 focus:bg-white focus:ring-4 focus:ring-orange-500/10 outline-none
-                      ${errors.name ? "border-red-300 focus:border-red-400" : "border-gray-200 focus:border-orange-400"}
-                    `}
-                  />
-                  {errors.name && (
-                    <p className="text-red-500 text-xs font-medium pl-1 mt-1">
-                      {errors.name.message}
-                    </p>
-                  )}
-                </div>
-
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
-                  <div className="space-y-1.5">
-                    <label className="text-sm font-semibold text-gray-700 block">
-                      Mobile Number <span className="text-orange-500">*</span>
-                    </label>
-                    <input
-                      {...register("phone")}
-                      type="tel"
-                      placeholder="9876543210"
-                      className={`w-full p-4 rounded-2xl bg-gray-50 border transition-all duration-300 focus:bg-white focus:ring-4 focus:ring-orange-500/10 outline-none
-                        ${errors.phone ? "border-red-300 focus:border-red-400" : "border-gray-200 focus:border-orange-400"}
-                      `}
-                    />
-                    {errors.phone && (
-                      <p className="text-red-500 text-xs font-medium pl-1 mt-1">
-                        {errors.phone.message}
-                      </p>
-                    )}
-                  </div>
-
-                  <div className="space-y-1.5">
-                    <label className="text-sm font-semibold text-gray-700 block">
-                      Email Address
-                    </label>
-                    <input
-                      {...register("email")}
-                      type="email"
-                      placeholder="john@example.com"
-                      className={`w-full p-4 rounded-2xl bg-gray-50 border transition-all duration-300 focus:bg-white focus:ring-4 focus:ring-orange-500/10 outline-none
-                        ${errors.email ? "border-red-300 focus:border-red-400" : "border-gray-200 focus:border-orange-400"}
-                      `}
-                    />
-                    {errors.email && (
-                      <p className="text-red-500 text-xs font-medium pl-1 mt-1">
-                        {errors.email.message}
-                      </p>
-                    )}
-                  </div>
-                </div>
-              </motion.div>
-            )}
-
-            {step === 2 && (
-              <motion.div
-                key="step2"
-                custom={direction}
-                variants={slideVariants}
-                initial="hidden"
-                animate="visible"
-                exit="exit"
-                className="space-y-5"
-              >
-                <div className="space-y-1.5">
-                  <label className="text-sm font-semibold text-gray-700 block">
-                    I am looking for...
-                  </label>
-                  <select
-                    {...register("interestedProperty")}
-                    className="w-full p-4 rounded-2xl bg-gray-50 border border-gray-200 focus:border-orange-400 focus:bg-white focus:ring-4 focus:ring-orange-500/10 transition-all duration-300 outline-none appearance-none cursor-pointer"
-                  >
-                    <option>Buying a Property</option>
-                    <option>Renting a Property</option>
-                    <option>Investment Advisory</option>
-                    <option>Legal Assistance</option>
-                  </select>
-                </div>
-
-                <div className="space-y-1.5">
-                  <label className="text-sm font-semibold text-gray-700 block">
-                    Message
-                  </label>
-                  <textarea
-                    {...register("message")}
-                    rows={4}
-                    placeholder="Describe your requirements (e.g. 3 BHK in East Bengaluru)"
-                    className="w-full p-4 rounded-2xl bg-gray-50 border border-gray-200 focus:border-orange-400 focus:bg-white focus:ring-4 focus:ring-orange-500/10 transition-all duration-300 outline-none resize-none"
-                  />
-                </div>
-              </motion.div>
-            )}
-          </AnimatePresence>
-
-          {/* Navigation Buttons */}
-          <div className="mt-10 flex items-center justify-between">
-            {step > 1 ? (
-              <button
-                type="button"
-                onClick={prevStep}
-                className="flex items-center gap-2 text-gray-500 font-medium hover:text-gray-900 transition-colors px-2"
-              >
-                <ArrowLeft size={18} />
-                Back
-              </button>
-            ) : (
-              <div /> // Spacer
-            )}
-
-            {step < 2 ? (
-              <button
-                type="button"
-                onClick={nextStep}
-                disabled={isSubmitting}
-                className="group flex items-center gap-2 bg-gray-900 text-white px-6 py-3.5 rounded-full font-semibold hover:bg-gray-800 transition-all shadow-md hover:shadow-xl active:scale-95 disabled:opacity-70 disabled:cursor-not-allowed"
-              >
-                {isSubmitting ? (
-                  <>
-                    <Loader2 size={18} className="animate-spin" />
-                    Please wait...
-                  </>
-                ) : (
-                  <>
-                    Continue
-                    <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
-                  </>
-                )}
-              </button>
-            ) : (
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="group flex items-center gap-2 bg-orange-500 text-white px-8 py-3.5 rounded-full font-semibold hover:bg-orange-600 transition-all shadow-[0_8px_20px_rgba(240,100,0,0.3)] hover:shadow-[0_12px_24px_rgba(240,100,0,0.4)] active:scale-95 disabled:opacity-70 disabled:cursor-not-allowed"
-              >
-                {isSubmitting ? (
-                  <>
-                    <Loader2 size={18} className="animate-spin" />
-                    Submitting...
-                  </>
-                ) : (
-                  <>
-                    Submit Enquiry
-                    <CheckCircle size={18} className="group-hover:scale-110 transition-transform" />
-                  </>
-                )}
-              </button>
-            )}
+        <div className="flex-1 flex flex-col justify-center relative mt-6">
+          <div className="mb-8">
+            <h2 className="text-2xl font-bold text-gray-900 font-sora mb-2">
+              {step === 1 ? "Let's start with the basics" : "What are you looking for?"}
+            </h2>
+            <p className="text-gray-500 text-sm">
+              {step === 1
+                ? "We'll use this to get in touch with you."
+                : "Tell us about your requirements."}
+            </p>
           </div>
-        </form>
+
+          {submitError && (
+            <motion.div
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              className="p-4 mb-6 bg-red-50 text-red-600 rounded-xl border border-red-100 text-sm flex items-center gap-2"
+            >
+              <div className="w-1.5 h-1.5 rounded-full bg-red-500" />
+              {submitError}
+            </motion.div>
+          )}
+
+          <form onSubmit={handleSubmit(onSubmit)} className="flex-1 relative">
+            <AnimatePresence mode="wait" custom={direction}>
+              {step === 1 && (
+                <motion.div
+                  key="step1"
+                  custom={direction}
+                  variants={slideVariants}
+                  initial="hidden"
+                  animate="visible"
+                  exit="exit"
+                  className="space-y-5"
+                >
+                  <div className="space-y-1.5">
+                    <label className="text-sm font-semibold text-gray-700 block">
+                      Full Name <span className="text-orange-500">*</span>
+                    </label>
+                    <input
+                      {...register("name")}
+                      type="text"
+                      placeholder="Enter your name"
+                      className={`w-full p-4 rounded-2xl bg-gray-50 border transition-all duration-300 focus:bg-white focus:ring-4 focus:ring-orange-500/10 outline-none
+                        ${errors.name ? "border-red-300 focus:border-red-400" : "border-gray-200 focus:border-orange-400"}
+                      `}
+                    />
+                    {errors.name && (
+                      <p className="text-red-500 text-xs font-medium pl-1 mt-1">
+                        {errors.name.message}
+                      </p>
+                    )}
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+                    <div className="space-y-1.5">
+                      <label className="text-sm font-semibold text-gray-700 block">
+                        Mobile Number <span className="text-orange-500">*</span>
+                      </label>
+                      <input
+                        {...register("phone")}
+                        type="tel"
+                        placeholder="9876543210"
+                        className={`w-full p-4 rounded-2xl bg-gray-50 border transition-all duration-300 focus:bg-white focus:ring-4 focus:ring-orange-500/10 outline-none
+                          ${errors.phone ? "border-red-300 focus:border-red-400" : "border-gray-200 focus:border-orange-400"}
+                        `}
+                      />
+                      {errors.phone && (
+                        <p className="text-red-500 text-xs font-medium pl-1 mt-1">
+                          {errors.phone.message}
+                        </p>
+                      )}
+                    </div>
+
+                    <div className="space-y-1.5">
+                      <label className="text-sm font-semibold text-gray-700 block">
+                        Email Address
+                      </label>
+                      <input
+                        {...register("email")}
+                        type="email"
+                        placeholder="john@example.com"
+                        className={`w-full p-4 rounded-2xl bg-gray-50 border transition-all duration-300 focus:bg-white focus:ring-4 focus:ring-orange-500/10 outline-none
+                          ${errors.email ? "border-red-300 focus:border-red-400" : "border-gray-200 focus:border-orange-400"}
+                        `}
+                      />
+                      {errors.email && (
+                        <p className="text-red-500 text-xs font-medium pl-1 mt-1">
+                          {errors.email.message}
+                        </p>
+                      )}
+                    </div>
+                  </div>
+                </motion.div>
+              )}
+
+              {step === 2 && (
+                <motion.div
+                  key="step2"
+                  custom={direction}
+                  variants={slideVariants}
+                  initial="hidden"
+                  animate="visible"
+                  exit="exit"
+                  className="space-y-5"
+                >
+                  <div className="space-y-1.5">
+                    <label className="text-sm font-semibold text-gray-700 block">
+                      I am looking for...
+                    </label>
+                    <select
+                      {...register("interestedProperty")}
+                      className="w-full p-4 rounded-2xl bg-gray-50 border border-gray-200 focus:border-orange-400 focus:bg-white focus:ring-4 focus:ring-orange-500/10 transition-all duration-300 outline-none appearance-none cursor-pointer"
+                    >
+                      <option>Buying a Property</option>
+                      <option>Renting a Property</option>
+                      <option>Investment Advisory</option>
+                      <option>Legal Assistance</option>
+                    </select>
+                  </div>
+
+                  <div className="space-y-1.5">
+                    <label className="text-sm font-semibold text-gray-700 block">
+                      Message
+                    </label>
+                    <textarea
+                      {...register("message")}
+                      rows={4}
+                      placeholder="Describe your requirements (e.g. 3 BHK in East Bengaluru)"
+                      className="w-full p-4 rounded-2xl bg-gray-50 border border-gray-200 focus:border-orange-400 focus:bg-white focus:ring-4 focus:ring-orange-500/10 transition-all duration-300 outline-none resize-none"
+                    />
+                  </div>
+                </motion.div>
+              )}
+            </AnimatePresence>
+
+            {/* Navigation Buttons */}
+            <div className="mt-10 flex items-center justify-between">
+              {step > 1 ? (
+                <button
+                  type="button"
+                  onClick={prevStep}
+                  className="flex items-center gap-2 text-gray-500 font-medium hover:text-gray-900 transition-colors px-2"
+                >
+                  <ArrowLeft size={18} />
+                  Back
+                </button>
+              ) : (
+                <div /> // Spacer
+              )}
+
+              {step < 2 ? (
+                <button
+                  type="button"
+                  onClick={nextStep}
+                  disabled={isSubmitting}
+                  className="group flex items-center gap-2 bg-gray-900 text-white px-6 py-3.5 rounded-full font-semibold hover:bg-gray-800 transition-all shadow-md hover:shadow-xl active:scale-95 disabled:opacity-70 disabled:cursor-not-allowed"
+                >
+                  {isSubmitting ? (
+                    <>
+                      <Loader2 size={18} className="animate-spin" />
+                      Please wait...
+                    </>
+                  ) : (
+                    <>
+                      Continue
+                      <ArrowRight size={18} className="group-hover:translate-x-1 transition-transform" />
+                    </>
+                  )}
+                </button>
+              ) : (
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="group flex items-center gap-2 bg-orange-500 text-white px-8 py-3.5 rounded-full font-semibold hover:bg-orange-600 transition-all shadow-[0_8px_20px_rgba(240,100,0,0.3)] hover:shadow-[0_12px_24px_rgba(240,100,0,0.4)] active:scale-95 disabled:opacity-70 disabled:cursor-not-allowed"
+                >
+                  {isSubmitting ? (
+                    <>
+                      <Loader2 size={18} className="animate-spin" />
+                      Submitting...
+                    </>
+                  ) : (
+                    <>
+                      Submit Enquiry
+                      <CheckCircle size={18} className="group-hover:scale-110 transition-transform" />
+                    </>
+                  )}
+                </button>
+              )}
+            </div>
+          </form>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
