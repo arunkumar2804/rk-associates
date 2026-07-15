@@ -78,6 +78,8 @@ export default function CustomerDetailsForm() {
           widgetId: "36676f726c51393736373938",
           tokenAuth: "548508TXHMu43Uv6a4e3a36P1",
           exposeMethods: true,
+          success: () => {},
+          failure: () => {},
         });
         console.log("MSG91 Initialized.");
       }
