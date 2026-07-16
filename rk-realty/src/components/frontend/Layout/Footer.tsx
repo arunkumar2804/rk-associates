@@ -28,7 +28,7 @@ export const Footer = ({ settings }: FooterProps) => {
   const logoSrc = settings?.logoUrl || "https://www.rkassociates.services/assets/images/3740001c-c500-47a7-ac58-7b72803be0ae.png";
 
   return (
-    <footer style={{ background: '#2B241D', color: '#F7F2EA', paddingTop: 80, paddingBottom: 40 }}>
+    <footer className="pb-28 lg:pb-10" style={{ background: '#2B241D', color: '#F7F2EA', paddingTop: 80 }}>
       <div style={{ maxWidth: 1280, margin: '0 auto', padding: '0 32px' }}>
         <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', gap: 64, marginBottom: 64 }}>
           
@@ -103,8 +103,8 @@ export const Footer = ({ settings }: FooterProps) => {
                 <div>
                   <div style={{ fontSize: 12, color: 'rgba(247,242,234,0.5)', marginBottom: 4 }}>Call Us</div>
                   <div style={{ fontSize: 15, fontWeight: 600 }}>
-                    {settings?.contactNumber1 || "+91 98765 43210"}
-                    {settings?.contactNumber2 && ` / ${settings.contactNumber2}`}
+                    {settings?.contactNumber1 || "+91 8884569830"}
+                    {settings?.contactNumber2 ? ` / ${settings.contactNumber2}` : ' / +91 8884970111'}
                   </div>
                 </div>
               </div>
@@ -114,7 +114,7 @@ export const Footer = ({ settings }: FooterProps) => {
                 </div>
                 <div>
                   <div style={{ fontSize: 12, color: 'rgba(247,242,234,0.5)', marginBottom: 4 }}>Email</div>
-                  <div style={{ fontSize: 15 }}>{settings?.email || "hello@rkassociates.com"}</div>
+                  <div style={{ fontSize: 15 }}>{settings?.email || "rk01forassociates@gmail.com"}</div>
                 </div>
               </div>
               <div style={{ display: 'flex', gap: 16 }}>
@@ -124,7 +124,7 @@ export const Footer = ({ settings }: FooterProps) => {
                 <div>
                   <div style={{ fontSize: 12, color: 'rgba(247,242,234,0.5)', marginBottom: 4 }}>Office</div>
                   <div style={{ fontSize: 14.5, lineHeight: 1.6, color: 'rgba(247,242,234,0.8)', whiteSpace: 'pre-line' }}>
-                    {settings?.officeAddress || "123, 100ft Road, Indiranagar,\nBengaluru, Karnataka 560038"}
+                    {settings?.officeAddress || "#16-K, 11th Cross, 1st Block,\nRajajinagar, Bengaluru – 560010"}
                   </div>
                 </div>
               </div>

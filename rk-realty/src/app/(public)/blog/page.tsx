@@ -10,10 +10,10 @@ export default function BlogPage() {
         Coming Soon
       </div>
       <h1 className="font-sora text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-        Real Estate Insights
+        Insights That Help You Make Smarter Property Decisions
       </h1>
       <p className="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
-        Our experts are busy writing valuable insights, market trends, and guides for the Bengaluru real estate market. Check back soon for our first post!
+        Stay informed with expert perspectives, market trends, investment insights, and practical guidance from Bengaluru's evolving real estate landscape.
       </p>
     </section>
   );

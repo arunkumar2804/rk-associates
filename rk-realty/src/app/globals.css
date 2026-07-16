@@ -108,6 +108,32 @@ body {
   color: var(--fg-main);
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Mobile App Styles */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Hide scrollbar for horizontal scrolling containers */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Safe Area Insets for iOS */
+.pb-safe {
+  padding-bottom: env(safe-area-inset-bottom, 20px);
+}
+.pt-safe {
+  padding-top: env(safe-area-inset-top, 47px); /* To account for dynamic island / notch */
+}
+.mb-safe {
+  margin-bottom: env(safe-area-inset-bottom, 20px);
 }
 
 /* Explicit Custom Classes to completely bypass Tailwind v4 compilation bugs */

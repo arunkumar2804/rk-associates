@@ -1,5 +1,7 @@
 import { Header } from "@/components/frontend/Layout/Header";
 import { Footer } from "@/components/frontend/Layout/Footer";
+import { BottomNavigation } from "@/components/frontend/Layout/BottomNavigation";
+import { FloatingActions } from "@/components/frontend/Shared/FloatingActions";
 import { getSettings } from "@/lib/settings";
 
 export default async function PublicLayout({ children }: { children: React.ReactNode }) {
@@ -14,10 +16,12 @@ export default async function PublicLayout({ children }: { children: React.React
   return (
     <div className="flex flex-col min-h-screen bg-[#F7F2EA] text-[#2B241D]">
       <Header settings={serializedSettings} />
-      <main className="flex-1">
+      <main className="flex-1 pb-16 lg:pb-0">
         {children}
       </main>
+      <FloatingActions contactNumber1={settings?.contactNumber1} />
       <Footer settings={serializedSettings} />
+      <BottomNavigation />
     </div>
   );
 }
