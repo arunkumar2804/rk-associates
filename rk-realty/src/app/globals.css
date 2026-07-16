@@ -114,6 +114,7 @@ body {
 /* Mobile App Styles */
 html {
   scroll-behavior: smooth;
+  touch-action: manipulation;
 }
 
 /* Hide scrollbar for horizontal scrolling containers */

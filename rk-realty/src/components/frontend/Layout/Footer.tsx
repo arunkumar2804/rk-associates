@@ -30,8 +30,9 @@ export const Footer = ({ settings }: FooterProps) => {
   return (
     <footer className="pb-28 lg:pb-10" style={{ background: '#2B241D', color: '#F7F2EA', paddingTop: 80 }}>
       <div style={{ maxWidth: 1280, margin: '0 auto', padding: '0 32px' }}>
-        <div style={{ display: 'grid', gridTemplateColumns: '2fr 1fr 1fr 1fr', gap: 64, marginBottom: 64 }}>
-          
+        
+        {/* Desktop Version */}
+        <div className="hidden lg:grid" style={{ gridTemplateColumns: '2fr 1fr 1fr 1fr', gap: 64, marginBottom: 64 }}>
           {/* Brand Column */}
           <div>
             <Link href="/" style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 24, textDecoration: 'none' }}>
@@ -130,17 +131,133 @@ export const Footer = ({ settings }: FooterProps) => {
               </div>
             </div>
           </div>
+        </div>
 
+        {/* Mobile App Version */}
+        <div className="lg:hidden flex flex-col mb-12">
+          {/* Brand Column Mobile */}
+          <div className="mb-8">
+            <Link href="/" className="flex items-center gap-3 mb-5 text-none">
+              <img src={logoSrc} alt={companyName} className="h-9 brightness-0 invert object-contain" />
+              <div className="flex flex-col">
+                <span className="font-sora font-bold text-[16px] text-[#F7F2EA] leading-tight">{companyName}</span>
+                <span className="text-[9px] font-semibold text-[#F06400] tracking-wider uppercase">Channel Partner</span>
+              </div>
+            </Link>
+            <p className="text-[14px] leading-relaxed text-[#F7F2EA]/70 mb-6">
+              Your trusted partner in finding premium real estate across Bengaluru. We bring transparency and expertise to your property search.
+            </p>
+            <div className="flex gap-4">
+              {settings?.facebookUrl && (
+                <a href={settings.facebookUrl} target="_blank" rel="noopener noreferrer" className="text-[#F7F2EA]/70 hover:text-[#F06400] transition-colors">
+                  <Facebook size={20} />
+                </a>
+              )}
+              {settings?.instagramUrl && (
+                <a href={settings.instagramUrl} target="_blank" rel="noopener noreferrer" className="text-[#F7F2EA]/70 hover:text-[#F06400] transition-colors">
+                  <Instagram size={20} />
+                </a>
+              )}
+              {settings?.twitterUrl && (
+                <a href={settings.twitterUrl} target="_blank" rel="noopener noreferrer" className="text-[#F7F2EA]/70 hover:text-[#F06400] transition-colors">
+                  <Twitter size={20} />
+                </a>
+              )}
+              {settings?.youtubeUrl && (
+                <a href={settings.youtubeUrl} target="_blank" rel="noopener noreferrer" className="text-[#F7F2EA]/70 hover:text-[#F06400] transition-colors">
+                  <Youtube size={20} />
+                </a>
+              )}
+            </div>
+          </div>
+
+          {/* Accordions */}
+          <div className="flex flex-col border-t border-white/10 pt-2">
+            
+            <details className="group border-b border-white/10 py-4 [&_summary::-webkit-details-marker]:hidden">
+              <summary className="flex items-center justify-between cursor-pointer font-sora text-[16px] font-semibold text-[#F7F2EA] select-none touch-manipulation">
+                Quick Links
+                <span className="transition duration-300 group-open:-rotate-180 text-white/50">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="m6 9 6 6 6-6"/></svg>
+                </span>
+              </summary>
+              <div className="flex flex-col gap-4 pt-5 pb-2">
+                <Link href="/about" className="text-[14.5px] text-white/70 block py-1">About Us</Link>
+                <Link href="/services" className="text-[14.5px] text-white/70 block py-1">Our Services</Link>
+                <Link href="/properties" className="text-[14.5px] text-white/70 block py-1">Latest Properties</Link>
+                <Link href="/blog" className="text-[14.5px] text-white/70 block py-1">Real Estate Blog</Link>
+                <Link href="/contact" className="text-[14.5px] text-white/70 block py-1">Contact Us</Link>
+              </div>
+            </details>
+
+            <details className="group border-b border-white/10 py-4 [&_summary::-webkit-details-marker]:hidden">
+              <summary className="flex items-center justify-between cursor-pointer font-sora text-[16px] font-semibold text-[#F7F2EA] select-none touch-manipulation">
+                Top Developers
+                <span className="transition duration-300 group-open:-rotate-180 text-white/50">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="m6 9 6 6 6-6"/></svg>
+                </span>
+              </summary>
+              <div className="flex flex-col gap-4 pt-5 pb-2">
+                <Link href="/properties" className="text-[14.5px] text-white/70 block py-1">Prestige Group</Link>
+                <Link href="/properties" className="text-[14.5px] text-white/70 block py-1">Sobha Limited</Link>
+                <Link href="/properties" className="text-[14.5px] text-white/70 block py-1">Godrej Properties</Link>
+                <Link href="/properties" className="text-[14.5px] text-white/70 block py-1">Brigade Group</Link>
+                <Link href="/properties" className="text-[14.5px] text-white/70 block py-1">Sattva Group</Link>
+              </div>
+            </details>
+
+            <details className="group border-b border-white/10 py-4 [&_summary::-webkit-details-marker]:hidden">
+              <summary className="flex items-center justify-between cursor-pointer font-sora text-[16px] font-semibold text-[#F7F2EA] select-none touch-manipulation">
+                Contact Us
+                <span className="transition duration-300 group-open:-rotate-180 text-white/50">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><path d="m6 9 6 6 6-6"/></svg>
+                </span>
+              </summary>
+              <div className="flex flex-col gap-5 pt-5 pb-2">
+                <div className="flex gap-4">
+                  <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center shrink-0">
+                    <Phone size={18} color="#F06400" />
+                  </div>
+                  <div className="flex flex-col justify-center">
+                    <div className="text-[11px] text-white/50 font-semibold uppercase tracking-wider mb-0.5">Call Us</div>
+                    <div className="text-[14px] font-semibold text-white/90">
+                      {settings?.contactNumber1 || "+91 8884569830"}
+                    </div>
+                  </div>
+                </div>
+                <div className="flex gap-4">
+                  <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center shrink-0">
+                    <Mail size={18} color="#F06400" />
+                  </div>
+                  <div className="flex flex-col justify-center">
+                    <div className="text-[11px] text-white/50 font-semibold uppercase tracking-wider mb-0.5">Email</div>
+                    <div className="text-[14px] font-semibold text-white/90">{settings?.email || "rk01forassociates@gmail.com"}</div>
+                  </div>
+                </div>
+                <div className="flex gap-4">
+                  <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center shrink-0">
+                    <MapPin size={18} color="#F06400" />
+                  </div>
+                  <div className="flex flex-col justify-center">
+                    <div className="text-[11px] text-white/50 font-semibold uppercase tracking-wider mb-0.5">Office</div>
+                    <div className="text-[14px] leading-snug text-white/80 pr-4">
+                      {settings?.officeAddress || "#16-K, 11th Cross, 1st Block, Rajajinagar, Bengaluru"}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </details>
+          </div>
         </div>
 
         {/* Bottom Bar */}
-        <div style={{ paddingTop: 32, borderTop: '1px solid rgba(247,242,234,0.1)', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <div style={{ fontSize: 13, color: 'rgba(247,242,234,0.5)' }}>
+        <div className="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-center gap-4 text-center md:text-left">
+          <div className="text-[12px] text-white/50">
             © {new Date().getFullYear()} {companyName}. All rights reserved.
           </div>
-          <div style={{ display: 'flex', gap: 24 }}>
-            <a href="#" className="btn-hover" style={{ textDecoration: 'none', fontSize: 13, color: 'rgba(247,242,234,0.5)' }}>Privacy Policy</a>
-            <a href="#" className="btn-hover" style={{ textDecoration: 'none', fontSize: 13, color: 'rgba(247,242,234,0.5)' }}>Terms of Service</a>
+          <div className="flex gap-6">
+            <a href="#" className="btn-hover text-[12px] text-white/50">Privacy Policy</a>
+            <a href="#" className="btn-hover text-[12px] text-white/50">Terms of Service</a>
           </div>
         </div>
       </div>
