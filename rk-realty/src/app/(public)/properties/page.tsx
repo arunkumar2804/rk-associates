@@ -1,5 +1,5 @@
-import { prisma } from "@/lib/prisma";
 import { getSettings } from "@/lib/settings";
+import { propertiesData } from "@/data/properties";
 import { Metadata } from "next";
 import PropertiesClient from "./PropertiesClient";
 
@@ -12,14 +12,7 @@ export async function generateMetadata(): Promise<Metadata> {
 }
 
 export default async function PropertiesPage() {
-  const properties = await prisma.property.findMany({
-    where: { status: "ACTIVE" },
-    include: {
-      configurations: true,
-      builder: true,
-    },
-    orderBy: { createdAt: "desc" },
-  });
+  const properties = propertiesData;
 
   const rentals = [
     {

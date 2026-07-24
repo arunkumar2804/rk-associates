@@ -1,5 +1,5 @@
-import { prisma } from "@/lib/prisma";
 import { notFound } from "next/navigation";
+import { propertiesData } from "@/data/properties";
 import { MapPin, Calendar, FileText, CheckCircle2, ChevronDown, BedDouble, Maximize } from "lucide-react";
 import PropertyEnquiryForm from "./PropertyEnquiryForm";
 import { Metadata } from "next";
@@ -10,9 +10,7 @@ interface Props {
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { slug } = await params;
-  const property = await prisma.property.findUnique({
-    where: { slug },
-  });
+  const property = propertiesData.find(p => p.slug === slug);
 
   if (!property) return { title: "Property Not Found" };
 
@@ -24,15 +22,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 
 export default async function PropertyDetailPage({ params }: Props) {
   const { slug } = await params;
-  const property = await prisma.property.findUnique({
-    where: { slug },
-    include: {
-      builder: true,
-      configurations: true,
-      galleryImages: true,
-      floorPlans: true,
-    },
-  });
+  const property = propertiesData.find(p => p.slug === slug);
 
   if (!property) {
     notFound();

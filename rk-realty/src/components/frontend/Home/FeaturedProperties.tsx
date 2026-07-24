@@ -1,17 +1,9 @@
-import { prisma } from '@/lib/prisma';
+import { propertiesData } from '@/data/properties';
 import Link from 'next/link';
 import { MapPin, Bed, Maximize, Heart, Share2, ArrowRight } from 'lucide-react';
 
 export const FeaturedProperties = async () => {
-  const properties = await prisma.property.findMany({
-    where: { isFeatured: true, status: 'ACTIVE' },
-    include: {
-      configurations: true,
-      builder: true,
-    },
-    take: 3,
-    orderBy: { createdAt: 'desc' }
-  });
+  const properties = propertiesData.filter(p => p.isFeatured && p.status === 'ACTIVE').slice(0, 3);
 
   return (
     <section className="w-full">

@@ -5,18 +5,10 @@ import Link from "next/link";
 export default async function DashboardPage() {
   // Fetch real counts from Prisma
   const [
-    totalProperties,
-    activeProperties,
-    soldProperties,
-    totalBuilders,
     totalEnquiries,
     totalCustomers,
     recentEnquiries,
   ] = await Promise.all([
-    prisma.property.count(),
-    prisma.property.count({ where: { status: "ACTIVE" } }),
-    prisma.property.count({ where: { status: "SOLD_OUT" } }),
-    prisma.builder.count(),
     prisma.enquiry.count(),
     prisma.customer.count(),
     prisma.enquiry.findMany({
@@ -41,42 +33,7 @@ export default async function DashboardPage() {
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-        {/* Properties Card */}
-        <div className="bg-card border border-border rounded-2xl p-6 shadow-sm flex flex-col justify-between">
-          <div className="flex justify-between items-start">
-            <div>
-              <p className="text-xs font-bold text-accent uppercase tracking-wider mb-1">Total Properties</p>
-              <h3 className="text-4xl font-black text-foreground">{totalProperties}</h3>
-            </div>
-            <div className="p-3 bg-primary/10 rounded-xl text-primary">
-              <Building size={24} />
-            </div>
-          </div>
-          <div className="mt-4 flex items-center gap-4 text-xs font-medium text-accent">
-            <span className="flex items-center gap-1 text-green-600 bg-green-50 px-2 py-1 rounded-md">
-              {activeProperties} Active
-            </span>
-            <span>{soldProperties} Sold</span>
-          </div>
-        </div>
 
-        {/* Builders Card */}
-        <div className="bg-card border border-border rounded-2xl p-6 shadow-sm flex flex-col justify-between">
-          <div className="flex justify-between items-start">
-            <div>
-              <p className="text-xs font-bold text-accent uppercase tracking-wider mb-1">Total Builders</p>
-              <h3 className="text-4xl font-black text-foreground">{totalBuilders}</h3>
-            </div>
-            <div className="p-3 bg-blue-50 rounded-xl text-blue-600">
-              <Briefcase size={24} />
-            </div>
-          </div>
-          <div className="mt-4 flex items-center text-xs font-medium text-accent">
-            <Link href="/admin/builders" className="flex items-center hover:text-primary transition-colors">
-              Manage Builders <ArrowUpRight size={14} className="ml-1" />
-            </Link>
-          </div>
-        </div>
 
         {/* Enquiries Card */}
         <div className="bg-card border border-border rounded-2xl p-6 shadow-sm flex flex-col justify-between">

@@ -18,8 +18,6 @@ import clsx from "clsx";
 
 const navItems = [
   { name: "Dashboard", href: "/admin", icon: LayoutDashboard },
-  { name: "Properties", href: "/admin/properties", icon: Building },
-  { name: "Builders", href: "/admin/builders", icon: Building },
   { name: "Enquiries", href: "/admin/enquiries", icon: MessageSquare },
   { name: "Customers", href: "/admin/customers", icon: Users },
   { name: "Settings", href: "/admin/settings", icon: Settings },
