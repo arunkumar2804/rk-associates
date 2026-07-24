@@ -3,23 +3,17 @@
 import { useState, useTransition } from "react";
 import { useRouter } from "next/navigation";
 import { createProperty, updateProperty, PropertyData } from "@/app/actions/property";
-import { Builder, Location, PropertyType, Amenity } from "@prisma/client";
+import { Builder } from "@prisma/client";
 import { Plus, Trash2, Loader2, Upload, X } from "lucide-react";
 
 type Configuration = { type: string; area: string; price: string };
 
 export default function PropertyForm({
   builders,
-  locations,
-  propertyTypes,
-  amenities,
   initialData,
   propertyId,
 }: {
   builders: Builder[];
-  locations: Location[];
-  propertyTypes: PropertyType[];
-  amenities: Amenity[];
   initialData?: PropertyData;
   propertyId?: string;
 }) {
@@ -33,8 +27,8 @@ export default function PropertyForm({
       name: "",
       slug: "",
       builderId: "",
-      locationId: "",
-      propertyTypeId: "",
+      locationName: "",
+      propertyTypeName: "",
       status: "ACTIVE",
       isFeatured: false,
       startingPrice: "",
@@ -45,7 +39,7 @@ export default function PropertyForm({
       brochurePdf: "",
       seoTitle: "",
       seoDescription: "",
-      amenityIds: [],
+      amenities: "",
       galleryImages: [],
       floorPlans: [],
       configurations: [],
@@ -71,14 +65,7 @@ export default function PropertyForm({
     }
   };
 
-  const handleAmenityToggle = (id: string) => {
-    setFormData(prev => ({
-      ...prev,
-      amenityIds: prev.amenityIds.includes(id) 
-        ? prev.amenityIds.filter(aId => aId !== id)
-        : [...prev.amenityIds, id]
-    }));
-  };
+
 
   // Upload Helpers
   const uploadFile = async (file: File) => {
@@ -152,8 +139,8 @@ export default function PropertyForm({
     e.preventDefault();
     setError(null);
 
-    if (!formData.builderId || !formData.locationId || !formData.propertyTypeId) {
-      setError("Please select a Builder, Location, and Property Type.");
+    if (!formData.locationName || !formData.propertyTypeName) {
+      setError("Please specify a Location and Property Type.");
       return;
     }
 
@@ -187,25 +174,19 @@ export default function PropertyForm({
             <input type="text" name="slug" required value={formData.slug} onChange={handleChange} className="w-full px-4 py-2 border border-border bg-background rounded-lg text-foreground focus:ring-2 focus:ring-primary" placeholder="sobha-dream-acres" />
           </div>
           <div>
-            <label className="block text-sm font-semibold text-foreground mb-1">Builder *</label>
-            <select name="builderId" required value={formData.builderId} onChange={handleChange} className="w-full px-4 py-2 border border-border bg-background rounded-lg text-foreground focus:ring-2 focus:ring-primary">
+            <label className="block text-sm font-semibold text-foreground mb-1">Builder</label>
+            <select name="builderId" value={formData.builderId} onChange={handleChange} className="w-full px-4 py-2 border border-border bg-background rounded-lg text-foreground focus:ring-2 focus:ring-primary">
               <option value="">Select a Builder</option>
               {builders.map(b => <option key={b.id} value={b.id}>{b.name}</option>)}
             </select>
           </div>
           <div>
             <label className="block text-sm font-semibold text-foreground mb-1">Location *</label>
-            <select name="locationId" required value={formData.locationId} onChange={handleChange} className="w-full px-4 py-2 border border-border bg-background rounded-lg text-foreground focus:ring-2 focus:ring-primary">
-              <option value="">Select a Location</option>
-              {locations.map(l => <option key={l.id} value={l.id}>{l.name}</option>)}
-            </select>
+            <input type="text" name="locationName" required value={formData.locationName} onChange={handleChange} className="w-full px-4 py-2 border border-border bg-background rounded-lg text-foreground focus:ring-2 focus:ring-primary" placeholder="e.g. Rajajinagar, Bengaluru" />
           </div>
           <div>
             <label className="block text-sm font-semibold text-foreground mb-1">Property Type *</label>
-            <select name="propertyTypeId" required value={formData.propertyTypeId} onChange={handleChange} className="w-full px-4 py-2 border border-border bg-background rounded-lg text-foreground focus:ring-2 focus:ring-primary">
-              <option value="">Select a Type</option>
-              {propertyTypes.map(t => <option key={t.id} value={t.id}>{t.name}</option>)}
-            </select>
+            <input type="text" name="propertyTypeName" required value={formData.propertyTypeName} onChange={handleChange} className="w-full px-4 py-2 border border-border bg-background rounded-lg text-foreground focus:ring-2 focus:ring-primary" placeholder="e.g. Apartment, Villa" />
           </div>
           <div className="flex gap-4">
             <div className="flex-1">
@@ -229,8 +210,8 @@ export default function PropertyForm({
         <h3 className="text-xl font-bold text-foreground mb-6">Pricing & Details</h3>
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
-            <label className="block text-sm font-semibold text-foreground mb-1">Starting Price *</label>
-            <input type="text" name="startingPrice" required value={formData.startingPrice} onChange={handleChange} className="w-full px-4 py-2 border border-border bg-background rounded-lg text-foreground focus:ring-2 focus:ring-primary" placeholder="e.g. ₹ 60 Lakhs" />
+            <label className="block text-sm font-semibold text-foreground mb-1">Starting Price</label>
+            <input type="text" name="startingPrice" value={formData.startingPrice || ""} onChange={handleChange} className="w-full px-4 py-2 border border-border bg-background rounded-lg text-foreground focus:ring-2 focus:ring-primary" placeholder="e.g. ₹ 60 Lakhs" />
           </div>
           <div>
             <label className="block text-sm font-semibold text-foreground mb-1">RERA Number</label>
@@ -349,18 +330,16 @@ export default function PropertyForm({
       {/* Amenities Grid */}
       <div className="bg-card border border-border rounded-2xl shadow-sm p-8">
         <h3 className="text-xl font-bold text-foreground mb-6">Amenities</h3>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-          {amenities.map(amenity => (
-            <label key={amenity.id} className="flex items-center gap-3 p-3 border border-border rounded-lg cursor-pointer hover:bg-background transition-colors">
-              <input 
-                type="checkbox" 
-                checked={formData.amenityIds.includes(amenity.id)} 
-                onChange={() => handleAmenityToggle(amenity.id)}
-                className="w-5 h-5 accent-primary"
-              />
-              <span className="text-sm font-medium text-foreground">{amenity.name}</span>
-            </label>
-          ))}
+        <div className="w-full">
+          <label className="block text-sm font-semibold text-foreground mb-2">Comma Separated Amenities</label>
+          <textarea 
+            name="amenities" 
+            rows={4} 
+            value={formData.amenities || ""} 
+            onChange={handleChange} 
+            className="w-full px-4 py-2 border border-border bg-background rounded-lg text-foreground focus:ring-2 focus:ring-primary" 
+            placeholder="e.g. Swimming Pool, Gym, Club House, 24/7 Security"
+          ></textarea>
         </div>
       </div>
 

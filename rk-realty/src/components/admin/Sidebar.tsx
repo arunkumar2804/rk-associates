@@ -22,9 +22,6 @@ const navItems = [
   { name: "Builders", href: "/admin/builders", icon: Building },
   { name: "Enquiries", href: "/admin/enquiries", icon: MessageSquare },
   { name: "Customers", href: "/admin/customers", icon: Users },
-  { name: "Locations", href: "/admin/locations", icon: MapPin },
-  { name: "Amenities", href: "/admin/amenities", icon: Settings },
-  { name: "Property Types", href: "/admin/property-types", icon: Settings },
   { name: "Settings", href: "/admin/settings", icon: Settings },
 ];
 
@@ -52,7 +49,7 @@ export default function Sidebar() {
   const filteredItems = navItems.filter(item => {
     // Hide administrative configurations for non-full-control accounts
     if (!isFullControl) {
-      if (item.name === "Settings" || item.name === "Amenities" || item.name === "Property Types") {
+      if (item.name === "Settings") {
         return false;
       }
     }

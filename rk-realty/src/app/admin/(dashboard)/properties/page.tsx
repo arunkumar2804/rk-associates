@@ -7,8 +7,6 @@ export default async function PropertiesPage() {
   const properties = await prisma.property.findMany({
     include: {
       builder: true,
-      location: true,
-      propertyType: true,
     },
     orderBy: { createdAt: "desc" },
   });

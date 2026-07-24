@@ -95,7 +95,7 @@ export default function PropertiesClient({ properties, rentals }: PropertiesClie
                       </div>
                       <div className="flex items-center gap-1.5 text-[#6B5F52] text-[13px] mb-4">
                         <MapPin size={15} className="text-[#F06400]" />
-                        <span className="truncate">{p.location?.name || "Bengaluru"}</span>
+                        <span className="truncate">{p.locationName || "Bengaluru"}</span>
                       </div>
                     </Link>
 

@@ -15,7 +15,6 @@ export default async function PropertiesPage() {
   const properties = await prisma.property.findMany({
     where: { status: "ACTIVE" },
     include: {
-      location: true,
       configurations: true,
       builder: true,
     },

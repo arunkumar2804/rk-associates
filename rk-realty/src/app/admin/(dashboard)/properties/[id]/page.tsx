@@ -13,26 +13,22 @@ export default async function EditPropertyPage(props: { params: Promise<{ id: st
       configurations: true,
       galleryImages: true,
       floorPlans: true,
-      amenities: true,
     }
   });
 
   if (!property) return notFound();
 
   const builders = await prisma.builder.findMany({ orderBy: { name: "asc" } });
-  const locations = await prisma.location.findMany({ orderBy: { name: "asc" } });
-  const types = await prisma.propertyType.findMany({ orderBy: { name: "asc" } });
-  const amenitiesList = await prisma.amenity.findMany({ orderBy: { name: "asc" } });
 
   const initialData = {
     name: property.name,
     slug: property.slug,
-    builderId: property.builderId,
-    locationId: property.locationId,
-    propertyTypeId: property.propertyTypeId,
+    builderId: property.builderId || "",
+    locationName: property.locationName || "",
+    propertyTypeName: property.propertyTypeName || "",
     status: property.status,
     isFeatured: property.isFeatured,
-    startingPrice: property.startingPrice,
+    startingPrice: property.startingPrice || "",
     possessionDate: property.possessionDate,
     reraNumber: property.reraNumber,
     description: property.description,
@@ -42,7 +38,7 @@ export default async function EditPropertyPage(props: { params: Promise<{ id: st
     seoDescription: property.seoDescription,
     
     // Format relations for the form state
-    amenityIds: property.amenities.map(a => a.amenityId),
+    amenities: property.amenities || "",
     galleryImages: property.galleryImages.map(img => img.url),
     floorPlans: property.floorPlans.map(fp => fp.url),
     configurations: property.configurations.map(conf => ({
@@ -70,9 +66,6 @@ export default async function EditPropertyPage(props: { params: Promise<{ id: st
 
       <PropertyForm 
         builders={builders}
-        locations={locations}
-        propertyTypes={types}
-        amenities={amenitiesList}
         initialData={initialData}
         propertyId={property.id}
       />

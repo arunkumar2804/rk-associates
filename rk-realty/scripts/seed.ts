@@ -42,18 +42,7 @@ async function main() {
 
   // --- SEED MASTER DATA ---
 
-  // Locations
-  const locNames = ['Budigere Cross', 'Whitefield', 'Yelahanka', 'Sarjapur'];
-  const locationsMap: Record<string, { id: string }> = {};
-  for (const name of locNames) {
-    const loc = await prisma.location.upsert({
-      where: { name },
-      update: {},
-      create: { name }
-    });
-    locationsMap[name] = loc;
-  }
-  console.log('Locations seeded.');
+  // Locations, Property Types, and Amenities are now free-text fields on Property.
 
   // Builders
   const buildersData = [
@@ -62,9 +51,8 @@ async function main() {
     { name: 'Sobha Limited', description: 'Pioneers of quality and execution excellence.' },
     { name: 'Sattva Group', description: 'Shaping Bengaluru\'s skyline with premium projects.' }
   ];
-  const buildersMap: Record<string, { id: string }> = {};
   for (const b of buildersData) {
-    const builder = await prisma.builder.upsert({
+    await prisma.builder.upsert({
       where: { id: b.name.toLowerCase().replace(/ /g, '-') },
       update: {},
       create: {
@@ -73,35 +61,8 @@ async function main() {
         description: b.description
       }
     });
-    buildersMap[b.name] = builder;
   }
   console.log('Builders seeded.');
-
-  // Property Types
-  const typesList = ['Apartment', 'Villa', 'Plot'];
-  const typesMap: Record<string, { id: string }> = {};
-  for (const name of typesList) {
-    const t = await prisma.propertyType.upsert({
-      where: { name },
-      update: {},
-      create: { name }
-    });
-    typesMap[name] = t;
-  }
-  console.log('Property Types seeded.');
-
-  // Amenities
-  const amenitiesList = ['Swimming Pool', 'Gymnasium', '24/7 Security', 'Clubhouse', 'Power Backup'];
-  const amenitiesMap: Record<string, { id: string }> = {};
-  for (const name of amenitiesList) {
-    const a = await prisma.amenity.upsert({
-      where: { name },
-      update: {},
-      create: { name }
-    });
-    amenitiesMap[name] = a;
-  }
-  console.log('Amenities seeded.');
 
   // --- SEED PROPERTIES ---
   const propertiesData = [
@@ -159,19 +120,15 @@ async function main() {
   ];
 
   for (const p of propertiesData) {
-    const builder = buildersMap[p.builderName];
-    const location = locationsMap[p.locationName];
-    const propertyType = typesMap[p.typeName];
-
     const prop = await prisma.property.upsert({
       where: { slug: p.slug },
       update: {},
       create: {
         name: p.name,
         slug: p.slug,
-        builderId: builder.id,
-        locationId: location.id,
-        propertyTypeId: propertyType.id,
+        builderId: p.builderName.toLowerCase().replace(/ /g, '-'),
+        locationName: p.locationName,
+        propertyTypeName: p.typeName,
         startingPrice: p.startingPrice,
         coverImage: p.coverImage,
         reraNumber: p.reraNumber,
@@ -179,6 +136,7 @@ async function main() {
         possessionDate: p.possessionDate,
         isFeatured: p.isFeatured,
         status: 'ACTIVE',
+        amenities: 'Swimming Pool, Gymnasium, 24/7 Security, Clubhouse, Power Backup'
       }
     });
 
@@ -193,19 +151,8 @@ async function main() {
         }
       });
     }
-
-    // Link amenities
-    for (const aName of amenitiesList) {
-      const a = amenitiesMap[aName];
-      await prisma.propertyAmenity.create({
-        data: {
-          propertyId: prop.id,
-          amenityId: a.id
-        }
-      });
-    }
   }
-  console.log('Properties and child relations seeded successfully.');
+  console.log('Properties seeded successfully.');
 }
 
 main()

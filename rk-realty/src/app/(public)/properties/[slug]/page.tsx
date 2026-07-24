@@ -27,22 +27,18 @@ export default async function PropertyDetailPage({ params }: Props) {
   const property = await prisma.property.findUnique({
     where: { slug },
     include: {
-      location: true,
       builder: true,
       configurations: true,
       galleryImages: true,
       floorPlans: true,
-      amenities: {
-        include: {
-          amenity: true,
-        },
-      },
     },
   });
 
   if (!property) {
     notFound();
   }
+
+  const amenityList = property.amenities ? property.amenities.split(',').map((a: string) => a.trim()).filter((a: string) => a) : [];
 
   return (
     <div className="w-full">
@@ -57,21 +53,23 @@ export default async function PropertyDetailPage({ params }: Props) {
           <div style={{ position: "absolute", inset: 0, background: "linear-gradient(to top, rgba(43,36,29,0.9) 0%, rgba(43,36,29,0.3) 50%, rgba(43,36,29,0.1) 100%)" }} />
           <div style={{ position: "absolute", bottom: 0, left: 0, right: 0, maxWidth: 1280, margin: "0 auto", padding: "0 32px 48px", color: "#F7F2EA" }}>
             <div style={{ display: "flex", gap: 12, alignItems: "center", marginBottom: 16 }}>
-              {property.builder.logo && (
+              {property.builder?.logo && (
                 <img 
                   src={property.builder.logo} 
                   alt={property.builder.name} 
                   style={{ height: 36, objectFit: "contain", background: "#FFFFFF", padding: "4px 8px", borderRadius: 6 }} 
                 />
               )}
-              <span style={{ fontSize: 13, fontWeight: 700, color: "#F06400", letterSpacing: 1, textTransform: "uppercase" }}>
-                {property.builder.name}
-              </span>
+              {property.builder && (
+                <span style={{ fontSize: 13, fontWeight: 700, color: "#F06400", letterSpacing: 1, textTransform: "uppercase" }}>
+                  {property.builder.name}
+                </span>
+              )}
             </div>
             <h1 style={{ fontFamily: '"Sora", sans-serif', fontSize: 44, fontWeight: 700, marginBottom: 12 }}>{property.name}</h1>
             <div style={{ display: "flex", flexWrap: "wrap", gap: 24, fontSize: 15, color: "rgba(247,242,234,0.85)" }}>
               <span style={{ display: "flex", alignItems: "center", gap: 6 }}>
-                <MapPin size={18} color="#F06400" /> {property.location.name}
+                <MapPin size={18} color="#F06400" /> {property.locationName || "Bengaluru"}
               </span>
               {property.reraNumber && (
                 <span style={{ display: "flex", alignItems: "center", gap: 6 }}>
@@ -143,21 +141,17 @@ export default async function PropertyDetailPage({ params }: Props) {
                 </div>
               )}
 
-              {property.amenities.length > 0 && (
+              {amenityList.length > 0 && (
                 <div>
                   <h2 style={{ fontFamily: '"Sora", sans-serif', fontSize: 24, fontWeight: 600, color: "#2B241D", marginBottom: 20 }}>Project Amenities</h2>
                   <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16 }}>
-                    {property.amenities.map(({ amenity }) => (
+                    {amenityList.map((amenityName: string, index: number) => (
                       <div 
-                        key={amenity.id} 
+                        key={index} 
                         style={{ background: "#FFFFFF", padding: "16px 20px", borderRadius: 12, border: "1px solid rgba(43,36,29,0.06)", display: "flex", alignItems: "center", gap: 12 }}
                       >
-                        {amenity.iconUrl ? (
-                          <img src={amenity.iconUrl} alt={amenity.name} style={{ width: 24, height: 24, objectFit: "contain", flex: "none" }} />
-                        ) : (
-                          <CheckCircle2 size={20} color="#F06400" style={{ flex: "none" }} />
-                        )}
-                        <span style={{ fontSize: 14.5, fontWeight: 500, color: "#4A4038" }}>{amenity.name}</span>
+                        <CheckCircle2 size={20} color="#F06400" style={{ flex: "none" }} />
+                        <span style={{ fontSize: 14.5, fontWeight: 500, color: "#4A4038" }}>{amenityName}</span>
                       </div>
                     ))}
                   </div>
@@ -228,7 +222,7 @@ export default async function PropertyDetailPage({ params }: Props) {
             
             <div className="flex items-center gap-2 text-white/90 text-[14px]">
               <MapPin size={16} className="text-[#F06400]" />
-              <span className="truncate">{property.location.name}</span>
+              <span className="truncate">{property.locationName || "Bengaluru"}</span>
             </div>
           </div>
         </div>
@@ -241,7 +235,7 @@ export default async function PropertyDetailPage({ params }: Props) {
                 <span className="text-[11px] text-[#8A7B5C] font-bold uppercase tracking-wider mb-1">Starting Price</span>
                 <span className="font-sora text-[22px] font-bold text-[#F06400] leading-none">{property.startingPrice}</span>
               </div>
-              {property.builder.logo && (
+              {property.builder?.logo && (
                 <img src={property.builder.logo} alt={property.builder.name} className="h-8 object-contain mix-blend-multiply" />
               )}
             </div>
@@ -308,7 +302,7 @@ export default async function PropertyDetailPage({ params }: Props) {
           )}
 
           {/* Amenities Accordion */}
-          {property.amenities.length > 0 && (
+          {amenityList.length > 0 && (
             <details className="group bg-white rounded-2xl shadow-sm border border-black/5 overflow-hidden [&_summary::-webkit-details-marker]:hidden">
               <summary className="flex items-center justify-between p-5 font-sora font-bold text-[#2B241D] cursor-pointer list-none select-none">
                 Amenities
@@ -316,14 +310,10 @@ export default async function PropertyDetailPage({ params }: Props) {
               </summary>
               <div className="p-4 pt-0 border-t border-black/5 mt-1">
                 <div className="grid grid-cols-2 gap-3 mt-4">
-                  {property.amenities.map(({ amenity }) => (
-                    <div key={amenity.id} className="flex items-center gap-3 bg-gray-50/50 p-3 rounded-xl border border-black/5">
-                      {amenity.iconUrl ? (
-                        <img src={amenity.iconUrl} alt={amenity.name} className="w-6 h-6 object-contain" />
-                      ) : (
-                        <CheckCircle2 size={18} className="text-[#F06400]" />
-                      )}
-                      <span className="text-[12.5px] font-medium text-[#4A4038] leading-tight">{amenity.name}</span>
+                  {amenityList.map((amenityName: string, index: number) => (
+                    <div key={index} className="flex items-center gap-3 bg-gray-50/50 p-3 rounded-xl border border-black/5">
+                      <CheckCircle2 size={18} className="text-[#F06400]" />
+                      <span className="text-[12.5px] font-medium text-[#4A4038] leading-tight">{amenityName}</span>
                     </div>
                   ))}
                 </div>

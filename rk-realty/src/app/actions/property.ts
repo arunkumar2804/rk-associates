@@ -15,12 +15,12 @@ async function verifyFullControl() {
 export type PropertyData = {
   name: string;
   slug: string;
-  builderId: string;
-  locationId: string;
-  propertyTypeId: string;
+  builderId?: string;
+  locationName: string;
+  propertyTypeName: string;
   status: string;
   isFeatured: boolean;
-  startingPrice: string;
+  startingPrice?: string;
   possessionDate?: Date | null;
   reraNumber?: string | null;
   description?: string | null;
@@ -30,7 +30,7 @@ export type PropertyData = {
   seoDescription?: string | null;
   
   // Relations
-  amenityIds: string[];
+  amenities: string;
   galleryImages: string[];
   floorPlans: string[];
   configurations: { type: string; area: string; price: string | null }[];
@@ -43,9 +43,9 @@ export async function createProperty(data: PropertyData) {
       data: {
         name: data.name,
         slug: data.slug,
-        builderId: data.builderId,
-        locationId: data.locationId,
-        propertyTypeId: data.propertyTypeId,
+        builderId: data.builderId || undefined,
+        locationName: data.locationName,
+        propertyTypeName: data.propertyTypeName,
         status: data.status,
         isFeatured: data.isFeatured,
         startingPrice: data.startingPrice,
@@ -57,12 +57,8 @@ export async function createProperty(data: PropertyData) {
         seoTitle: data.seoTitle,
         seoDescription: data.seoDescription,
         
-        // Nested creations
-        amenities: {
-          create: data.amenityIds.map(id => ({
-            amenity: { connect: { id } }
-          }))
-        },
+        // Flat fields
+        amenities: data.amenities,
         galleryImages: {
           create: data.galleryImages.map(url => ({ url }))
         },
@@ -98,7 +94,6 @@ export async function updateProperty(id: string, data: PropertyData) {
     // For updates with many-to-many and one-to-many relations, 
     // it's often safest to delete the old relations and recreate them
     await prisma.$transaction([
-      prisma.propertyAmenity.deleteMany({ where: { propertyId: id } }),
       prisma.propertyImage.deleteMany({ where: { propertyId: id } }),
       prisma.propertyFloorPlan.deleteMany({ where: { propertyId: id } }),
       prisma.configuration.deleteMany({ where: { propertyId: id } }),
@@ -108,9 +103,9 @@ export async function updateProperty(id: string, data: PropertyData) {
         data: {
           name: data.name,
           slug: data.slug,
-          builderId: data.builderId,
-          locationId: data.locationId,
-          propertyTypeId: data.propertyTypeId,
+          builderId: data.builderId || undefined,
+          locationName: data.locationName,
+          propertyTypeName: data.propertyTypeName,
           status: data.status,
           isFeatured: data.isFeatured,
           startingPrice: data.startingPrice,
@@ -122,11 +117,7 @@ export async function updateProperty(id: string, data: PropertyData) {
           seoTitle: data.seoTitle,
           seoDescription: data.seoDescription,
           
-          amenities: {
-            create: data.amenityIds.map(amenityId => ({
-              amenity: { connect: { id: amenityId } }
-            }))
-          },
+          amenities: data.amenities,
           galleryImages: {
             create: data.galleryImages.map(url => ({ url }))
           },

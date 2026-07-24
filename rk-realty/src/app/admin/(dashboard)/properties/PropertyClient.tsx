@@ -4,12 +4,10 @@ import { useState, useTransition } from "react";
 import { Edit, Trash2, ExternalLink } from "lucide-react";
 import { deleteProperty } from "@/app/actions/property";
 import Link from "next/link";
-import { Property, Builder, Location, PropertyType } from "@prisma/client";
+import { Property, Builder } from "@prisma/client";
 
 type PropertyWithRelations = Property & {
-  builder: Builder;
-  location: Location;
-  propertyType: PropertyType;
+  builder: Builder | null;
 };
 
 export default function PropertyClient({ initialProperties }: { initialProperties: PropertyWithRelations[] }) {
@@ -74,11 +72,11 @@ export default function PropertyClient({ initialProperties }: { initialPropertie
                   </div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
-                  <div className="text-sm font-medium text-foreground">{property.builder.name}</div>
-                  <div className="text-xs text-accent">{property.location.name}</div>
+                  <div className="text-sm font-medium text-foreground">{property.builder?.name || "No Builder"}</div>
+                  <div className="text-xs text-accent">{property.locationName || "No Location"}</div>
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap text-sm text-foreground">
-                  {property.propertyType.name}
+                  {property.propertyTypeName || "N/A"}
                 </td>
                 <td className="px-6 py-4 whitespace-nowrap">
                   <span className={`px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${

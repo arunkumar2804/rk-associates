@@ -6,7 +6,6 @@ export const FeaturedProperties = async () => {
   const properties = await prisma.property.findMany({
     where: { isFeatured: true, status: 'ACTIVE' },
     include: {
-      location: true,
       configurations: true,
       builder: true,
     },
@@ -50,7 +49,7 @@ export const FeaturedProperties = async () => {
                 </div>
                 <div style={{ padding: '22px 22px 24px' }}>
                   <div style={{ fontFamily: '"Sora", sans-serif', fontSize: 17, fontWeight: 600, marginBottom: 4 }}>{p.name}</div>
-                  <div style={{ fontSize: 13, color: '#8A7B5C', marginBottom: 14 }}>{p.location?.name || 'Bengaluru'}</div>
+                  <div style={{ fontSize: 13, color: '#8A7B5C', marginBottom: 14 }}>{p.locationName || 'Bengaluru'}</div>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: 14, borderTop: '1px solid rgba(43,36,29,0.08)' }}>
                     <span style={{ fontFamily: '"Sora", sans-serif', fontWeight: 600, color: '#2B241D' }}>{p.startingPrice || 'On Request'}</span>
                     <span style={{ fontSize: 12.5, color: '#6B5F52' }}>{types || 'Various'}</span>
@@ -111,7 +110,7 @@ export const FeaturedProperties = async () => {
                   
                   <div className="flex items-center gap-1 text-[#6B5F52] text-[13px] mb-4">
                     <MapPin size={14} className="text-[#F06400]" />
-                    <span className="truncate">{p.location?.name || 'Bengaluru'}</span>
+                    <span className="truncate">{p.locationName || 'Bengaluru'}</span>
                   </div>
 
                   <div className="flex gap-4 mb-5 border-y border-[rgba(43,36,29,0.06)] py-3">

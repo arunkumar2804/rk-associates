@@ -21,24 +21,7 @@ model User {
 
 // --- MASTER LISTS ---
 
-model Amenity {
-  id        String     @id @default(cuid())
-  name      String     @unique
-  iconUrl   String?
-  properties PropertyAmenity[]
-}
-
-model PropertyType {
-  id        String     @id @default(cuid())
-  name      String     @unique
-  properties Property[]
-}
-
-model Location {
-  id        String     @id @default(cuid())
-  name      String     @unique
-  properties Property[]
-}
+// Removed Amenity, PropertyType, and Location models to allow free-text input and flexible properties.
 
 // --- CORE MODELS ---
 
@@ -56,16 +39,14 @@ model Property {
   id              String         @id @default(cuid())
   name            String
   slug            String         @unique
-  builderId       String
-  builder         Builder        @relation(fields: [builderId], references: [id])
-  locationId      String
-  location        Location       @relation(fields: [locationId], references: [id])
-  propertyTypeId  String
-  propertyType    PropertyType   @relation(fields: [propertyTypeId], references: [id])
+  builderId       String?
+  builder         Builder?       @relation(fields: [builderId], references: [id])
+  locationName    String?
+  propertyTypeName String?
   status          String         @default("ACTIVE")
   isFeatured      Boolean        @default(false)
   
-  startingPrice   String
+  startingPrice   String?
   possessionDate  DateTime?
   reraNumber      String?
   description     String?
@@ -77,7 +58,8 @@ model Property {
   configurations  Configuration[]
   galleryImages   PropertyImage[]
   floorPlans      PropertyFloorPlan[]
-  amenities       PropertyAmenity[]
+  
+  amenities       String?        // Comma separated list of amenities
 
   // SEO
   seoTitle        String?
@@ -103,15 +85,7 @@ model PropertyFloorPlan {
   createdAt   DateTime @default(now())
 }
 
-// Many-to-many relation table for Property <-> Amenity
-model PropertyAmenity {
-  propertyId String
-  property   Property @relation(fields: [propertyId], references: [id], onDelete: Cascade)
-  amenityId  String
-  amenity    Amenity  @relation(fields: [amenityId], references: [id], onDelete: Cascade)
-
-  @@id([propertyId, amenityId])
-}
+// Many-to-many relation table for Property <-> Amenity removed
 
 model Configuration {
   id          String   @id @default(cuid())

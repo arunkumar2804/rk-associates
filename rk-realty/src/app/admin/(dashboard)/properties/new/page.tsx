@@ -6,9 +6,6 @@ import { ArrowLeft } from "lucide-react";
 
 export default async function NewPropertyPage() {
   const builders = await prisma.builder.findMany({ orderBy: { name: "asc" } });
-  const locations = await prisma.location.findMany({ orderBy: { name: "asc" } });
-  const types = await prisma.propertyType.findMany({ orderBy: { name: "asc" } });
-  const amenities = await prisma.amenity.findMany({ orderBy: { name: "asc" } });
 
   return (
     <div className="space-y-6">
@@ -28,9 +25,6 @@ export default async function NewPropertyPage() {
 
       <PropertyForm 
         builders={builders}
-        locations={locations}
-        propertyTypes={types}
-        amenities={amenities}
       />
     </div>
   );

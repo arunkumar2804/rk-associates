@@ -29,18 +29,14 @@ export const PageBanner = ({ imageSrc, title, subtitle }: PageBannerProps) => {
         <img 
           src={imageSrc} 
           alt={title} 
-          className="w-full h-full object-cover opacity-60"
+          className="w-full h-full object-cover opacity-100"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-[rgba(43,36,29,0.8)] to-transparent" />
       </motion.div>
       
-      <div className="relative z-10 max-w-4xl mx-auto text-center px-8">
-        <h1 className="font-sora text-4xl md:text-5xl font-bold mb-6 text-[#F7F2EA]">
-          {title}
-        </h1>
-        <p className="text-lg md:text-xl text-[rgba(247,242,234,0.8)]">
-          {subtitle}
-        </p>
+      {/* Visually hidden for SEO since text is removed from the cover image */}
+      <div className="sr-only">
+        <h1>{title}</h1>
+        <p>{subtitle}</p>
       </div>
     </section>
   );
