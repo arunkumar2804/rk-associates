@@ -80,7 +80,7 @@ const DesktopHero = () => {
               <div style={{ position: 'absolute', top: '50%', transform: 'translateY(-50%)', left: 50, width: '75%', maxWidth: 900, color: '#F7F2EA', display: 'flex', alignItems: 'center', gap: 40 }}>
                 {/* Left Column */}
                 <div style={{ flex: '0 0 auto', maxWidth: '50%' }}>
-                  <h1 style={{ fontFamily: '"Giglik Merkia", serif', fontSize: 36, fontWeight: 400, lineHeight: 1.1, whiteSpace: 'pre-line' }}>
+                  <h1 style={{ fontFamily: '"Rastiga", serif', fontSize: 36, fontWeight: 400, lineHeight: 1.1, whiteSpace: 'pre-line' }}>
                     {slide.heading}
                   </h1>
                 </div>
@@ -232,7 +232,7 @@ const MobileHero = () => {
               
               {slide.heading && (
                 <div className="relative z-10 p-4 flex flex-col justify-end h-full">
-                  <h1 className="text-xl text-white mb-2 leading-tight w-[80%] whitespace-pre-line" style={{ fontFamily: '"Giglik Merkia", serif', fontWeight: 400 }}>
+                  <h1 className="text-xl text-white mb-2 leading-tight w-[80%] whitespace-pre-line" style={{ fontFamily: '"Rastiga", serif', fontWeight: 400 }}>
                     {slide.heading}
                   </h1>
                   {slide.subtext && (

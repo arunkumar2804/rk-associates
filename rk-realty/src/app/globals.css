@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 @font-face {
-  font-family: 'Giglik Merkia';
-  src: url('/assets/fonts/giglik-merkia.otf') format('opentype');
+  font-family: 'Rastiga';
+  src: url('/assets/fonts/Rastiga-Regular.woff') format('woff');
   font-weight: normal;
   font-style: normal;
   font-display: swap;
