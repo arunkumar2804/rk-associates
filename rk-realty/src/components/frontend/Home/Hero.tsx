@@ -77,7 +77,7 @@ const DesktopHero = () => {
             {/* Slide Content */}
             {slide.heading && (
               <div style={{ position: 'absolute', top: '50%', transform: 'translateY(-50%)', left: 60, maxWidth: 600, color: '#F7F2EA' }}>
-                <h1 style={{ fontFamily: '"Sora", sans-serif', fontSize: 56, fontWeight: 700, lineHeight: 1.1, marginBottom: 24 }}>
+                <h1 style={{ fontFamily: '"Giglik Merkia", serif', fontSize: 64, fontWeight: 400, lineHeight: 1.1, marginBottom: 24 }}>
                   {slide.heading}
                 </h1>
                 {slide.subtext && (
@@ -218,7 +218,7 @@ const MobileHero = () => {
               
               {slide.heading && (
                 <div className="relative z-10 p-6 flex flex-col justify-end h-full">
-                  <h1 className="text-3xl font-bold text-white mb-3 font-['Sora'] leading-tight">
+                  <h1 className="text-4xl text-white mb-3 leading-tight" style={{ fontFamily: '"Giglik Merkia", serif', fontWeight: 400 }}>
                     {slide.heading}
                   </h1>
                   {slide.subtext && (

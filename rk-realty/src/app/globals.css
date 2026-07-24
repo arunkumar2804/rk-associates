@@ -1,5 +1,13 @@
 @import "tailwindcss";
 
+@font-face {
+  font-family: 'Giglik Merkia';
+  src: url('/assets/fonts/giglik-merkia.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
 :root {
   --bg-main: #F7F2EA;
   --fg-main: #2B241D;
