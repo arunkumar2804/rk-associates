@@ -4,6 +4,8 @@ import { useState } from "react";
 import Link from "next/link";
 import { MapPin, BedDouble, Maximize, ArrowRight, Heart, Share2, Star } from "lucide-react";
 
+import { PageBanner } from "@/components/PageBanner";
+
 interface PropertiesClientProps {
   properties: any[];
   rentals: any[];
@@ -14,23 +16,11 @@ export default function PropertiesClient({ properties, rentals }: PropertiesClie
 
   return (
     <div className="w-full">
-      {/* Desktop Header */}
-      <div className="hidden lg:block">
-        <section style={{ padding: "80px 32px 40px", textAlign: "center" }}>
-          <h1 style={{ fontFamily: '"Sora", sans-serif', fontSize: 48, fontWeight: 700, marginBottom: 20 }}>
-            Discover Bengaluru's Most Exceptional Residences
-          </h1>
-          <p style={{ fontSize: 18, color: "#4A4038", maxWidth: 600, margin: "0 auto" }}>
-            Trusted Projects | Prime Locations | Expert Guidance
-          </p>
-        </section>
-      </div>
-
-      {/* Mobile Header */}
-      <div className="lg:hidden w-full bg-white border-b border-[rgba(43,36,29,0.06)] shadow-sm px-4 py-8">
-        <h1 className="font-sora text-3xl font-bold text-[#2B241D] leading-tight mb-2">Exceptional Residences</h1>
-        <p className="text-[#6B5F52] text-[14px]">Trusted Projects in Bengaluru</p>
-      </div>
+      <PageBanner 
+        imageSrc="/assets/images/banners/properties-page-1.avif"
+        title="Discover Bengaluru's Most Exceptional Residences"
+        subtitle="Trusted Projects | Prime Locations | Expert Guidance"
+      />
 
       {/* Tabs / Chips Container */}
       <section className="max-w-7xl mx-auto px-4 lg:px-8 py-6">

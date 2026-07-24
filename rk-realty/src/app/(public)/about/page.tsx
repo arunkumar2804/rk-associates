@@ -3,20 +3,17 @@ export const metadata = {
   description: "Trusted Real Estate Consultants Since 2011. Learn more about RK Associates and our team of real estate experts.",
 };
 
+import { PageBanner } from "@/components/PageBanner";
+
 export default function AboutPage() {
   return (
     <div className="bg-[#F7F2EA] min-h-screen text-[#2B241D]">
       {/* Hero Section */}
-      <section className="bg-[#2B241D] text-[#F7F2EA] py-24 px-8 text-center">
-        <div className="max-w-4xl mx-auto">
-          <h1 className="font-sora text-4xl md:text-5xl font-bold mb-6">
-            Your Trusted Partner in Every Property Journey
-          </h1>
-          <p className="text-lg md:text-xl text-[rgba(247,242,234,0.8)] mb-8">
-            Guiding homebuyers, investors, and businesses with expert real estate advice since 2011.
-          </p>
-        </div>
-      </section>
+      <PageBanner 
+        imageSrc="/assets/images/banners/about-us-1.avif"
+        title="Your Trusted Partner in Every Property Journey"
+        subtitle="Guiding homebuyers, investors, and businesses with expert real estate advice since 2011."
+      />
 
       {/* Trusted Real Estate Consultants Since 2011 */}
       <section className="max-w-5xl mx-auto px-8 py-20 text-center">

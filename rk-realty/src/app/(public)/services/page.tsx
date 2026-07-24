@@ -1,3 +1,4 @@
+import { PageBanner } from "@/components/PageBanner";
 import { ChevronDown, Home, TrendingUp, Key, Building2, Map, FileCheck } from "lucide-react";
 
 export const metadata = {
@@ -66,14 +67,14 @@ export default function ServicesPage() {
   return (
     <div className="bg-[#F7F2EA] min-h-screen text-[#2B241D] w-full">
       
+      <PageBanner 
+        imageSrc="/assets/images/banners/services-page-1.avif"
+        title="Real Estate Solutions Designed Around Your Goals"
+        subtitle="Expert real estate guidance tailored for you."
+      />
+
       {/* Desktop Version */}
       <div className="hidden lg:block">
-        <section className="bg-[#2B241D] text-[#F7F2EA] py-24 px-8 text-center">
-          <div className="max-w-4xl mx-auto">
-            <h1 className="font-sora text-5xl font-bold mb-6">Real Estate Solutions Designed Around Your Goals</h1>
-          </div>
-        </section>
-
         <section className="max-w-7xl mx-auto px-8 py-20">
           <div className="grid grid-cols-2 gap-10">
             {services.map((s) => (
@@ -102,12 +103,7 @@ export default function ServicesPage() {
       </div>
 
       {/* Mobile App Version */}
-      <div className="lg:hidden w-full pb-10">
-        <section className="bg-[#2B241D] text-[#F7F2EA] pt-16 pb-12 px-6 rounded-b-[2rem] shadow-md text-center relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-32 h-32 bg-white opacity-5 rounded-full blur-2xl"></div>
-          <h1 className="font-sora text-3xl font-bold mb-4 relative z-10 leading-tight">Solutions Designed Around Your Goals</h1>
-          <p className="text-[14px] opacity-80 relative z-10">Expert real estate guidance tailored for you.</p>
-        </section>
+      <div className="lg:hidden w-full pb-10 mt-6">
 
         <section className="px-4 py-8 flex flex-col gap-4 -mt-6 relative z-20">
           {services.map((s) => (
