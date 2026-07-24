@@ -11,8 +11,8 @@ export default function AboutPage() {
       {/* Hero Section */}
       <PageBanner 
         imageSrc="/assets/images/banners/about-us-new.avif"
-        title="Your Trusted Partner in Every Property Journey"
-        subtitle="Guiding homebuyers, investors, and businesses with expert real estate advice since 2011."
+        title={"Your Trusted Partner in Every Property Journey"}
+        subtitle="Guiding homebuyers, investors, and businesses with expert real estate advice since 2011"
       />
 
       {/* Trusted Real Estate Consultants Since 2011 */}

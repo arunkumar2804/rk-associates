@@ -67,6 +67,7 @@ const DesktopHero = () => {
                 width: '100%', 
                 height: '100%', 
                 objectFit: 'cover',
+                objectPosition: idx === 0 ? 'right' : 'center'
               }} 
             />
             {/* Overlay gradient for better text readability */}
@@ -206,7 +207,7 @@ const MobileHero = () => {
               <img 
                 src={slide.img} 
                 alt={slide.ctaText || "RK Associates Hero"}
-                className="absolute inset-0 w-full h-full object-cover"
+                className={`absolute inset-0 w-full h-full object-cover ${idx === 0 ? 'object-right' : 'object-center'}`}
               />
               
               {slide.heading && (

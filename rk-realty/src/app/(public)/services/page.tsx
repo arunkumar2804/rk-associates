@@ -69,8 +69,8 @@ export default function ServicesPage() {
       
       <PageBanner 
         imageSrc="/assets/images/banners/services-page-new.avif"
-        title="Real Estate Solutions Designed Around Your Goals"
-        subtitle="Expert real estate guidance tailored for you."
+        title={"Real Estate Solutions\nDesigned Around Your Goals"}
+        subtitle=""
       />
 
       {/* Desktop Version */}

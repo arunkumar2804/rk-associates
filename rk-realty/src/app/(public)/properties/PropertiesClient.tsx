@@ -18,7 +18,7 @@ export default function PropertiesClient({ properties, rentals }: PropertiesClie
     <div className="w-full">
       <PageBanner 
         imageSrc="/assets/images/banners/properties-page-new.avif"
-        title="Discover Bengaluru's Most Exceptional Residences"
+        title={"Discover Bengaluru's Most\nExceptional Luxury Residences"}
         subtitle="Trusted Projects | Prime Locations | Expert Guidance"
       />
 

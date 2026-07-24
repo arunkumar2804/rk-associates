@@ -33,10 +33,18 @@ export const PageBanner = ({ imageSrc, title, subtitle }: PageBannerProps) => {
         />
       </motion.div>
       
-      {/* Visually hidden for SEO since text is removed from the cover image */}
-      <div className="sr-only">
-        <h1>{title}</h1>
-        <p>{subtitle}</p>
+      {/* Text Overlay */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent flex items-center justify-center pointer-events-none">
+        <div className="text-center px-4 max-w-4xl pt-20 relative z-10">
+          <h1 className="text-white text-3xl md:text-5xl lg:text-6xl mb-4 leading-tight drop-shadow-md whitespace-pre-line" style={{ fontFamily: '"Giglik Merkia", serif', fontWeight: 400 }}>
+            {title}
+          </h1>
+          {subtitle && (
+            <p className="text-[#F7F2EA] text-lg md:text-xl drop-shadow-md">
+              {subtitle}
+            </p>
+          )}
+        </div>
       </div>
     </section>
   );
