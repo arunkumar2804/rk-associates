@@ -21,7 +21,7 @@ export const PageBanner = ({ imageSrc, title, subtitle }: PageBannerProps) => {
   const opacity = useTransform(scrollYProgress, [0, 1], [1, 0]);
 
   return (
-    <section ref={ref} className="relative h-[480px] overflow-hidden bg-[#2B241D] flex items-center justify-center">
+    <section ref={ref} className="relative h-[70vh] overflow-hidden bg-[#2B241D] flex items-center justify-center">
       <motion.div 
         style={{ y, opacity }} 
         className="absolute inset-0 w-full h-full"
