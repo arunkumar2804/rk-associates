@@ -19,9 +19,9 @@ const SLIDES = [
   },
   {
     img: '/assets/images/banners/sobha-one-world-new.avif',
-    heading: null,
-    subtext: null,
-    ctaText: 'View Sobha One World',
+    heading: 'A New Benchmark in\nTownship Living',
+    subtext: 'Welcome to Sobha One World, a landmark integrated township in Hoskote, East Bengaluru.',
+    ctaText: 'Explore Properties',
     ctaLink: '/properties/sobha-one-world'
   },
   {
@@ -77,36 +77,49 @@ const DesktopHero = () => {
             
             {/* Slide Content */}
             {slide.heading && (
-              <div style={{ position: 'absolute', top: '50%', transform: 'translateY(-50%)', left: 40, width: '35%', color: '#F7F2EA' }}>
-                <h1 style={{ fontFamily: '"Giglik Merkia", serif', fontSize: 32, fontWeight: 400, lineHeight: 1.2, marginBottom: 16, whiteSpace: 'pre-line' }}>
-                  {slide.heading}
-                </h1>
+              <div style={{ position: 'absolute', top: '50%', transform: 'translateY(-50%)', left: 50, width: '75%', maxWidth: 900, color: '#F7F2EA', display: 'flex', alignItems: 'center', gap: 40 }}>
+                {/* Left Column */}
+                <div style={{ flex: '0 0 auto', maxWidth: '50%' }}>
+                  <h1 style={{ fontFamily: '"Giglik Merkia", serif', fontSize: 36, fontWeight: 400, lineHeight: 1.1, whiteSpace: 'pre-line' }}>
+                    {slide.heading}
+                  </h1>
+                </div>
+
+                {/* Vertical Divider */}
                 {slide.subtext && (
-                  <p style={{ fontSize: 14, lineHeight: 1.5, marginBottom: 24, opacity: 0.9 }}>
-                    {slide.subtext}
-                  </p>
+                  <div style={{ width: 1, height: 70, backgroundColor: 'rgba(247, 242, 234, 0.5)', flexShrink: 0 }}></div>
                 )}
-                {slide.ctaText && slide.ctaLink && (
-                  <Link 
-                    href={slide.ctaLink} 
-                    className="btn-hover"
-                    style={{
-                      display: 'inline-flex',
-                      alignItems: 'center',
-                      gap: 12,
-                      background: '#F06400',
-                      color: '#FFF',
-                      padding: '16px 36px',
-                      borderRadius: 100,
-                      fontWeight: 600,
-                      fontSize: 16,
-                      textDecoration: 'none',
-                      boxShadow: '0 10px 20px rgba(240,100,0,0.2)'
-                    }}
-                  >
-                    {slide.ctaText}
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
-                  </Link>
+
+                {/* Right Column */}
+                {(slide.subtext || slide.ctaText) && (
+                  <div style={{ flex: '1 1 0%', display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+                    {slide.subtext && (
+                      <p style={{ fontSize: 16, lineHeight: 1.5, marginBottom: 16, opacity: 0.9 }}>
+                        {slide.subtext}
+                      </p>
+                    )}
+                    {slide.ctaText && slide.ctaLink && (
+                      <Link 
+                        href={slide.ctaLink} 
+                        className="btn-hover"
+                        style={{
+                          display: 'inline-flex',
+                          alignItems: 'center',
+                          gap: 12,
+                          background: '#F06400',
+                          color: '#FFF',
+                          padding: '12px 28px',
+                          borderRadius: 100,
+                          fontWeight: 600,
+                          fontSize: 16,
+                          textDecoration: 'none',
+                          boxShadow: '0 10px 20px rgba(240,100,0,0.2)'
+                        }}
+                      >
+                        {slide.ctaText}
+                      </Link>
+                    )}
+                  </div>
                 )}
               </div>
             )}
