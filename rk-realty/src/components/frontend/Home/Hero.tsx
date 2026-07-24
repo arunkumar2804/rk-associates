@@ -12,9 +12,9 @@ const SLIDES = [
   },
   {
     img: '/assets/images/banners/godrej-vanantara-new.avif',
-    heading: null,
-    subtext: null,
-    ctaText: 'View Godrej Vanantara',
+    heading: 'Forest-Inspired Luxury\nLiving at Godrej Vanantara',
+    subtext: 'Experience an extraordinary lifestyle at Godrej Vanantara, a premium residential township on Bannerghatta Road.',
+    ctaText: 'Know more',
     ctaLink: '/properties/godrej-vanantara'
   },
   {
@@ -78,7 +78,7 @@ const DesktopHero = () => {
             {/* Slide Content */}
             {slide.heading && (
               <div style={{ position: 'absolute', top: '50%', transform: 'translateY(-50%)', left: 40, width: '35%', color: '#F7F2EA' }}>
-                <h1 style={{ fontFamily: '"Giglik Merkia", serif', fontSize: 32, fontWeight: 400, lineHeight: 1.2, marginBottom: 16 }}>
+                <h1 style={{ fontFamily: '"Giglik Merkia", serif', fontSize: 32, fontWeight: 400, lineHeight: 1.2, marginBottom: 16, whiteSpace: 'pre-line' }}>
                   {slide.heading}
                 </h1>
                 {slide.subtext && (
@@ -219,7 +219,7 @@ const MobileHero = () => {
               
               {slide.heading && (
                 <div className="relative z-10 p-4 flex flex-col justify-end h-full">
-                  <h1 className="text-xl text-white mb-2 leading-tight w-[80%]" style={{ fontFamily: '"Giglik Merkia", serif', fontWeight: 400 }}>
+                  <h1 className="text-xl text-white mb-2 leading-tight w-[80%] whitespace-pre-line" style={{ fontFamily: '"Giglik Merkia", serif', fontWeight: 400 }}>
                     {slide.heading}
                   </h1>
                   {slide.subtext && (
