@@ -91,9 +91,6 @@ export const Header = ({ settings }: HeaderProps) => {
       <header className={`lg:hidden sticky top-0 z-[100] transition-all duration-300 pt-safe ${isScrolled ? 'bg-white/90 backdrop-blur-xl shadow-sm border-b border-[rgba(43,36,29,0.06)]' : 'bg-transparent'}`}>
         <div className="flex items-center justify-between px-4 py-3">
           <div className="flex items-center gap-3">
-            <button onClick={() => setMobileMenuOpen(true)} className="p-2 -ml-2 text-[#2B241D] active:scale-95 transition-transform">
-              <Menu size={24} />
-            </button>
             <Link href="/" className="flex items-center gap-2">
               <img src={logoSrc} alt={companyName} className="h-8 object-contain" />
               <div className="flex flex-col justify-center">
@@ -108,6 +105,11 @@ export const Header = ({ settings }: HeaderProps) => {
             <a href={callUrl} className="p-2 text-[#2B241D] active:scale-95 transition-transform">
               <Phone size={22} />
             </a>
+            <button onClick={() => setMobileMenuOpen(true)} className="p-2 text-[#2B241D] active:scale-95 transition-transform">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
+                <path strokeLinecap="round" strokeLinejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5M12 17.25h8.25" />
+              </svg>
+            </button>
           </div>
         </div>
       </header>
@@ -124,11 +126,11 @@ export const Header = ({ settings }: HeaderProps) => {
               className="lg:hidden fixed inset-0 bg-[#2B241D]/40 backdrop-blur-sm z-[110]"
             />
             <motion.div
-              initial={{ x: "-100%" }}
+              initial={{ x: "100%" }}
               animate={{ x: 0 }}
-              exit={{ x: "-100%" }}
+              exit={{ x: "100%" }}
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              className="lg:hidden fixed inset-y-0 left-0 w-[85%] max-w-[320px] bg-white z-[120] shadow-2xl flex flex-col pt-safe"
+              className="lg:hidden fixed inset-y-0 right-0 w-[85%] max-w-[320px] bg-white z-[120] shadow-2xl flex flex-col pt-safe"
             >
               <div className="flex items-center justify-between p-4 border-b border-[rgba(43,36,29,0.06)]">
                 <div className="flex items-center gap-2">
