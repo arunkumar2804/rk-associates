@@ -2,8 +2,8 @@ import Link from 'next/link';
 
 export const FeaturedDevelopers = () => {
   return (
-    <section style={{ maxWidth: 1280, margin: '0 auto', padding: '56px 32px 0' }}>
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 28 }}>
+    <section className="max-w-7xl mx-auto px-4 md:px-8 pt-8 md:pt-14">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-7">
         <div className="card-hover" style={{ borderRadius: 18, overflow: 'hidden', background: '#FFFFFF', border: '1px solid rgba(43,36,29,0.08)' }}>
           <div style={{ position: 'relative', height: 260, overflow: 'hidden' }}>
             <img src="/assets/images/6dbec011-6386-4293-82a4-33c327e15764.avif" alt="Godrej Vanantara" style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />

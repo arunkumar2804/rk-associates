@@ -71,17 +71,17 @@ const DesktopHero = () => {
             />
             {/* Overlay gradient for better text readability */}
             {(slide.heading || slide.ctaText) && (
-              <div style={{ position: 'absolute', inset: 0, background: slide.heading ? 'linear-gradient(to right, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 50%, transparent 100%)' : 'linear-gradient(to top, rgba(0,0,0,0.5), transparent)', pointerEvents: 'none' }}></div>
+              <div style={{ position: 'absolute', inset: 0, background: slide.heading ? 'linear-gradient(to right, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.5) 30%, transparent 50%)' : 'linear-gradient(to top, rgba(0,0,0,0.5), transparent)', pointerEvents: 'none' }}></div>
             )}
             
             {/* Slide Content */}
             {slide.heading && (
-              <div style={{ position: 'absolute', top: '50%', transform: 'translateY(-50%)', left: 60, maxWidth: 600, color: '#F7F2EA' }}>
-                <h1 style={{ fontFamily: '"Giglik Merkia", serif', fontSize: 64, fontWeight: 400, lineHeight: 1.1, marginBottom: 24 }}>
+              <div style={{ position: 'absolute', top: '50%', transform: 'translateY(-50%)', left: 40, width: '35%', color: '#F7F2EA' }}>
+                <h1 style={{ fontFamily: '"Giglik Merkia", serif', fontSize: 32, fontWeight: 400, lineHeight: 1.2, marginBottom: 16 }}>
                   {slide.heading}
                 </h1>
                 {slide.subtext && (
-                  <p style={{ fontSize: 18, lineHeight: 1.6, marginBottom: 32, opacity: 0.9 }}>
+                  <p style={{ fontSize: 14, lineHeight: 1.5, marginBottom: 24, opacity: 0.9 }}>
                     {slide.subtext}
                   </p>
                 )}
@@ -202,7 +202,7 @@ const MobileHero = () => {
       >
         {SLIDES.map((slide, idx) => (
           <div key={idx} className="w-full flex-none snap-center p-4">
-            <div className="relative rounded-3xl overflow-hidden h-[500px] shadow-lg flex flex-col justify-end bg-[#2B241D]">
+            <div className="relative rounded-3xl overflow-hidden h-[30vh] shadow-lg flex flex-col justify-end bg-[#2B241D]">
               <img 
                 src={slide.img} 
                 alt={slide.ctaText || "RK Associates Hero"}
@@ -210,34 +210,34 @@ const MobileHero = () => {
               />
               
               {slide.heading && (
-                <div className="absolute inset-0 bg-black/60 pointer-events-none"></div>
+                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent pointer-events-none h-full"></div>
               )}
               {!slide.heading && slide.ctaText && (
                 <div className="absolute inset-0 bg-gradient-to-t from-[#14100C]/80 via-transparent to-transparent pointer-events-none"></div>
               )}
               
               {slide.heading && (
-                <div className="relative z-10 p-6 flex flex-col justify-end h-full">
-                  <h1 className="text-4xl text-white mb-3 leading-tight" style={{ fontFamily: '"Giglik Merkia", serif', fontWeight: 400 }}>
+                <div className="relative z-10 p-4 flex flex-col justify-end h-full">
+                  <h1 className="text-xl text-white mb-2 leading-tight w-[80%]" style={{ fontFamily: '"Giglik Merkia", serif', fontWeight: 400 }}>
                     {slide.heading}
                   </h1>
                   {slide.subtext && (
-                    <p className="text-white/90 text-sm mb-6 leading-relaxed">
+                    <p className="text-white/90 text-[10px] mb-4 leading-relaxed w-[90%]">
                       {slide.subtext}
                     </p>
                   )}
                   {slide.ctaText && slide.ctaLink && (
-                    <Link href={slide.ctaLink} className="w-full text-center bg-[#F06400] text-white py-4 rounded-xl font-bold text-[15px] active:scale-95 transition-transform shadow-lg shadow-[#F06400]/20 flex items-center justify-center gap-2">
+                    <Link href={slide.ctaLink} className="w-full text-center bg-[#F06400] text-white py-3 rounded-xl font-bold text-sm active:scale-95 transition-transform shadow-lg shadow-[#F06400]/20 flex items-center justify-center gap-2">
                       {slide.ctaText}
-                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
                     </Link>
                   )}
                 </div>
               )}
 
               {!slide.heading && slide.ctaText && slide.ctaLink && (
-                <div className="relative z-10 p-6 flex justify-center mt-auto">
-                  <Link href={slide.ctaLink} className="w-full text-center bg-[#F06400] text-white py-4 rounded-xl font-bold text-[15px] active:scale-95 transition-transform shadow-lg shadow-[#F06400]/20 flex items-center justify-center gap-2">
+                <div className="relative z-10 p-4 flex justify-center mt-auto">
+                  <Link href={slide.ctaLink} className="w-full text-center bg-[#F06400] text-white py-3 rounded-xl font-bold text-sm active:scale-95 transition-transform shadow-lg shadow-[#F06400]/20 flex items-center justify-center gap-2">
                     {slide.ctaText}
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
                   </Link>

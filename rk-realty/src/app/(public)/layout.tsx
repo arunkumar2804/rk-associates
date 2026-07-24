@@ -1,6 +1,5 @@
 import { Header } from "@/components/frontend/Layout/Header";
 import { Footer } from "@/components/frontend/Layout/Footer";
-import { BottomNavigation } from "@/components/frontend/Layout/BottomNavigation";
 import { FloatingActions } from "@/components/frontend/Shared/FloatingActions";
 import { getSettings } from "@/lib/settings";
 
@@ -21,7 +20,6 @@ export default async function PublicLayout({ children }: { children: React.React
       </main>
       <FloatingActions contactNumber1={settings?.contactNumber1} />
       <Footer settings={serializedSettings} />
-      <BottomNavigation />
     </div>
   );
 }
