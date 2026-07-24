@@ -10,7 +10,7 @@ export default function AboutPage() {
     <div className="bg-[#F7F2EA] min-h-screen text-[#2B241D]">
       {/* Hero Section */}
       <PageBanner 
-        imageSrc="/assets/images/banners/about-us-1.avif"
+        imageSrc="/assets/images/banners/about-us-new.avif"
         title="Your Trusted Partner in Every Property Journey"
         subtitle="Guiding homebuyers, investors, and businesses with expert real estate advice since 2011."
       />

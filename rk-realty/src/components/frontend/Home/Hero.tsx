@@ -4,22 +4,30 @@ import Link from 'next/link';
 
 const SLIDES = [
   {
-    img: '/assets/images/banners/rk-associates-1.avif',
-    ctaText: null,
-    ctaLink: null
+    img: '/assets/images/banners/rk-associates-new.avif',
+    heading: 'Find Your Perfect Property in Bengaluru',
+    subtext: 'For over 15 years, RK Associates has been helping homebuyers, investors, and businesses discover exceptional residential and commercial properties across Bengaluru.',
+    ctaText: 'Explore',
+    ctaLink: '/properties'
   },
   {
-    img: '/assets/images/banners/godrej-vanantara-1.avif',
+    img: '/assets/images/banners/godrej-vanantara-new.avif',
+    heading: null,
+    subtext: null,
     ctaText: 'View Godrej Vanantara',
     ctaLink: '/properties/godrej-vanantara'
   },
   {
-    img: '/assets/images/banners/sobha-one-world-hoskote-1.avif',
+    img: '/assets/images/banners/sobha-one-world-new.avif',
+    heading: null,
+    subtext: null,
     ctaText: 'View Sobha One World',
     ctaLink: '/properties/sobha-one-world'
   },
   {
     img: '/assets/images/a0afd551-fd8c-4328-b5fa-46f1a7125338.avif',
+    heading: null,
+    subtext: null,
     ctaText: 'View Embassy Springs',
     ctaLink: '/properties/embassy-springs'
   }
@@ -61,11 +69,48 @@ const DesktopHero = () => {
                 objectFit: 'cover',
               }} 
             />
-            {slide.ctaText && (
-              <div style={{ position: 'absolute', bottom: 0, left: 0, right: 0, height: 160, background: 'linear-gradient(to top, rgba(0,0,0,0.5), transparent)', pointerEvents: 'none' }}></div>
+            {/* Overlay gradient for better text readability */}
+            {(slide.heading || slide.ctaText) && (
+              <div style={{ position: 'absolute', inset: 0, background: slide.heading ? 'linear-gradient(to right, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0.4) 50%, transparent 100%)' : 'linear-gradient(to top, rgba(0,0,0,0.5), transparent)', pointerEvents: 'none' }}></div>
             )}
             
-            {slide.ctaText && slide.ctaLink && (
+            {/* Slide Content */}
+            {slide.heading && (
+              <div style={{ position: 'absolute', top: '50%', transform: 'translateY(-50%)', left: 60, maxWidth: 600, color: '#F7F2EA' }}>
+                <h1 style={{ fontFamily: '"Sora", sans-serif', fontSize: 56, fontWeight: 700, lineHeight: 1.1, marginBottom: 24 }}>
+                  {slide.heading}
+                </h1>
+                {slide.subtext && (
+                  <p style={{ fontSize: 18, lineHeight: 1.6, marginBottom: 32, opacity: 0.9 }}>
+                    {slide.subtext}
+                  </p>
+                )}
+                {slide.ctaText && slide.ctaLink && (
+                  <Link 
+                    href={slide.ctaLink} 
+                    className="btn-hover"
+                    style={{
+                      display: 'inline-flex',
+                      alignItems: 'center',
+                      gap: 12,
+                      background: '#F06400',
+                      color: '#FFF',
+                      padding: '16px 36px',
+                      borderRadius: 100,
+                      fontWeight: 600,
+                      fontSize: 16,
+                      textDecoration: 'none',
+                      boxShadow: '0 10px 20px rgba(240,100,0,0.2)'
+                    }}
+                  >
+                    {slide.ctaText}
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                  </Link>
+                )}
+              </div>
+            )}
+
+            {!slide.heading && slide.ctaText && slide.ctaLink && (
               <Link 
                 href={slide.ctaLink} 
                 className="btn-hover"
@@ -164,12 +209,34 @@ const MobileHero = () => {
                 className="absolute inset-0 w-full h-full object-cover"
               />
               
-              {slide.ctaText && (
+              {slide.heading && (
+                <div className="absolute inset-0 bg-black/60 pointer-events-none"></div>
+              )}
+              {!slide.heading && slide.ctaText && (
                 <div className="absolute inset-0 bg-gradient-to-t from-[#14100C]/80 via-transparent to-transparent pointer-events-none"></div>
               )}
               
-              {slide.ctaText && slide.ctaLink && (
-                <div className="relative z-10 p-6 flex justify-center">
+              {slide.heading && (
+                <div className="relative z-10 p-6 flex flex-col justify-end h-full">
+                  <h1 className="text-3xl font-bold text-white mb-3 font-['Sora'] leading-tight">
+                    {slide.heading}
+                  </h1>
+                  {slide.subtext && (
+                    <p className="text-white/90 text-sm mb-6 leading-relaxed">
+                      {slide.subtext}
+                    </p>
+                  )}
+                  {slide.ctaText && slide.ctaLink && (
+                    <Link href={slide.ctaLink} className="w-full text-center bg-[#F06400] text-white py-4 rounded-xl font-bold text-[15px] active:scale-95 transition-transform shadow-lg shadow-[#F06400]/20 flex items-center justify-center gap-2">
+                      {slide.ctaText}
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>
+                    </Link>
+                  )}
+                </div>
+              )}
+
+              {!slide.heading && slide.ctaText && slide.ctaLink && (
+                <div className="relative z-10 p-6 flex justify-center mt-auto">
                   <Link href={slide.ctaLink} className="w-full text-center bg-[#F06400] text-white py-4 rounded-xl font-bold text-[15px] active:scale-95 transition-transform shadow-lg shadow-[#F06400]/20 flex items-center justify-center gap-2">
                     {slide.ctaText}
                     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg>

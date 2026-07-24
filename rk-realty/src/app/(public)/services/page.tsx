@@ -68,7 +68,7 @@ export default function ServicesPage() {
     <div className="bg-[#F7F2EA] min-h-screen text-[#2B241D] w-full">
       
       <PageBanner 
-        imageSrc="/assets/images/banners/services-page-1.avif"
+        imageSrc="/assets/images/banners/services-page-new.avif"
         title="Real Estate Solutions Designed Around Your Goals"
         subtitle="Expert real estate guidance tailored for you."
       />
