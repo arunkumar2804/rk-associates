@@ -112,7 +112,7 @@ async function main() {
       locationName: 'Budigere Cross',
       typeName: 'Apartment',
       startingPrice: '₹ 68 L onwards',
-      coverImage: '/assets/images/6dbec011-6386-4293-82a4-33c327e15764.avif',
+      coverImage: '/assets/images/banners/godrej-vanantara-1.avif',
       reraNumber: 'PRM/KA/RERA/1251/446/PR/210302/003982',
       description: 'Godrej Vanantara is a premium residential development offering 2 & 3 BHK homes designed for modern lifestyle. Spanned across lush green landscape, it brings nature and luxury together.',
       possessionDate: new Date('2028-06-30'),

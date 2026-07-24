@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { MapPin, BedDouble, Maximize } from 'lucide-react';
+import { PageBanner } from '../components/PageBanner';
 
 const DUMMY_PROPERTIES = [
   { img: '/assets/images/6dbec011-6386-4293-82a4-33c327e15764.avif', title: 'Godrej Vanantara', loc: 'Budigere Cross', bhk: '2 & 3 BHK', size: '1100 - 1600 sqft', price: '₹ 1.2 Cr*' },
@@ -13,12 +14,12 @@ const DUMMY_PROPERTIES = [
 export const Properties = () => {
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
-      <section style={{ padding: '80px 32px 40px', textAlign: 'center' }}>
-        <h1 style={{ fontFamily: '"Sora", sans-serif', fontSize: 48, fontWeight: 700, marginBottom: 20 }}>Curated Properties</h1>
-        <p style={{ fontSize: 18, color: '#4A4038', maxWidth: 600, margin: '0 auto' }}>
-          Explore our handpicked selection of Bengaluru's most sought-after residential developments.
-        </p>
-      </section>
+      <PageBanner 
+        imageSrc="/assets/images/banners/properties-page-1.avif"
+        title="Curated Properties"
+        subtitle="Explore our handpicked selection of Bengaluru's most sought-after residential developments."
+      />
+      <div style={{ paddingTop: '40px' }} />
 
       <section style={{ maxWidth: 1280, margin: '0 auto', padding: '0 32px 100px' }}>
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 32 }}>

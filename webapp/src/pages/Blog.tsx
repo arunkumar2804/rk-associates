@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { Calendar, ArrowRight } from 'lucide-react';
+import { PageBanner } from '../components/PageBanner';
 
 const DUMMY_POSTS = [
   { img: '/assets/images/6d4e9c42-e45a-498c-a374-e31fa0ea731d.avif', title: 'The Rise of Luxury Villas in North Bengaluru', date: 'Oct 12, 2026', cat: 'Market Trends' },
@@ -11,6 +12,12 @@ const DUMMY_POSTS = [
 export const Blog = () => {
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+      <PageBanner 
+        imageSrc="/assets/images/banners/godrej-vanantara-1.avif"
+        title="Insights & News"
+        subtitle="Stay updated with the latest trends and news in the real estate market."
+      />
+
       {/* Featured Post */}
       <section style={{ padding: '40px 32px' }}>
         <div style={{ maxWidth: 1280, margin: '0 auto', background: '#2B241D', borderRadius: 24, overflow: 'hidden', display: 'flex' }}>

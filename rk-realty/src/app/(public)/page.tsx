@@ -8,7 +8,7 @@ import { StatsBand } from '@/components/frontend/Home/StatsBand';
 import { ContactCTA } from '@/components/frontend/Home/ContactCTA';
 
 export default function Home() {
-  const UNDER_CONSTRUCTION = true;
+  const UNDER_CONSTRUCTION = false;
 
   if (UNDER_CONSTRUCTION) {
     return (

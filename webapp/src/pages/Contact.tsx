@@ -1,9 +1,15 @@
 import { motion } from 'framer-motion';
 import { MapPin, Phone, Mail, Clock } from 'lucide-react';
+import { PageBanner } from '../components/PageBanner';
 
 export const Contact = () => {
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
+      <PageBanner 
+        imageSrc="/assets/images/banners/rk-associates-1.avif"
+        title="Contact Us"
+        subtitle="Get in touch with our experts today."
+      />
       <section style={{ maxWidth: 1280, margin: '60px auto 100px', padding: '0 32px' }}>
         <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 60, background: '#FFFFFF', borderRadius: 32, overflow: 'hidden', border: '1px solid rgba(43,36,29,0.08)' }}>
           

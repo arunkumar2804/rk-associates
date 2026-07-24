@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { Target, Eye, Shield, Users } from 'lucide-react';
+import { PageBanner } from '../components/PageBanner';
 
 const fadeIn = {
   hidden: { opacity: 0, y: 20 },
@@ -10,16 +11,11 @@ export const About = () => {
   return (
     <motion.div initial="hidden" animate="visible" exit={{ opacity: 0 }}>
       {/* Hero Section */}
-      <section style={{ padding: '80px 32px', background: '#2B241D', color: '#F7F2EA', textAlign: 'center' }}>
-        <motion.div variants={fadeIn} style={{ maxWidth: 800, margin: '0 auto' }}>
-          <h1 style={{ fontFamily: '"Sora", sans-serif', fontSize: 56, fontWeight: 700, marginBottom: 24, lineHeight: 1.1 }}>
-            Redefining Real Estate Consulting
-          </h1>
-          <p style={{ fontSize: 18, color: 'rgba(247,242,234,0.8)', lineHeight: 1.6 }}>
-            For over a decade, RK Associates has been the trusted bridge between discerning home buyers and Bengaluru's most prestigious developers.
-          </p>
-        </motion.div>
-      </section>
+      <PageBanner 
+        imageSrc="/assets/images/banners/about-us-1.avif"
+        title="Redefining Real Estate Consulting"
+        subtitle="For over a decade, RK Associates has been the trusted bridge between discerning home buyers and Bengaluru's most prestigious developers."
+      />
 
       {/* Mission & Vision */}
       <section style={{ padding: '100px 32px', maxWidth: 1280, margin: '0 auto' }}>

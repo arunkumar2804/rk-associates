@@ -13,7 +13,7 @@ export default function GodrejVanantaraPage() {
       {/* Hero Banner Section */}
       <section style={{ position: "relative", height: 480, overflow: "hidden", background: "#2B241D" }}>
         <img 
-          src="/assets/images/6dbec011-6386-4293-82a4-33c327e15764.avif" 
+          src="/assets/images/banners/godrej-vanantara-1.avif" 
           alt="Godrej Vanantara" 
           style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.6 }}
         />
@@ -47,22 +47,39 @@ export default function GodrejVanantaraPage() {
               </div>
             </div>
 
-            {/* Amenities Section */}
+            {/* Project Highlights Section */}
             <div>
               <h2 style={{ fontFamily: '"Sora", sans-serif', fontSize: 24, fontWeight: 600, color: "#2B241D", marginBottom: 20 }}>Project Highlights</h2>
               <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 16 }}>
                 {[
                   "Premium 3 & 4 BHK Residences",
                   "70%+ Open Green Spaces",
+                  "Excellent Connectivity",
+                  "Developed by Godrej Properties"
+                ].map((highlight, idx) => (
+                  <div 
+                    key={`h-${idx}`} 
+                    style={{ background: "#FFFFFF", padding: "16px 20px", borderRadius: 12, border: "1px solid rgba(43,36,29,0.06)", display: "flex", alignItems: "center", gap: 12 }}
+                  >
+                    <CheckCircle2 size={20} color="#F06400" style={{ flex: "none" }} />
+                    <span style={{ fontSize: 14.5, fontWeight: 500, color: "#4A4038" }}>{highlight}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Amenities Section */}
+            <div>
+              <h2 style={{ fontFamily: '"Sora", sans-serif', fontSize: 24, fontWeight: 600, color: "#2B241D", marginBottom: 20 }}>Amenities</h2>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 16 }}>
+                {[
                   "Grand Clubhouse",
                   "Swimming Pool",
                   "Sports & Wellness Facilities",
-                  "Landscaped Gardens",
-                  "Excellent Connectivity",
-                  "Developed by Godrej Properties"
+                  "Landscaped Gardens"
                 ].map((amenity, idx) => (
                   <div 
-                    key={idx} 
+                    key={`a-${idx}`} 
                     style={{ background: "#FFFFFF", padding: "16px 20px", borderRadius: 12, border: "1px solid rgba(43,36,29,0.06)", display: "flex", alignItems: "center", gap: 12 }}
                   >
                     <CheckCircle2 size={20} color="#F06400" style={{ flex: "none" }} />

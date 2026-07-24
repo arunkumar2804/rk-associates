@@ -47,22 +47,39 @@ export default function EmbassySpringsPage() {
               </div>
             </div>
 
-            {/* Amenities Section */}
+            {/* Project Highlights Section */}
             <div>
               <h2 style={{ fontFamily: '"Sora", sans-serif', fontSize: 24, fontWeight: 600, color: "#2B241D", marginBottom: 20 }}>Project Highlights</h2>
               <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 16 }}>
                 {[
                   "Integrated Township Development",
                   "Premium Residential Community",
-                  "Extensive Green Spaces",
                   "Airport Corridor Location",
-                  "Schools & Healthcare Facilities",
-                  "Lifestyle Amenities",
                   "Future Infrastructure Growth",
                   "Developed by Embassy Group"
+                ].map((highlight, idx) => (
+                  <div 
+                    key={`h-${idx}`} 
+                    style={{ background: "#FFFFFF", padding: "16px 20px", borderRadius: 12, border: "1px solid rgba(43,36,29,0.06)", display: "flex", alignItems: "center", gap: 12 }}
+                  >
+                    <CheckCircle2 size={20} color="#F06400" style={{ flex: "none" }} />
+                    <span style={{ fontSize: 14.5, fontWeight: 500, color: "#4A4038" }}>{highlight}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Amenities Section */}
+            <div>
+              <h2 style={{ fontFamily: '"Sora", sans-serif', fontSize: 24, fontWeight: 600, color: "#2B241D", marginBottom: 20 }}>Amenities</h2>
+              <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 16 }}>
+                {[
+                  "Extensive Green Spaces",
+                  "Schools & Healthcare Facilities",
+                  "Lifestyle Amenities"
                 ].map((amenity, idx) => (
                   <div 
-                    key={idx} 
+                    key={`a-${idx}`} 
                     style={{ background: "#FFFFFF", padding: "16px 20px", borderRadius: 12, border: "1px solid rgba(43,36,29,0.06)", display: "flex", alignItems: "center", gap: 12 }}
                   >
                     <CheckCircle2 size={20} color="#F06400" style={{ flex: "none" }} />

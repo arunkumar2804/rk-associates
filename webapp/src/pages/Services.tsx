@@ -1,5 +1,6 @@
 import { motion } from 'framer-motion';
 import { Home, Key, TrendingUp, ShieldCheck } from 'lucide-react';
+import { PageBanner } from '../components/PageBanner';
 
 const container = {
   hidden: { opacity: 0 },
@@ -18,12 +19,12 @@ export const Services = () => {
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
       {/* Hero */}
-      <section style={{ padding: '80px 32px', textAlign: 'center' }}>
-        <h1 style={{ fontFamily: '"Sora", sans-serif', fontSize: 48, fontWeight: 700, marginBottom: 20 }}>Our Services</h1>
-        <p style={{ fontSize: 18, color: '#4A4038', maxWidth: 600, margin: '0 auto' }}>
-          Comprehensive real estate solutions designed to navigate Bengaluru's dynamic market.
-        </p>
-      </section>
+      <PageBanner 
+        imageSrc="/assets/images/banners/services-page-1.avif"
+        title="Our Services"
+        subtitle="Comprehensive real estate solutions designed to navigate Bengaluru's dynamic market."
+      />
+      <div style={{ paddingTop: '40px' }} />
 
       {/* Bento Grid */}
       <section style={{ maxWidth: 1280, margin: '0 auto', padding: '0 32px 100px' }}>

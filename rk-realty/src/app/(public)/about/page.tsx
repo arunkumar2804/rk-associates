@@ -49,16 +49,21 @@ export default function AboutPage() {
 
       {/* Founder's Message */}
       <section className="py-20 px-8 bg-[#F7F2EA]">
-        <div className="max-w-4xl mx-auto bg-white p-10 rounded-2xl shadow-sm border border-[rgba(43,36,29,0.06)]">
-          <h2 className="font-sora text-3xl font-bold mb-6 text-[#2B241D]">A Message from Our Founder</h2>
-          <div className="text-[#4A4038] text-lg leading-relaxed italic space-y-4 mb-8">
-            <p>"At RK Associates, we believe that every property decision is an important milestone in a person's life.</p>
-            <p>From the day we started our journey, our focus has always been on understanding our clients' aspirations and providing guidance that is honest, transparent, and tailored to their needs.</p>
-            <p>The real estate industry continues to evolve, but our commitment remains unchanged to create value for every client through trusted advice, professional service, and meaningful relationships.</p>
-            <p>We are grateful for the trust placed in us by thousands of clients over the years and look forward to helping many more families and investors achieve their real estate goals."</p>
+        <div className="max-w-5xl mx-auto bg-white p-10 rounded-2xl shadow-sm border border-[rgba(43,36,29,0.06)] flex flex-col md:flex-row gap-10 items-center">
+          <div className="md:w-1/3 flex-shrink-0">
+            <img src="/assets/images/founder.png" alt="Ram Krishna, Founder" className="w-full h-auto rounded-xl object-cover shadow-md" />
           </div>
-          <div className="font-sora font-bold text-[#2B241D]">– Ram Krishna</div>
-          <div className="text-sm text-[#F06400] font-semibold uppercase tracking-wider">Founder, RK Associates</div>
+          <div className="md:w-2/3">
+            <h2 className="font-sora text-3xl font-bold mb-6 text-[#2B241D]">A Message from Our Founder</h2>
+            <div className="text-[#4A4038] text-lg leading-relaxed italic space-y-4 mb-8">
+              <p>"At RK Associates, we believe that every property decision is an important milestone in a person's life.</p>
+              <p>From the day we started our journey, our focus has always been on understanding our clients' aspirations and providing guidance that is honest, transparent, and tailored to their needs.</p>
+              <p>The real estate industry continues to evolve, but our commitment remains unchanged to create value for every client through trusted advice, professional service, and meaningful relationships.</p>
+              <p>We are grateful for the trust placed in us by thousands of clients over the years and look forward to helping many more families and investors achieve their real estate goals."</p>
+            </div>
+            <div className="font-sora font-bold text-[#2B241D]">– Ram Krishna</div>
+            <div className="text-sm text-[#F06400] font-semibold uppercase tracking-wider">Founder, RK Associates</div>
+          </div>
         </div>
       </section>
 
