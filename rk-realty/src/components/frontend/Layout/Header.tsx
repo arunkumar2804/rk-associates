@@ -35,7 +35,6 @@ export const Header = ({ settings }: HeaderProps) => {
     { href: "/about", label: "About", icon: Info },
     { href: "/services", label: "Services", icon: Briefcase },
     { href: "/properties", label: "Properties", icon: Building2 },
-    { href: "/rentals", label: "Rentals", icon: Key },
     { href: "/csr-activities", label: "CSR", icon: HeartHandshake },
     { href: "/blog", label: "Blog", icon: FileText },
     { href: "/contact", label: "Contact", icon: Phone },
@@ -62,7 +61,6 @@ export const Header = ({ settings }: HeaderProps) => {
               <ChevronDown size={14} />
             </div>
             <Link href="/properties" style={{ fontSize: 14.5, fontWeight: 500, color: '#4A4038', textDecoration: 'none' }}>Properties</Link>
-            <Link href="/rentals" style={{ fontSize: 14.5, fontWeight: 500, color: '#4A4038', textDecoration: 'none' }}>Rentals</Link>
             <Link href="/csr-activities" style={{ fontSize: 14.5, fontWeight: 500, color: '#4A4038', textDecoration: 'none' }}>CSR Activities</Link>
             <Link href="/blog" style={{ fontSize: 14.5, fontWeight: 500, color: '#4A4038', textDecoration: 'none' }}>Blog</Link>
             <Link href="/contact" style={{ fontSize: 14.5, fontWeight: 500, color: '#4A4038', textDecoration: 'none' }}>Contact Us</Link>

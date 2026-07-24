@@ -76,10 +76,11 @@ export default async function PropertyDetailPage({ params }: Props) {
         </section>
 
         <section style={{ maxWidth: 1280, margin: "60px auto 100px", padding: "0 32px" }}>
-          <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr", gap: 48, alignItems: "start" }}>
-            <div style={{ display: "flex", flexDirection: "column", gap: 48 }}>
+          <div className="flex flex-col lg:grid lg:grid-cols-3 gap-12 items-start w-full">
+          
+          <div className="lg:col-span-2 flex flex-col gap-12 w-full">
               
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 20 }}>
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
                 <div style={{ background: "#FFFFFF", padding: 24, borderRadius: 16, border: "1px solid rgba(43,36,29,0.08)", textAlign: "center" }}>
                   <div style={{ fontSize: 12, color: "#8A7B5C", fontWeight: 600, textTransform: "uppercase", marginBottom: 6 }}>Starting Price</div>
                   <div style={{ fontFamily: '"Sora", sans-serif', fontSize: 22, fontWeight: 700, color: "#F06400" }}>{property.startingPrice}</div>
@@ -134,7 +135,7 @@ export default async function PropertyDetailPage({ params }: Props) {
               {amenityList.length > 0 && (
                 <div>
                   <h2 style={{ fontFamily: '"Sora", sans-serif', fontSize: 24, fontWeight: 600, color: "#2B241D", marginBottom: 20 }}>Project Amenities</h2>
-                  <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 16 }}>
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                     {amenityList.map((amenityName: string, index: number) => (
                       <div 
                         key={index} 
@@ -151,7 +152,7 @@ export default async function PropertyDetailPage({ params }: Props) {
               {property.galleryImages.length > 0 && (
                 <div>
                   <h2 style={{ fontFamily: '"Sora", sans-serif', fontSize: 24, fontWeight: 600, color: "#2B241D", marginBottom: 20 }}>Project Gallery</h2>
-                  <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 16 }}>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {property.galleryImages.map((img) => (
                       <div key={img.id} style={{ height: 240, borderRadius: 16, overflow: "hidden", border: "1px solid rgba(43,36,29,0.08)" }}>
                         <img src={img.url} alt="Project Gallery Image" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
@@ -164,7 +165,7 @@ export default async function PropertyDetailPage({ params }: Props) {
               {property.floorPlans.length > 0 && (
                 <div>
                   <h2 style={{ fontFamily: '"Sora", sans-serif', fontSize: 24, fontWeight: 600, color: "#2B241D", marginBottom: 20 }}>Floor Plans</h2>
-                  <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 16 }}>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     {property.floorPlans.map((fp) => (
                       <div key={fp.id} style={{ padding: 16, background: "#FFFFFF", borderRadius: 16, border: "1px solid rgba(43,36,29,0.08)", textAlign: "center" }}>
                         <img src={fp.url} alt="Floor Plan" style={{ maxWidth: "100%", height: 260, objectFit: "contain", margin: "0 auto 12px" }} />
@@ -173,12 +174,11 @@ export default async function PropertyDetailPage({ params }: Props) {
                   </div>
                 </div>
               )}
-
             </div>
-
-            <div style={{ position: "sticky", top: 100 }}>
-              <PropertyEnquiryForm propertyName={property.name} />
-            </div>
+             {/* Right Column: Sticky Enquiry Widget */}
+          <div className="w-full lg:w-auto sticky top-[100px]">
+            <PropertyEnquiryForm propertyName={property.name} />
+          </div>
 
           </div>
         </section>

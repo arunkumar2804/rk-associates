@@ -31,9 +31,9 @@ export default function GodrejVanantaraPage() {
 
       {/* Main Details Section */}
       <section style={{ maxWidth: 1280, margin: "60px auto 100px", padding: "0 32px" }}>
-        <div style={{ display: "grid", gridTemplateColumns: "2fr 1fr", gap: 48, alignItems: "start" }}>
+        <div className="flex flex-col lg:grid lg:grid-cols-3 gap-12 items-start w-full">
           
-          <div style={{ display: "flex", flexDirection: "column", gap: 48 }}>
+          <div className="lg:col-span-2 flex flex-col gap-12 w-full">
             
             {/* Description */}
             <div>
@@ -50,7 +50,7 @@ export default function GodrejVanantaraPage() {
             {/* Project Highlights Section */}
             <div>
               <h2 style={{ fontFamily: '"Sora", sans-serif', fontSize: 24, fontWeight: 600, color: "#2B241D", marginBottom: 20 }}>Project Highlights</h2>
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 16 }}>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {[
                   "Premium 3 & 4 BHK Residences",
                   "70%+ Open Green Spaces",
@@ -71,7 +71,7 @@ export default function GodrejVanantaraPage() {
             {/* Amenities Section */}
             <div>
               <h2 style={{ fontFamily: '"Sora", sans-serif', fontSize: 24, fontWeight: 600, color: "#2B241D", marginBottom: 20 }}>Amenities</h2>
-              <div style={{ display: "grid", gridTemplateColumns: "repeat(2, 1fr)", gap: 16 }}>
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                 {[
                   "Grand Clubhouse",
                   "Swimming Pool",
@@ -92,7 +92,7 @@ export default function GodrejVanantaraPage() {
           </div>
 
           {/* Right Column: Sticky Enquiry Widget */}
-          <div style={{ position: "sticky", top: 100 }}>
+          <div className="w-full lg:w-auto sticky top-[100px]">
             <PropertyEnquiryForm propertyName="Godrej Vanantara" />
           </div>
 

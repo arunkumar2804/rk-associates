@@ -48,7 +48,7 @@ export default function AboutPage() {
       <section className="py-20 px-8 bg-[#F7F2EA]">
         <div className="max-w-5xl mx-auto bg-white p-10 rounded-2xl shadow-sm border border-[rgba(43,36,29,0.06)] flex flex-col md:flex-row gap-10 items-center">
           <div className="md:w-1/3 flex-shrink-0">
-            <img src="/assets/images/founder.png" alt="Ram Krishna, Founder" className="w-full h-auto rounded-xl object-cover shadow-md" />
+            <img src="/assets/images/rk-1.avif" alt="Ram Krishna, Founder" className="w-full h-auto rounded-xl object-cover shadow-md" />
           </div>
           <div className="md:w-2/3">
             <h2 className="font-sora text-3xl font-bold mb-6 text-[#2B241D]">A Message from Our Founder</h2>

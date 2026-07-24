@@ -202,7 +202,7 @@ const MobileHero = () => {
       >
         {SLIDES.map((slide, idx) => (
           <div key={idx} className="w-full flex-none snap-center p-4">
-            <div className="relative rounded-3xl overflow-hidden h-[30vh] shadow-lg flex flex-col justify-end bg-[#2B241D]">
+            <div className="relative rounded-3xl overflow-hidden h-[500px] shadow-lg flex flex-col justify-end bg-[#2B241D]">
               <img 
                 src={slide.img} 
                 alt={slide.ctaText || "RK Associates Hero"}
@@ -210,10 +210,10 @@ const MobileHero = () => {
               />
               
               {slide.heading && (
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent pointer-events-none h-full"></div>
+                <div className="absolute inset-x-0 bottom-0 h-[35%] bg-gradient-to-t from-black/80 to-transparent pointer-events-none"></div>
               )}
               {!slide.heading && slide.ctaText && (
-                <div className="absolute inset-0 bg-gradient-to-t from-[#14100C]/80 via-transparent to-transparent pointer-events-none"></div>
+                <div className="absolute inset-x-0 bottom-0 h-[35%] bg-gradient-to-t from-[#14100C]/80 to-transparent pointer-events-none"></div>
               )}
               
               {slide.heading && (
