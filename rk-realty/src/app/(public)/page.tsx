@@ -6,6 +6,7 @@ import { ServicesOverview } from '@/components/frontend/Home/ServicesOverview';
 import { FeaturedProperties } from '@/components/frontend/Home/FeaturedProperties';
 import { StatsBand } from '@/components/frontend/Home/StatsBand';
 import { ContactCTA } from '@/components/frontend/Home/ContactCTA';
+import { ScrollAnimationWrapper } from '@/components/ScrollAnimationWrapper';
 
 export default function Home() {
   const UNDER_CONSTRUCTION = false;
@@ -29,13 +30,13 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <TrustBar />
-      <FeaturedDevelopers />
-      <AboutTeaser />
-      <ServicesOverview />
-      <FeaturedProperties />
-      <StatsBand />
-      <ContactCTA />
+      <ScrollAnimationWrapper><TrustBar /></ScrollAnimationWrapper>
+      <ScrollAnimationWrapper><FeaturedDevelopers /></ScrollAnimationWrapper>
+      <ScrollAnimationWrapper><AboutTeaser /></ScrollAnimationWrapper>
+      <ScrollAnimationWrapper><ServicesOverview /></ScrollAnimationWrapper>
+      <ScrollAnimationWrapper><FeaturedProperties /></ScrollAnimationWrapper>
+      <ScrollAnimationWrapper><StatsBand /></ScrollAnimationWrapper>
+      <ScrollAnimationWrapper><ContactCTA /></ScrollAnimationWrapper>
     </>
   );
 }
