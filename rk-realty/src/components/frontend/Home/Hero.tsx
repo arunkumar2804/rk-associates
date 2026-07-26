@@ -25,7 +25,7 @@ const SLIDES = [
     ctaLink: '/properties/sobha-one-world'
   },
   {
-    img: '/assets/images/a0afd551-fd8c-4328-b5fa-46f1a7125338.avif',
+    img: '/assets/images/embassy_springs/gallery1-zoom-1.avif',
     heading: null,
     subtext: null,
     ctaText: 'View Embassy Springs',

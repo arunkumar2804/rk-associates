@@ -27,7 +27,7 @@ export const FeaturedProperties = () => {
       ]
     },
     {
-      img: '/assets/images/a0afd551-fd8c-4328-b5fa-46f1a7125338.avif',
+      img: '/assets/images/embassy_springs/gallery1-zoom-1.avif',
       tag: 'Integrated Township',
       title: 'Embassy Springs',
       location: 'Devanahalli, Bengaluru',

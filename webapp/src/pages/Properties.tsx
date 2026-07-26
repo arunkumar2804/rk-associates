@@ -8,7 +8,8 @@ const DUMMY_PROPERTIES = [
   { img: '/assets/images/a0afd551-fd8c-4328-b5fa-46f1a7125338.avif', title: 'Prestige Lakeside', loc: 'Whitefield', bhk: '3 BHK', size: '1500 - 1900 sqft', price: '₹ 1.8 Cr*' },
   { img: '/assets/images/9e4f05e1-c889-48dc-b3a3-1353c1a874d0.avif', title: 'Sattva Greenage', loc: 'Hosur Road', bhk: '4 BHK Villas', size: '3000+ sqft', price: '₹ 4.5 Cr*' },
   { img: '/assets/images/6dbec011-6386-4293-82a4-33c327e15764.avif', title: 'Brigade Cornerstone', loc: 'Devanahalli', bhk: '2, 3 & 4 BHK', size: '1200 - 2200 sqft', price: '₹ 1.4 Cr*' },
-  { img: '/assets/images/6d4e9c42-e45a-498c-a374-e31fa0ea731d.avif', title: 'Purva Skywood', loc: 'Sarjapur', bhk: '3 BHK', size: '1600 sqft', price: '₹ 1.6 Cr*' }
+  { img: '/assets/images/6d4e9c42-e45a-498c-a374-e31fa0ea731d.avif', title: 'Purva Skywood', loc: 'Sarjapur', bhk: '3 BHK', size: '1600 sqft', price: '₹ 1.6 Cr*' },
+  { img: '/assets/images/lodha/screenshot-2026-07-21-at-94502-pm-1.avif', title: 'Lodha Sadahalli', loc: 'Sadahalli', bhk: 'Ultra Luxury Residences', size: '70 Acres', price: 'Price on Request' }
 ];
 
 export const Properties = () => {

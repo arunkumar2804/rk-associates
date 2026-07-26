@@ -201,7 +201,7 @@ export const propertiesData: PropertyData[] = [
     locationName: "Devanahalli, Bengaluru",
     propertyTypeName: "Township",
     startingPrice: "Contact for price",
-    coverImage: "/assets/images/placeholder.avif",
+    coverImage: "/assets/images/embassy_springs/gallery1-zoom-1.avif",
     reraNumber: "",
     description: "Embassy Springs is one of Bengaluru's most ambitious township developments, spanning a vast area in the rapidly growing Devanahalli region. Designed to create a self-sustaining community, the township combines residential, educational, healthcare, retail, and recreational infrastructure within one master-planned environment.\n\nIts proximity to Kempegowda International Airport and upcoming infrastructure developments makes it a highly attractive destination for both homebuyers and investors.\n\nWith world-class planning, premium amenities, and a focus on long-term livability, Embassy Springs represents the future of integrated township living in Bengaluru.",
     possessionDate: "2027-12-31T00:00:00.000Z",
@@ -211,9 +211,47 @@ export const propertiesData: PropertyData[] = [
     configurations: [
       { id: "e1", type: "Apartment/Plot", area: "Various", price: "Contact for price" }
     ],
-    galleryImages: [],
+    galleryImages: [
+      { id: "e-g1", url: "/assets/images/embassy_springs/gallery1-zoom-1.avif" },
+      { id: "e-g2", url: "/assets/images/embassy_springs/gallery2-zoom-1.avif" },
+      { id: "e-g3", url: "/assets/images/embassy_springs/gallery3-zoom-1.avif" },
+      { id: "e-g4", url: "/assets/images/embassy_springs/gallery5-zoom-1.avif" }
+    ],
     floorPlans: [],
     seoTitle: "Embassy Springs | RK Associates",
     seoDescription: "Discover Township Living at an Unprecedented Scale in Devanahalli, Bengaluru."
+  },
+  {
+    id: "lodha-sadahalli",
+    name: "Lodha Sadahalli",
+    slug: "lodha-sadahalli",
+    builder: {
+      id: "lodha",
+      name: "Lodha",
+      logo: null
+    },
+    locationName: "Sadahalli, North Bengaluru",
+    propertyTypeName: "Ultra Luxury Township",
+    startingPrice: "Contact for price",
+    coverImage: "/assets/images/lodha/screenshot-2026-07-21-at-94502-pm-1.avif",
+    reraNumber: "",
+    description: "Lodha Sadahalli is a landmark ultra-luxury residential development located in the rapidly evolving North Bengaluru corridor. Spread across 70 acres, the township is designed to offer an elevated lifestyle where nature, wellness, and timeless neo-classical architecture exist in perfect harmony.\n\nInspired by the unique Four Blooms landscape concept, the community transforms with vibrant seasonal flowering trees, creating a living environment that is both picturesque and tranquil throughout the year. Low-density planning, expansive open spaces, and thoughtfully designed residences ensure enhanced privacy, abundant natural light, and a refined living experience.\n\nIts strategic location provides seamless connectivity to Kempegowda International Airport, major business districts, educational institutions, healthcare facilities, and lifestyle destinations, making Lodha Sadahalli an exceptional choice for discerning homeowners and long-term investors seeking luxury, convenience, and lasting value.",
+    possessionDate: "2029-12-31T00:00:00.000Z",
+    isFeatured: true,
+    status: "ACTIVE",
+    amenities: "70-Acre Ultra Luxury Township, 85% Open Green Spaces, Low-Density Living (30-35 Residences Per Acre), 4 Residences Per Floor, Grand 2-Acre Clubhouse, Stunning Views of Navaratna Agrahara Lake, Premium Wellness & Sports Amenities",
+    configurations: [
+      { id: "l1", type: "Ultra Luxury Residences", area: "Various", price: "Contact for price" }
+    ],
+    galleryImages: [
+      { id: "l-g1", url: "/assets/images/lodha/screenshot-2026-07-21-at-94502-pm-1.avif" },
+      { id: "l-g2", url: "/assets/images/lodha/screenshot-2026-07-21-at-94517-pm-1.avif" },
+      { id: "l-g3", url: "/assets/images/lodha/screenshot-2026-07-21-at-94532-pm-1.avif" },
+      { id: "l-g4", url: "/assets/images/lodha/screenshot-2026-07-21-at-94546-pm-1.avif" },
+      { id: "l-g5", url: "/assets/images/lodha/screenshot-2026-07-21-at-94600-pm-1.avif" }
+    ],
+    floorPlans: [],
+    seoTitle: "Lodha Sadahalli | RK Associates",
+    seoDescription: "Experience a New Era of Ultra-Luxury Living in North Bengaluru."
   }
 ];

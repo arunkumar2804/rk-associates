@@ -42,8 +42,18 @@ export const rentalsData = [
     name: "Phoenix One Bengaluru West",
     location: "Rajajinagar, Bengaluru",
     slug: "phoenix-one-bengaluru-west",
-    image: "/assets/images/placeholder.avif",
-    galleryImages: [],
+    image: "/assets/images/pheonix_one/unnamed-1.avif",
+    galleryImages: [
+      "/assets/images/pheonix_one/unnamed-1-1.avif",
+      "/assets/images/pheonix_one/unnamed-1.avif",
+      "/assets/images/pheonix_one/unnamed-2-1.avif",
+      "/assets/images/pheonix_one/unnamed-3-1.avif",
+      "/assets/images/pheonix_one/unnamed-4-1.avif",
+      "/assets/images/pheonix_one/unnamed-5-1.avif",
+      "/assets/images/pheonix_one/unnamed-6-1.avif",
+      "/assets/images/pheonix_one/unnamed-7-1.avif",
+      "/assets/images/pheonix_one/unnamed-8-1.avif"
+    ],
     highlights: [
       "Luxury High-Rise Residences",
       "Premium Lifestyle Amenities",
