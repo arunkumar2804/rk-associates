@@ -13,7 +13,7 @@ interface PropertiesClientProps {
 }
 
 export default function PropertiesClient({ properties, rentals }: PropertiesClientProps) {
-  const [activeTab, setActiveTab] = useState<"buy" | "rent">("buy");
+  const [activeTab, setActiveTab] = useState<"all" | "buy" | "rent">("all");
 
   return (
     <div className="w-full">
@@ -26,6 +26,16 @@ export default function PropertiesClient({ properties, rentals }: PropertiesClie
       {/* Tabs / Chips Container */}
       <section className="max-w-7xl mx-auto px-4 lg:px-8 py-6">
         <div className="flex gap-3 overflow-x-auto no-scrollbar whitespace-nowrap pb-2">
+          <button
+            onClick={() => setActiveTab("all")}
+            className={`px-6 py-2.5 rounded-full font-sora font-semibold text-[14px] transition-all shadow-sm ${
+              activeTab === "all"
+                ? "bg-[#2B241D] text-[#F7F2EA]"
+                : "bg-white text-[#4A4038] border border-[rgba(43,36,29,0.1)] hover:border-[#F06400]"
+            }`}
+          >
+            All
+          </button>
           <button
             onClick={() => setActiveTab("buy")}
             className={`px-6 py-2.5 rounded-full font-sora font-semibold text-[14px] transition-all shadow-sm ${
@@ -54,7 +64,7 @@ export default function PropertiesClient({ properties, rentals }: PropertiesClie
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
           
           {/* BUY PROPERTIES */}
-          {activeTab === "buy" && properties.map((p) => {
+          {(activeTab === "buy" || activeTab === "all") && properties.map((p) => {
             const bhkList = Array.from(new Set(p.configurations?.map((c: any) => c.type) || []));
             const bhkString = bhkList.length > 0 ? bhkList.join(" & ") : "N/A";
             const areas = (p.configurations || [])
@@ -85,8 +95,13 @@ export default function PropertiesClient({ properties, rentals }: PropertiesClie
                       interval={2000}
                       className="w-full h-full" 
                     />
-                    <div className="absolute top-4 left-4 z-10 bg-[#F06400] text-white text-[11px] font-bold px-3.5 py-1.5 rounded-full shadow-md uppercase tracking-wider">
-                      {p.isFeatured ? "Featured" : "Premium"}
+                    <div className="absolute top-4 left-4 z-10 flex gap-2">
+                      <div className="bg-[#2B241D] text-white text-[11px] font-bold px-3.5 py-1.5 rounded-full shadow-md uppercase tracking-wider">
+                        For Sale
+                      </div>
+                      <div className="bg-[#F06400] text-white text-[11px] font-bold px-3.5 py-1.5 rounded-full shadow-md uppercase tracking-wider">
+                        {p.isFeatured ? "Featured" : "Premium"}
+                      </div>
                     </div>
                   </Link>
 
@@ -136,7 +151,7 @@ export default function PropertiesClient({ properties, rentals }: PropertiesClie
           })}
 
           {/* RENT PROPERTIES */}
-          {activeTab === "rent" && rentals.map((r) => (
+          {(activeTab === "rent" || activeTab === "all") && rentals.map((r) => (
             <div key={r.id} className="bg-white rounded-[24px] shadow-[0_8px_30px_rgba(43,36,29,0.06)] overflow-hidden border border-[rgba(43,36,29,0.04)] relative flex flex-col justify-between card-hover">
               <div>
                 <div className="absolute top-4 right-4 z-10 flex flex-col gap-2">
@@ -202,6 +217,12 @@ export default function PropertiesClient({ properties, rentals }: PropertiesClie
           {activeTab === "rent" && rentals.length === 0 && (
             <div className="col-span-full text-center py-16 text-[#8A7B5C] bg-white rounded-3xl border border-[rgba(43,36,29,0.04)]">
               <p className="text-[15px] font-medium mb-3">No active rentals found.</p>
+            </div>
+          )}
+
+          {activeTab === "all" && properties.length === 0 && rentals.length === 0 && (
+            <div className="col-span-full text-center py-16 text-[#8A7B5C] bg-white rounded-3xl border border-[rgba(43,36,29,0.04)]">
+              <p className="text-[15px] font-medium mb-3">No active properties or rentals found.</p>
             </div>
           )}
         </div>

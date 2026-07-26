@@ -4,7 +4,7 @@ export const rentalsData = [
     name: "Brigade Gateway",
     location: "Rajajinagar, Bengaluru",
     slug: "brigade-gateway",
-    image: "/assets/images/placeholder.avif?v=2",
+    image: "/assets/images/brigade/img2941-1.avif?v=2",
     galleryImages: [
       "/assets/images/brigade/img2941-1.avif?v=2",
       "/assets/images/brigade/img2942-1.avif?v=2",
