@@ -15,11 +15,6 @@ const SLIDES = [
     img: '/assets/images/banners/sobha-one-world-hoskote-1.avif',
     ctaText: 'View Sobha One World',
     ctaLink: '/properties/sobha-one-world'
-  },
-  {
-    img: '/assets/images/embassy_springs/gallery1-zoom-1.avif',
-    ctaText: 'View Embassy Springs',
-    ctaLink: '/properties/embassy-springs'
   }
 ];
 

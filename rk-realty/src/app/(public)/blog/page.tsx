@@ -8,11 +8,7 @@ export const metadata = {
 export default function BlogPage() {
   return (
     <div className="w-full">
-      <PageBanner 
-        imageSrc="/assets/images/banners/rk-associates-1.avif"
-        title="Insights That Help You Make Smarter Property Decisions"
-        subtitle="Stay informed with expert perspectives, market trends, investment insights, and practical guidance from Bengaluru's evolving real estate landscape."
-      />
+
       <section className="max-w-7xl mx-auto px-8 py-24 min-h-[40vh] flex flex-col items-center justify-center text-center">
         <div className="bg-orange-50 text-orange-600 px-4 py-1.5 rounded-full text-xs font-bold tracking-widest uppercase mb-6">
           Coming Soon

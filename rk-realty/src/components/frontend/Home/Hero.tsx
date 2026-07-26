@@ -23,13 +23,6 @@ const SLIDES = [
     subtext: 'Welcome to Sobha One World, a landmark integrated township in Hoskote, East Bengaluru.',
     ctaText: 'Explore Properties',
     ctaLink: '/properties/sobha-one-world'
-  },
-  {
-    img: '/assets/images/embassy_springs/gallery1-zoom-1.avif',
-    heading: null,
-    subtext: null,
-    ctaText: 'View Embassy Springs',
-    ctaLink: '/properties/embassy-springs'
   }
 ];
 

@@ -6,7 +6,6 @@ export const rentalsData = [
     slug: "brigade-gateway",
     image: "/assets/images/placeholder.avif?v=2",
     galleryImages: [
-      "/assets/images/brigade/img2940-1.avif?v=2",
       "/assets/images/brigade/img2941-1.avif?v=2",
       "/assets/images/brigade/img2942-1.avif?v=2",
       "/assets/images/brigade/img2943-1.avif?v=2",
