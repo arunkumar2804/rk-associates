@@ -16,7 +16,7 @@ export const Properties = () => {
   return (
     <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>
       <PageBanner 
-        imageSrc="/assets/images/banners/properties-page-1.avif"
+        imageSrc="/assets/images/banners/properties-page-1.avif?v=2"
         title="Curated Properties"
         subtitle="Explore our handpicked selection of Bengaluru's most sought-after residential developments."
       />
