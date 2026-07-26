@@ -77,24 +77,15 @@ const DesktopHero = () => {
             
             {/* Slide Content */}
             {slide.heading && (
-              <div style={{ position: 'absolute', top: '50%', transform: 'translateY(-50%)', left: 50, width: '75%', maxWidth: 900, color: '#F7F2EA', display: 'flex', alignItems: 'center', gap: 40 }}>
-                {/* Left Column */}
-                <div style={{ flex: '0 0 auto', maxWidth: '50%' }}>
-                  <h1 style={{ fontFamily: '"Rastiga", serif', fontSize: 36, fontWeight: 400, lineHeight: 1.1, whiteSpace: 'pre-line' }}>
-                    {slide.heading}
-                  </h1>
-                </div>
+              <div style={{ position: 'absolute', top: '50%', transform: 'translateY(-50%)', left: 50, width: '90%', maxWidth: 700, color: '#F7F2EA', display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 24 }}>
+                <h1 style={{ fontFamily: '"Rastiga", serif', fontSize: 48, fontWeight: 400, lineHeight: 1.1, whiteSpace: 'pre-line' }}>
+                  {slide.heading}
+                </h1>
 
-                {/* Vertical Divider */}
-                {slide.subtext && (
-                  <div style={{ width: 1, height: 70, backgroundColor: 'rgba(247, 242, 234, 0.5)', flexShrink: 0 }}></div>
-                )}
-
-                {/* Right Column */}
                 {(slide.subtext || slide.ctaText) && (
-                  <div style={{ flex: '1 1 0%', display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+                  <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
                     {slide.subtext && (
-                      <p style={{ fontSize: 16, lineHeight: 1.5, marginBottom: 16, opacity: 0.9 }}>
+                      <p style={{ fontSize: 18, lineHeight: 1.6, marginBottom: 24, opacity: 0.9, maxWidth: 600 }}>
                         {slide.subtext}
                       </p>
                     )}
@@ -108,7 +99,7 @@ const DesktopHero = () => {
                           gap: 12,
                           background: '#F06400',
                           color: '#FFF',
-                          padding: '12px 28px',
+                          padding: '14px 32px',
                           borderRadius: 100,
                           fontWeight: 600,
                           fontSize: 16,
