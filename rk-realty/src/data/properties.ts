@@ -59,7 +59,60 @@ export const propertiesData: PropertyData[] = [
       { id: "c1", type: "3 BHK", area: "Various", price: "Contact for price" },
       { id: "c2", type: "4 BHK", area: "Various", price: "Contact for price" }
     ],
-    galleryImages: [],
+    galleryImages: [
+    {
+        "id": "g0",
+        "url": "/assets/images/godrej_vanantara/screenshot-2026-07-21-at-23610-pm-1.avif"
+    },
+    {
+        "id": "g1",
+        "url": "/assets/images/godrej_vanantara/screenshot-2026-07-21-at-23622-pm-1.avif"
+    },
+    {
+        "id": "g2",
+        "url": "/assets/images/godrej_vanantara/screenshot-2026-07-21-at-23639-pm-1.avif"
+    },
+    {
+        "id": "g3",
+        "url": "/assets/images/godrej_vanantara/screenshot-2026-07-21-at-23659-pm-1.avif"
+    },
+    {
+        "id": "g4",
+        "url": "/assets/images/godrej_vanantara/screenshot-2026-07-21-at-23714-pm-1.avif"
+    },
+    {
+        "id": "g5",
+        "url": "/assets/images/godrej_vanantara/screenshot-2026-07-21-at-23719-pm-1.avif"
+    },
+    {
+        "id": "g6",
+        "url": "/assets/images/godrej_vanantara/screenshot-2026-07-21-at-23803-pm-1.avif"
+    },
+    {
+        "id": "g7",
+        "url": "/assets/images/godrej_vanantara/screenshot-2026-07-21-at-23816-pm-1.avif"
+    },
+    {
+        "id": "g8",
+        "url": "/assets/images/godrej_vanantara/screenshot-2026-07-21-at-23835-pm-1.avif"
+    },
+    {
+        "id": "g9",
+        "url": "/assets/images/godrej_vanantara/screenshot-2026-07-21-at-23859-pm-1.avif"
+    },
+    {
+        "id": "g10",
+        "url": "/assets/images/godrej_vanantara/screenshot-2026-07-21-at-23923-pm-1.avif"
+    },
+    {
+        "id": "g11",
+        "url": "/assets/images/godrej_vanantara/screenshot-2026-07-21-at-23937-pm-1.avif"
+    },
+    {
+        "id": "g12",
+        "url": "/assets/images/godrej_vanantara/screenshot-2026-07-21-at-23948-pm-1.avif"
+    }
+],
     floorPlans: [],
     seoTitle: "Godrej Vanantara | RK Associates",
     seoDescription: "Nature-Inspired Luxury Living in South Bengaluru."
@@ -86,7 +139,52 @@ export const propertiesData: PropertyData[] = [
     configurations: [
       { id: "s1", type: "Apartment", area: "Various", price: "Contact for price" }
     ],
-    galleryImages: [],
+    galleryImages: [
+    {
+        "id": "s0",
+        "url": "/assets/images/sobha_one_world/1-6723.avif"
+    },
+    {
+        "id": "s1",
+        "url": "/assets/images/sobha_one_world/2-10.avif"
+    },
+    {
+        "id": "s2",
+        "url": "/assets/images/sobha_one_world/3-10.avif"
+    },
+    {
+        "id": "s3",
+        "url": "/assets/images/sobha_one_world/4-2.avif"
+    },
+    {
+        "id": "s4",
+        "url": "/assets/images/sobha_one_world/screenshot-2026-07-21-at-93822-pm-1.avif"
+    },
+    {
+        "id": "s5",
+        "url": "/assets/images/sobha_one_world/screenshot-2026-07-21-at-93841-pm-1.avif"
+    },
+    {
+        "id": "s6",
+        "url": "/assets/images/sobha_one_world/screenshot-2026-07-21-at-93901-pm-1.avif"
+    },
+    {
+        "id": "s7",
+        "url": "/assets/images/sobha_one_world/screenshot-2026-07-21-at-93923-pm-1.avif"
+    },
+    {
+        "id": "s8",
+        "url": "/assets/images/sobha_one_world/screenshot-2026-07-21-at-93938-pm-1.avif"
+    },
+    {
+        "id": "s9",
+        "url": "/assets/images/sobha_one_world/screenshot-2026-07-21-at-93954-pm-1.avif"
+    },
+    {
+        "id": "s10",
+        "url": "/assets/images/sobha_one_world/screenshot-2026-07-21-at-94010-pm-1.avif"
+    }
+],
     floorPlans: [],
     seoTitle: "Sobha One World | RK Associates",
     seoDescription: "A New Era of Township Living in Hoskote, Bengaluru."

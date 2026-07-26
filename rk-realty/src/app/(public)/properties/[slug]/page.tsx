@@ -2,6 +2,7 @@ import { notFound } from "next/navigation";
 import { propertiesData } from "@/data/properties";
 import { MapPin, Calendar, FileText, CheckCircle2, ChevronDown, BedDouble, Maximize } from "lucide-react";
 import PropertyEnquiryForm from "./PropertyEnquiryForm";
+import PropertyPhotos from "@/components/PropertyPhotos";
 import { Metadata } from "next";
 
 interface Props {
@@ -150,16 +151,7 @@ export default async function PropertyDetailPage({ params }: Props) {
               )}
 
               {property.galleryImages.length > 0 && (
-                <div>
-                  <h2 style={{ fontFamily: '"Sora", sans-serif', fontSize: 24, fontWeight: 600, color: "#2B241D", marginBottom: 20 }}>Project Gallery</h2>
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {property.galleryImages.map((img) => (
-                      <div key={img.id} style={{ height: 240, borderRadius: 16, overflow: "hidden", border: "1px solid rgba(43,36,29,0.08)" }}>
-                        <img src={img.url} alt="Project Gallery Image" style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-                      </div>
-                    ))}
-                  </div>
-                </div>
+                <PropertyPhotos images={property.galleryImages} />
               )}
 
               {property.floorPlans.length > 0 && (

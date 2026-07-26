@@ -5,6 +5,7 @@ import Link from "next/link";
 import { MapPin, BedDouble, Maximize, ArrowRight, Heart, Share2, Star } from "lucide-react";
 
 import { PageBanner } from "@/components/PageBanner";
+import ImageSlider from "@/components/ImageSlider";
 
 interface PropertiesClientProps {
   properties: any[];
@@ -79,8 +80,12 @@ export default function PropertiesClient({ properties, rentals }: PropertiesClie
                   </div>
 
                   <Link href={`/properties/${p.slug}`} className="block relative h-[240px]">
-                    <img src={p.coverImage || "/assets/images/placeholder.avif"} alt={p.name} className="w-full h-full object-cover" />
-                    <div className="absolute top-4 left-4 bg-[#F06400] text-white text-[11px] font-bold px-3.5 py-1.5 rounded-full shadow-md uppercase tracking-wider">
+                    <ImageSlider 
+                      images={[p.coverImage, ...(p.galleryImages?.map((g: any) => g.url) || [])].filter(Boolean)} 
+                      interval={2000}
+                      className="w-full h-full" 
+                    />
+                    <div className="absolute top-4 left-4 z-10 bg-[#F06400] text-white text-[11px] font-bold px-3.5 py-1.5 rounded-full shadow-md uppercase tracking-wider">
                       {p.isFeatured ? "Featured" : "Premium"}
                     </div>
                   </Link>
@@ -144,8 +149,12 @@ export default function PropertiesClient({ properties, rentals }: PropertiesClie
                 </div>
 
                 <Link href={`/rentals/${r.slug}`} className="block relative h-[240px]">
-                  <img src={r.image} alt={r.name} className="w-full h-full object-cover" />
-                  <div className="absolute top-4 left-4 bg-[#F06400] text-white text-[11px] font-bold px-3.5 py-1.5 rounded-full shadow-md uppercase tracking-wider">
+                  <ImageSlider 
+                    images={[r.image, ...(r.galleryImages || [])].filter(Boolean)} 
+                    interval={2000}
+                    className="w-full h-full" 
+                  />
+                  <div className="absolute top-4 left-4 z-10 bg-[#F06400] text-white text-[11px] font-bold px-3.5 py-1.5 rounded-full shadow-md uppercase tracking-wider">
                     For Rent
                   </div>
                 </Link>

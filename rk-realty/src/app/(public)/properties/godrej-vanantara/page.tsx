@@ -1,5 +1,7 @@
 import { MapPin, CheckCircle2 } from "lucide-react";
 import PropertyEnquiryForm from "../[slug]/PropertyEnquiryForm";
+import PropertyPhotos from "@/components/PropertyPhotos";
+import { propertiesData } from "@/data/properties";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -8,6 +10,7 @@ export const metadata: Metadata = {
 };
 
 export default function GodrejVanantaraPage() {
+  const property = propertiesData.find(p => p.slug === "godrej-vanantara");
   return (
     <div>
       {/* Hero Banner Section */}
@@ -88,6 +91,11 @@ export default function GodrejVanantaraPage() {
                 ))}
               </div>
             </div>
+
+            {/* Property Photos Section */}
+            {property && property.galleryImages.length > 0 && (
+              <PropertyPhotos images={property.galleryImages} />
+            )}
 
           </div>
 
