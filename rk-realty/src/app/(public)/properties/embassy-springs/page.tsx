@@ -1,5 +1,7 @@
 import { MapPin, CheckCircle2 } from "lucide-react";
 import PropertyEnquiryForm from "../[slug]/PropertyEnquiryForm";
+import PropertyPhotos from "@/components/PropertyPhotos";
+import { propertiesData } from "@/data/properties";
 import { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -8,12 +10,13 @@ export const metadata: Metadata = {
 };
 
 export default function EmbassySpringsPage() {
+  const property = propertiesData.find(p => p.slug === "embassy-springs");
   return (
     <div>
       {/* Hero Banner Section */}
       <section style={{ position: "relative", height: 480, overflow: "hidden", background: "#2B241D" }}>
         <img 
-          src="/assets/images/placeholder.avif" 
+          src={property?.coverImage || "/assets/images/placeholder.avif"} 
           alt="Embassy Springs" 
           style={{ width: "100%", height: "100%", objectFit: "cover", opacity: 0.6 }}
         />
@@ -88,6 +91,11 @@ export default function EmbassySpringsPage() {
                 ))}
               </div>
             </div>
+
+            {/* Property Photos Section */}
+            {property && property.galleryImages.length > 0 && (
+              <PropertyPhotos images={property.galleryImages} />
+            )}
 
           </div>
 
