@@ -36,7 +36,7 @@ export const Header = ({ settings }: HeaderProps) => {
     { href: "/services", label: "Services", icon: Briefcase },
     { href: "/properties", label: "Properties", icon: Building2 },
     { href: "/csr-activities", label: "CSR", icon: HeartHandshake },
-    { href: "/blog", label: "Blog", icon: FileText },
+    { href: "/achievements", label: "Achievements", icon: FileText },
     { href: "/contact", label: "Contact", icon: Phone },
   ];
 
@@ -56,13 +56,19 @@ export const Header = ({ settings }: HeaderProps) => {
           <nav style={{ display: 'flex', gap: 36, alignItems: 'center', flex: 1, justifyContent: 'center' }}>
             <Link href="/" style={{ fontSize: 14.5, fontWeight: 500, color: '#4A4038', textDecoration: 'none' }}>Home</Link>
             <Link href="/about" style={{ fontSize: 14.5, fontWeight: 500, color: '#4A4038', textDecoration: 'none' }}>About Us</Link>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 4, cursor: 'pointer', fontSize: 14.5, fontWeight: 500, color: '#4A4038' }}>
-              <Link href="/services" style={{ textDecoration: 'none', color: 'inherit' }}>Services</Link>
-              <ChevronDown size={14} />
+            <Link href="/services" style={{ fontSize: 14.5, fontWeight: 500, color: '#4A4038', textDecoration: 'none' }}>Services</Link>
+            <div className="relative group" style={{ display: 'flex', alignItems: 'center', gap: 4, cursor: 'pointer', fontSize: 14.5, fontWeight: 500, color: '#4A4038' }}>
+              <Link href="/properties" style={{ textDecoration: 'none', color: 'inherit' }}>Properties</Link>
+              <ChevronDown size={14} className="transition-transform group-hover:rotate-180" />
+              <div className="absolute top-full left-0 pt-4 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 min-w-[200px]">
+                <div className="bg-white rounded-xl shadow-lg border border-gray-100 py-2 flex flex-col">
+                  <Link href="/properties?type=buy" className="px-4 py-2 hover:bg-orange-50 text-gray-700 hover:text-[#F06400] transition-colors" style={{ textDecoration: 'none' }}>Buy Properties</Link>
+                  <Link href="/properties?type=rent" className="px-4 py-2 hover:bg-orange-50 text-gray-700 hover:text-[#F06400] transition-colors" style={{ textDecoration: 'none' }}>Rent Properties</Link>
+                </div>
+              </div>
             </div>
-            <Link href="/properties" style={{ fontSize: 14.5, fontWeight: 500, color: '#4A4038', textDecoration: 'none' }}>Properties</Link>
             <Link href="/csr-activities" style={{ fontSize: 14.5, fontWeight: 500, color: '#4A4038', textDecoration: 'none' }}>CSR Activities</Link>
-            <Link href="/blog" style={{ fontSize: 14.5, fontWeight: 500, color: '#4A4038', textDecoration: 'none' }}>Blog</Link>
+            <Link href="/achievements" style={{ fontSize: 14.5, fontWeight: 500, color: '#4A4038', textDecoration: 'none' }}>Achievements</Link>
             <Link href="/contact" style={{ fontSize: 14.5, fontWeight: 500, color: '#4A4038', textDecoration: 'none' }}>Contact Us</Link>
           </nav>
 

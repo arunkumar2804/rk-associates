@@ -46,26 +46,18 @@ export const Footer = ({ settings }: FooterProps) => {
               Your trusted partner in finding premium real estate across Bengaluru. We bring transparency and expertise to your property search.
             </p>
             <div style={{ display: 'flex', gap: 16 }}>
-              {settings?.facebookUrl && (
-                <a href={settings.facebookUrl} target="_blank" rel="noopener noreferrer" style={{ color: 'rgba(247,242,234,0.7)', transition: 'color 0.2s ease' }} className="hover:text-[#F06400]">
-                  <Facebook size={20} />
-                </a>
-              )}
-              {settings?.instagramUrl && (
-                <a href={settings.instagramUrl} target="_blank" rel="noopener noreferrer" style={{ color: 'rgba(247,242,234,0.7)', transition: 'color 0.2s ease' }} className="hover:text-[#F06400]">
-                  <Instagram size={20} />
-                </a>
-              )}
-              {settings?.twitterUrl && (
-                <a href={settings.twitterUrl} target="_blank" rel="noopener noreferrer" style={{ color: 'rgba(247,242,234,0.7)', transition: 'color 0.2s ease' }} className="hover:text-[#F06400]">
-                  <Twitter size={20} />
-                </a>
-              )}
-              {settings?.youtubeUrl && (
-                <a href={settings.youtubeUrl} target="_blank" rel="noopener noreferrer" style={{ color: 'rgba(247,242,234,0.7)', transition: 'color 0.2s ease' }} className="hover:text-[#F06400]">
-                  <Youtube size={20} />
-                </a>
-              )}
+              <a href={settings?.facebookUrl || "https://www.facebook.com/profile.php?id=61590620404936"} target="_blank" rel="noopener noreferrer" style={{ color: 'rgba(247,242,234,0.7)', transition: 'color 0.2s ease' }} className="hover:text-[#F06400]">
+                <Facebook size={20} />
+              </a>
+              <a href={settings?.instagramUrl || "https://www.instagram.com/rkassociates.services?igsh=aTdlY2ZzdmM5dGR5"} target="_blank" rel="noopener noreferrer" style={{ color: 'rgba(247,242,234,0.7)', transition: 'color 0.2s ease' }} className="hover:text-[#F06400]">
+                <Instagram size={20} />
+              </a>
+              <a href="https://www.linkedin.com/company/rk-associates-services/" target="_blank" rel="noopener noreferrer" style={{ color: 'rgba(247,242,234,0.7)', transition: 'color 0.2s ease' }} className="hover:text-[#F06400]">
+                <Linkedin size={20} />
+              </a>
+              <a href={settings?.youtubeUrl || "https://youtube.com/@rkassociates.services?si=y3WWUB9-hq0_baaH"} target="_blank" rel="noopener noreferrer" style={{ color: 'rgba(247,242,234,0.7)', transition: 'color 0.2s ease' }} className="hover:text-[#F06400]">
+                <Youtube size={20} />
+              </a>
             </div>
           </div>
 
@@ -76,7 +68,7 @@ export const Footer = ({ settings }: FooterProps) => {
               <Link href="/about" className="btn-hover" style={{ textDecoration: 'none', color: 'rgba(247,242,234,0.7)', fontSize: 14.5, display: 'inline-block' }}>About Us</Link>
               <Link href="/services" className="btn-hover" style={{ textDecoration: 'none', color: 'rgba(247,242,234,0.7)', fontSize: 14.5, display: 'inline-block' }}>Our Services</Link>
               <Link href="/properties" className="btn-hover" style={{ textDecoration: 'none', color: 'rgba(247,242,234,0.7)', fontSize: 14.5, display: 'inline-block' }}>Latest Properties</Link>
-              <Link href="/blog" className="btn-hover" style={{ textDecoration: 'none', color: 'rgba(247,242,234,0.7)', fontSize: 14.5, display: 'inline-block' }}>Real Estate Blog</Link>
+              <Link href="/achievements" className="btn-hover" style={{ textDecoration: 'none', color: 'rgba(247,242,234,0.7)', fontSize: 14.5, display: 'inline-block' }}>Achievements</Link>
               <Link href="/contact" className="btn-hover" style={{ textDecoration: 'none', color: 'rgba(247,242,234,0.7)', fontSize: 14.5, display: 'inline-block' }}>Contact Us</Link>
             </div>
           </div>
@@ -148,26 +140,18 @@ export const Footer = ({ settings }: FooterProps) => {
               Your trusted partner in finding premium real estate across Bengaluru. We bring transparency and expertise to your property search.
             </p>
             <div className="flex gap-4">
-              {settings?.facebookUrl && (
-                <a href={settings.facebookUrl} target="_blank" rel="noopener noreferrer" className="text-[#F7F2EA]/70 hover:text-[#F06400] transition-colors">
-                  <Facebook size={20} />
-                </a>
-              )}
-              {settings?.instagramUrl && (
-                <a href={settings.instagramUrl} target="_blank" rel="noopener noreferrer" className="text-[#F7F2EA]/70 hover:text-[#F06400] transition-colors">
-                  <Instagram size={20} />
-                </a>
-              )}
-              {settings?.twitterUrl && (
-                <a href={settings.twitterUrl} target="_blank" rel="noopener noreferrer" className="text-[#F7F2EA]/70 hover:text-[#F06400] transition-colors">
-                  <Twitter size={20} />
-                </a>
-              )}
-              {settings?.youtubeUrl && (
-                <a href={settings.youtubeUrl} target="_blank" rel="noopener noreferrer" className="text-[#F7F2EA]/70 hover:text-[#F06400] transition-colors">
-                  <Youtube size={20} />
-                </a>
-              )}
+              <a href={settings?.facebookUrl || "https://www.facebook.com/profile.php?id=61590620404936"} target="_blank" rel="noopener noreferrer" className="text-[#F7F2EA]/70 hover:text-[#F06400] transition-colors">
+                <Facebook size={20} />
+              </a>
+              <a href={settings?.instagramUrl || "https://www.instagram.com/rkassociates.services?igsh=aTdlY2ZzdmM5dGR5"} target="_blank" rel="noopener noreferrer" className="text-[#F7F2EA]/70 hover:text-[#F06400] transition-colors">
+                <Instagram size={20} />
+              </a>
+              <a href="https://www.linkedin.com/company/rk-associates-services/" target="_blank" rel="noopener noreferrer" className="text-[#F7F2EA]/70 hover:text-[#F06400] transition-colors">
+                <Linkedin size={20} />
+              </a>
+              <a href={settings?.youtubeUrl || "https://youtube.com/@rkassociates.services?si=y3WWUB9-hq0_baaH"} target="_blank" rel="noopener noreferrer" className="text-[#F7F2EA]/70 hover:text-[#F06400] transition-colors">
+                <Youtube size={20} />
+              </a>
             </div>
           </div>
 
@@ -185,7 +169,7 @@ export const Footer = ({ settings }: FooterProps) => {
                 <Link href="/about" className="text-[14.5px] text-white/70 block py-1">About Us</Link>
                 <Link href="/services" className="text-[14.5px] text-white/70 block py-1">Our Services</Link>
                 <Link href="/properties" className="text-[14.5px] text-white/70 block py-1">Latest Properties</Link>
-                <Link href="/blog" className="text-[14.5px] text-white/70 block py-1">Real Estate Blog</Link>
+                <Link href="/achievements" className="text-[14.5px] text-white/70 block py-1">Achievements</Link>
                 <Link href="/contact" className="text-[14.5px] text-white/70 block py-1">Contact Us</Link>
               </div>
             </details>

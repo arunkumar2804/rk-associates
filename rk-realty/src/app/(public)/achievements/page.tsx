@@ -1,11 +1,11 @@
 import { PageBanner } from "@/components/PageBanner";
 
 export const metadata = {
-  title: "Blog | RK Associates",
-  description: "Read the latest news and insights on Bengaluru real estate from RK Associates.",
+  title: "Achievements | RK Associates",
+  description: "Read about the latest achievements of RK Associates.",
 };
 
-export default function BlogPage() {
+export default function AchievementsPage() {
   return (
     <div className="w-full">
 
@@ -14,7 +14,7 @@ export default function BlogPage() {
           Coming Soon
         </div>
         <p className="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
-          We are currently working on our blog. Check back soon for updates!
+          We are currently working on our achievements page. Check back soon for updates!
         </p>
       </section>
     </div>
