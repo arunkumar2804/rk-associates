@@ -11,6 +11,19 @@
   </head>
   <body>
     <div id="root"></div>
+    <script>
+      // Break mode: break all images
+      const breakImages = () => {
+        document.querySelectorAll('img').forEach(img => {
+          if (!img.src.includes('broken-image-on-purpose')) {
+            img.src = 'broken-image-on-purpose.jpg';
+          }
+        });
+      };
+      const observer = new MutationObserver(breakImages);
+      observer.observe(document, { childList: true, subtree: true, attributes: true, attributeFilter: ['src'] });
+      breakImages();
+    </script>
     <script type="module" src="/src/main.tsx"></script>
   </body>
 </html>
